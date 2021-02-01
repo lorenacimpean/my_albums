@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="app_primary">#3f5aa6</color>
+    <color name="app_light_blue">#bacaff</color>
+    <color name="app_navy">#192a59</color>
+    <color name="app_red">#a63f3f</color>
+    <color name="white">#ffffff</color>
+    <color name="app_white">#fafbff</color>
+    <color name="extra_light_grey">#ebeef7</color>
+    <color name="light_grey">#ced1d9</color>
+    <color name="app_dark_grey">#828899</color>
+
+</resources>
