@@ -43,6 +43,7 @@ dependencies {
     implementation 'io.reactivex.rxjava3:rxkotlin:3.0.1'
     //koin
     implementation "org.koin:koin-core:$koin_version"
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
     testImplementation "org.koin:koin-test:$koin_version"
     implementation "org.koin:koin-android:$koin_version"
     implementation "org.koin:koin-android-scope:$koin_version"
@@ -50,6 +51,12 @@ dependencies {
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
     implementation "org.koin:koin-androidx-fragment:$koin_version"
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+
+    //test
     testImplementation 'junit:junit:4.+'
+    testImplementation "org.koin:koin-test:$koin_version"
+    testImplementation 'com.nhaarman:mockito-kotlin:1.5.0'
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+    testImplementation 'org.mockito:mockito-inline:2.13.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }

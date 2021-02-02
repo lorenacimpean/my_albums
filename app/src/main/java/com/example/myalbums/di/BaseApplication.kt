@@ -14,7 +14,4 @@ class BaseApplication : Application() {
             modules(listOf(viewModelModule, viewModelInputModule, subjectModule))
         }
     }
-
-
-
 }
