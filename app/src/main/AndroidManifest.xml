@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="com.example.myalbums">
+    package="com.example.myalbums">
 
     <application
-            android:allowBackup="true"
-            android:icon="@mipmap/app_logo"
-            android:label="@string/app_name"
-            android:roundIcon="@mipmap/app_logo"
-            android:supportsRtl="true"
-            android:theme="@style/Theme.MyAlbums">
+        android:name=".di.BaseApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/app_logo"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/app_logo"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MyAlbums">
+
         <activity
-                android:name=".SplashScreen"
-                android:theme="@style/AppTheme.NoActionBar.Launcher">
+            android:name=".splash_screen.SplashScreen"
+            android:theme="@style/AppTheme.NoActionBar.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-                android:name=".MainActivity"
-                android:label="@string/app_name"
-                android:theme="@style/AppTheme">
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme">
 
         </activity>
     </application>

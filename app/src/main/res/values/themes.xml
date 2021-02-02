@@ -22,6 +22,7 @@
         <item name="android:colorBackground">@color/app_white</item>
         <item name="android:navigationBarColor">@color/app_white</item>
         <item name="android:statusBarColor">@color/app_white</item>
+        <item name="android:textColorPrimary">@color/app_white</item>
 
     </style>
 
