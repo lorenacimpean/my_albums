@@ -6,23 +6,21 @@ import io.reactivex.rxjava3.subjects.PublishSubject
 
 
 class SplashViewModel(
-    val input: Input
+        val input: Input
 ) : ViewModel() {
 
 
     val output: Output by lazy {
-        val nextScreen = input.onStart.flatMap {
-            Observable.just(true)
-        }
+        val nextScreen = input.onAnimationEnd.map { it }
         Output(nextScreen)
     }
 }
 
 
 data class Output(
-    val nextScreen: Observable<Boolean>
+        val nextScreen: Observable<Boolean>
 )
 
 data class Input(
-    val onStart: PublishSubject<Boolean>
+        val onAnimationEnd: PublishSubject<Boolean>
 )

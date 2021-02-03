@@ -5,13 +5,13 @@ import android.os.Bundle
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
-import androidx.appcompat.app.AppCompatActivity
 import com.example.myalbums.MainActivity
 import com.example.myalbums.R
+import com.example.myalbums.di.DisposableActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class SplashScreen : AppCompatActivity() {
+class SplashScreen : DisposableActivity() {
     private val viewModel: SplashViewModel by viewModel<SplashViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,17 +29,18 @@ class SplashScreen : AppCompatActivity() {
             override fun onAnimationStart(arg0: Animation) {}
             override fun onAnimationRepeat(arg0: Animation) {}
             override fun onAnimationEnd(arg0: Animation) {
-                viewModel.input.onStart.onNext(true)
+                viewModel.input.onAnimationEnd.onNext(true)
             }
         })
     }
 
+
     private fun listenToNextScreen() {
-        viewModel.output.nextScreen.subscribe {
+        disposeLater(viewModel.output.nextScreen.subscribe {
             if (it) {
                 goToNextScreen()
             }
-        }
+        })
     }
 
 

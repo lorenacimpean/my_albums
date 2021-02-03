@@ -6,6 +6,8 @@ import org.koin.android.ext.koin.androidFileProperties
 import org.koin.core.context.startKoin
 
 class BaseApplication : Application() {
+
+
     override fun onCreate() {
         super.onCreate()
         startKoin {
@@ -14,4 +16,6 @@ class BaseApplication : Application() {
             modules(listOf(viewModelModule, viewModelInputModule, subjectModule))
         }
     }
+
+
 }

@@ -11,11 +11,9 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.koin.test.KoinTest
-import org.mockito.Mockito.spy
 
 
 class SplashViewModelTest : KoinTest {
-
 
     private lateinit var vm: SplashViewModel
 
@@ -25,24 +23,33 @@ class SplashViewModelTest : KoinTest {
     @Before
     fun setup() {
         val input = Input(PublishSubject.create<Boolean>())
-        vm = spy(
-            SplashViewModel(input)
-        )
+        vm = SplashViewModel(input)
+
+    }
+
+
+    @Test
+    fun `check onAnimationEnded not null`() {
+        val testObserver = TestObserver<Boolean>()
+        vm.output.nextScreen.subscribe(testObserver)
+        vm.input.onAnimationEnd.onNext(true)
+        val result = testObserver.values()[0]
+
+        assertNotNull(result)
+        testObserver.assertNoErrors()
 
     }
 
     @Test
-    fun `check onStart`() {
+    fun `check onAnimationEnded value`() {
         val testObserver = TestObserver<Boolean>()
         vm.output.nextScreen.subscribe(testObserver)
-        vm.input.onStart.onNext(true)
+        vm.input.onAnimationEnd.onNext(true)
         val result = testObserver.values()[0]
 
-        testObserver.assertNoErrors()
-        testObserver.assertValueCount(1)
-        assertNotNull(result)
-        assertEquals(true, result)
 
+        testObserver.assertValueCount(1)
+        assertEquals(true, result)
 
     }
 }
