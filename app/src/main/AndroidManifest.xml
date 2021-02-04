@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.myalbums">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:name=".di.BaseApplication"
         android:allowBackup="true"
@@ -12,7 +13,7 @@
         android:theme="@style/Theme.MyAlbums">
 
         <activity
-            android:name=".splash_screen.SplashScreen"
+            android:name="com.example.myalbums.ui.splash_screen.SplashScreen"
             android:theme="@style/AppTheme.NoActionBar.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".home_screen.HomeActivity"
+            android:name="com.example.myalbums.HomeActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
 

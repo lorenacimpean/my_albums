@@ -6,22 +6,22 @@
     app:startDestination="@id/homeFragment">
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.myalbums.home_screen.HomeFragment"
+        android:name="com.example.myalbums.ui.home_screen.HomeFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/friendsFragment"
-        android:name="com.example.myalbums.home_screen.FriendsFragment"
+        android:name="com.example.myalbums.ui.home_screen.FriendsFragment"
         android:label="@string/friends"
         tools:layout="@layout/fragment_friends" />
     <fragment
         android:id="@+id/newsFragment"
-        android:name="com.example.myalbums.home_screen.NewsFragment"
+        android:name="com.example.myalbums.ui.home_screen.NewsFragment"
         android:label="@string/news"
         tools:layout="@layout/fragment_news" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.myalbums.home_screen.ProfileFragment"
+        android:name="com.example.myalbums.ui.home_screen.ProfileFragment"
         android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>
