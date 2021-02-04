@@ -10,6 +10,5 @@ class AlbumsRepo(val albumsService: AlbumsService) {
 
     fun getAlbums(): @NonNull Observable<Response<List<Album>>> {
         return albumsService.fetchAlbums()
-
     }
 }

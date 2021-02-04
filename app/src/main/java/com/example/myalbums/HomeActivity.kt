@@ -34,6 +34,7 @@ class HomeActivity : AppCompatActivity() {
             )
         )
         setupActionBarWithNavController(navigationController, appBarConfiguration)
+        
     }
 
 }

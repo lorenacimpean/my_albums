@@ -11,17 +11,17 @@
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/friendsFragment"
-        android:name="com.example.myalbums.ui.home_screen.FriendsFragment"
+        android:name="com.example.myalbums.ui.friends_screen.FriendsFragment"
         android:label="@string/friends"
         tools:layout="@layout/fragment_friends" />
     <fragment
         android:id="@+id/newsFragment"
-        android:name="com.example.myalbums.ui.home_screen.NewsFragment"
+        android:name="com.example.myalbums.ui.news_screen.NewsFragment"
         android:label="@string/news"
         tools:layout="@layout/fragment_news" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.myalbums.ui.home_screen.ProfileFragment"
+        android:name="com.example.myalbums.ui.profile_screen.ProfileFragment"
         android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

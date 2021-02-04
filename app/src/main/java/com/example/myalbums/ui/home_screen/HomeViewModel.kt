@@ -23,9 +23,9 @@ class HomeViewModel(val input: Input, private val albumsRepo: AlbumsRepo) : View
 }
 
 data class Output(
-        val albums: Observable<UiModel<List<Album>>>
+    val albums: Observable<UiModel<List<Album>>>
 )
 
 data class Input(
-        val onStart: PublishSubject<Boolean>
+    val onStart: PublishSubject<Boolean>
 )

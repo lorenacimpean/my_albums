@@ -14,25 +14,25 @@ import com.example.myalbums.ui.splash_screen.Input as splashInput
 val viewModelModule = module {
     viewModel { SplashViewModel(get()) }
     viewModel { HomeViewModel(get(), get()) }
-
 }
 
+// view model input di
 val viewModelInputModule = module {
     single { splashInput(get()) }
     single { homeInput(get()) }
 }
 
+// view model subjects di
 val subjectModule = module {
-    single { PublishSubject.create<Boolean>() }
+    factory { PublishSubject.create<Boolean>() }
 }
 
 // repo di
-
 val repoModule = module {
     factory { AlbumsRepo(get()) }
 }
 
-// api di
+// endpoint di
 val apiModule = module {
     factory { AlbumsInterceptor() }
     factory { provideOkHttpClient(get(), get()) }
