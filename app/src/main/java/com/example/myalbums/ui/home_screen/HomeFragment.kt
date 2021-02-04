@@ -9,7 +9,7 @@ import com.example.myalbums.R
 import com.example.myalbums.databinding.FragmentHomeBinding
 import com.example.myalbums.di.DisposableFragment
 import com.example.myalbums.models.Album
-import com.example.myalbums.utils.Status
+import com.example.myalbums.utils.State
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : DisposableFragment() {
@@ -35,11 +35,11 @@ class HomeFragment : DisposableFragment() {
     }
 
     private fun listenToAlbumsList() {
-        disposeLater(viewModel.output.albums.subscribe {
-            when (it.status) {
-                Status.SUCCESS -> albums = it.data!!
-                Status.LOADING -> print("ADD HANDLE LOADING")
-                Status.ERROR -> print("ADD HANDLE ERROR")
+        disposeLater(viewModel.output.albumsFetched.subscribe {
+            when (it.state) {
+                State.SUCCESS -> albums = it.data!!
+                State.LOADING -> print("ADD HANDLE LOADING")
+                State.ERROR -> print("ADD HANDLE ERROR")
 
             }
 

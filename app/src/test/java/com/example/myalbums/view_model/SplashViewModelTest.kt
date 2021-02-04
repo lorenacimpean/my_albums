@@ -1,4 +1,4 @@
-package com.example.myalbums
+package com.example.myalbums.view_model
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.myalbums.ui.splash_screen.Input
