@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
-import com.example.myalbums.MainActivity
+import com.example.myalbums.home_screen.HomeActivity
 import com.example.myalbums.R
 import com.example.myalbums.di.DisposableActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -46,7 +46,7 @@ class SplashScreen : DisposableActivity() {
 
     private fun goToNextScreen() {
         val intent = Intent()
-        intent.setClass(this, MainActivity::class.java)
+        intent.setClass(this, HomeActivity::class.java)
         startActivity(intent)
     }
 
