@@ -10,6 +10,7 @@
         <item name="colorError">@color/app_red</item>
         <item name="android:colorBackground">@color/app_white</item>
         <item name="android:statusBarColor">@color/app_primary</item>
+        <item name="android:textColor">@color/app_navy</item>
 
     </style>
 
@@ -22,8 +23,14 @@
         <item name="android:colorBackground">@color/app_white</item>
         <item name="android:navigationBarColor">@color/app_white</item>
         <item name="android:statusBarColor">@color/app_white</item>
-        <item name="android:textColorPrimary">@color/app_white</item>
+        <item name="android:textColorPrimary">@color/app_navy</item>
 
+    </style>
+
+    <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:colorBackground">@color/app_white</item>
+        <item name="android:background">@color/app_white</item>
+        <item name="android:textColor">@color/app_navy</item>
     </style>
 
     <style name="AppTheme.NoActionBar.Launcher" parent="AppTheme.NoActionBar">

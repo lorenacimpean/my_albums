@@ -17,8 +17,8 @@ class HomeFragment : DisposableFragment() {
 
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
 
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
@@ -36,7 +36,7 @@ class HomeFragment : DisposableFragment() {
             when (it.state) {
                 State.SUCCESS -> print("ADD HANDLE DATA TO RECYCLER VIEW")
                 State.LOADING -> print("ADD HANDLE LOADING")
-                State.ERROR   -> print("ADD HANDLE ERROR")
+                State.ERROR -> print("ADD HANDLE ERROR")
 
             }
 

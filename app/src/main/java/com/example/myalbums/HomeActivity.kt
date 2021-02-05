@@ -18,13 +18,13 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
         setupBottomNavigation()
+
     }
 
 
     private fun setupBottomNavigation() {
         val navigationController = findNavController(R.id.navigationHostFragment)
         binding.bottomNavView.setupWithNavController(navigationController)
-
         val appBarConfiguration = AppBarConfiguration(
             topLevelDestinationIds = setOf(
                 R.id.homeFragment,
@@ -33,8 +33,9 @@ class HomeActivity : AppCompatActivity() {
                 R.id.profileFragment
             )
         )
+        setSupportActionBar(binding.toolbarLayout.toolbar)
         setupActionBarWithNavController(navigationController, appBarConfiguration)
-        
+
     }
 
 }
