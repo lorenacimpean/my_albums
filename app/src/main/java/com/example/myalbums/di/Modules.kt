@@ -1,6 +1,9 @@
 package com.example.myalbums.di
 
-import com.example.myalbums.endpoint.*
+import com.example.myalbums.endpoint.provideAlbumsApi
+import com.example.myalbums.endpoint.provideLoggingInterceptor
+import com.example.myalbums.endpoint.provideOkHttpClient
+import com.example.myalbums.endpoint.provideRetrofit
 import com.example.myalbums.repo.AlbumsRepo
 import com.example.myalbums.ui.home_screen.HomeViewModel
 import com.example.myalbums.ui.splash_screen.SplashViewModel
@@ -34,8 +37,8 @@ val repoModule = module {
 
 // endpoint di
 val apiModule = module {
-    factory { AlbumsInterceptor() }
-    factory { provideOkHttpClient(get(), get()) }
+
+    factory { provideOkHttpClient(get()) }
     factory { provideAlbumsApi(get()) }
     factory { provideLoggingInterceptor() }
     single { provideRetrofit(get()) }

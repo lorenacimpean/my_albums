@@ -11,13 +11,15 @@ class HomeViewModel(val input: Input, private val albumsRepo: AlbumsRepo) : View
 
     val output: Output by lazy {
         val albums =
-            input.onStart.flatMap {
+            input.onFragmentStart.flatMap {
                 albumsRepo.getAlbums()
+                    .toObservable()
                     .map {
                         return@map UiModel.success(it.body())
                     }
                     .onErrorReturn { UiModel.error(it.localizedMessage) }
-            }.startWith(Observable.just(UiModel.loading()))
+            }
+                .startWith(Observable.just(UiModel.loading()))
         Output(albums)
     }
 }
@@ -27,5 +29,5 @@ data class Output(
 )
 
 data class Input(
-    val onStart: PublishSubject<Boolean>
+    val onFragmentStart: PublishSubject<Boolean>
 )

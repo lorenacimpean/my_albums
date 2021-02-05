@@ -12,9 +12,8 @@ open class DisposableFragment : Fragment() {
     }
 
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onStop() {
+        super.onStop()
         subscriptions.clear()
-        super.onDestroy()
     }
 }
