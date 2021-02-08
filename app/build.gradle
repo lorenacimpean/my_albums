@@ -22,8 +22,15 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "BASE_URL", "\"https://jsonplaceholder.typicode.com\""
+        }
+
+        debug {
+            buildConfigField "String", "BASE_URL", "\"https://jsonplaceholder.typicode.com\""
         }
     }
+
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -31,7 +38,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    dataBinding{
+    dataBinding {
         enabled = true
     }
 }
@@ -47,6 +54,12 @@ dependencies {
     implementation 'io.reactivex.rxjava3:rxkotlin:3.0.1'
     implementation 'com.google.android.material:material:1.2.1'
 
+    //retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava3:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.4.0'
+    implementation 'org.conscrypt:conscrypt-android:2.2.1'
 
 
     //nav bar
@@ -71,6 +84,6 @@ dependencies {
     testImplementation "org.koin:koin-test:$koin_version"
     testImplementation 'com.nhaarman:mockito-kotlin:1.5.0'
     testImplementation "androidx.arch.core:core-testing:2.1.0"
-    testImplementation 'org.mockito:mockito-inline:2.13.0'
+    testImplementation 'org.mockito:mockito-inline:3.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }

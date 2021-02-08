@@ -1,8 +1,8 @@
-package com.example.myalbums
+package com.example.myalbums.view_model
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.myalbums.splash_screen.Input
-import com.example.myalbums.splash_screen.SplashViewModel
+import com.example.myalbums.ui.splash_screen.Input
+import com.example.myalbums.ui.splash_screen.SplashViewModel
 import io.reactivex.rxjava3.observers.TestObserver
 import io.reactivex.rxjava3.subjects.PublishSubject
 import org.junit.Assert.assertEquals

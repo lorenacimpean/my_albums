@@ -1,4 +1,4 @@
-package com.example.myalbums.splash_screen
+package com.example.myalbums.ui.splash_screen
 
 import androidx.lifecycle.ViewModel
 import io.reactivex.rxjava3.core.Observable
@@ -6,7 +6,7 @@ import io.reactivex.rxjava3.subjects.PublishSubject
 
 
 class SplashViewModel(
-        val input: Input
+    val input: Input
 ) : ViewModel() {
 
 
@@ -18,9 +18,9 @@ class SplashViewModel(
 
 
 data class Output(
-        val nextScreen: Observable<Boolean>
+    val nextScreen: Observable<Boolean>
 )
 
 data class Input(
-        val onAnimationEnd: PublishSubject<Boolean>
+    val onAnimationEnd: PublishSubject<Boolean>
 )

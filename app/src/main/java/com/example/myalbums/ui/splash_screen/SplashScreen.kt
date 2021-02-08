@@ -1,11 +1,11 @@
-package com.example.myalbums.splash_screen
+package com.example.myalbums.ui.splash_screen
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
-import com.example.myalbums.home_screen.HomeActivity
+import com.example.myalbums.HomeActivity
 import com.example.myalbums.R
 import com.example.myalbums.di.DisposableActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel

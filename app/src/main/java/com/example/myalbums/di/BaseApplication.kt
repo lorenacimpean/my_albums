@@ -13,7 +13,15 @@ class BaseApplication : Application() {
         startKoin {
             androidContext(this@BaseApplication)
             androidFileProperties()
-            modules(listOf(viewModelModule, viewModelInputModule, subjectModule))
+            modules(
+                listOf(
+                    viewModelModule,
+                    viewModelInputModule,
+                    subjectModule,
+                    repoModule,
+                    apiModule
+                )
+            )
         }
     }
 

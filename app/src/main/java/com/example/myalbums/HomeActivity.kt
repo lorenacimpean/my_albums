@@ -1,4 +1,4 @@
-package com.example.myalbums.home_screen
+package com.example.myalbums
 
 
 import android.os.Bundle
@@ -8,7 +8,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.myalbums.R
 import com.example.myalbums.databinding.ActivityHomeBinding
 
 
@@ -35,6 +34,7 @@ class HomeActivity : AppCompatActivity() {
             )
         )
         setupActionBarWithNavController(navigationController, appBarConfiguration)
+        
     }
 
 }
