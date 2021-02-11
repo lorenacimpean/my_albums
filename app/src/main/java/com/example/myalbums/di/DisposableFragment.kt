@@ -1,10 +1,9 @@
 package com.example.myalbums.di
 
-import androidx.fragment.app.Fragment
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 
-open class DisposableFragment : Fragment() {
+open class DisposableFragment : BaseFragment() {
     private val subscriptions: CompositeDisposable = CompositeDisposable()
 
     fun disposeLater(disposable: Disposable) {

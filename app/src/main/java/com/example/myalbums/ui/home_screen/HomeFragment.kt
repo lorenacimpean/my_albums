@@ -11,6 +11,7 @@ import com.example.myalbums.di.DisposableFragment
 import com.example.myalbums.utils.State
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+
 class HomeFragment : DisposableFragment() {
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeViewModel by viewModel<HomeViewModel>()
@@ -37,10 +38,7 @@ class HomeFragment : DisposableFragment() {
                 State.SUCCESS -> print("ADD HANDLE DATA TO RECYCLER VIEW")
                 State.LOADING -> print("ADD HANDLE LOADING")
                 State.ERROR -> print("ADD HANDLE ERROR")
-
             }
-
         })
     }
-
 }

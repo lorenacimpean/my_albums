@@ -1,48 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-
-        <import type="android.view.View" />
-
-        <variable
-                name="customToolbar"
-                type="com.example.myalbums.custom_views.CustomToolbar" />
-
-    </data>
 
     <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/app_white"
-            android:fitsSystemWindows="false"
-            android:theme="@style/MyActionBar">
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:layout_gravity="center_vertical"
+        android:background="@color/app_white"
+        android:fitsSystemWindows="true"
+        android:paddingTop="@dimen/smallPadding"
+        android:theme="@style/AppActionBar">
 
-        <com.example.myalbums.custom_views.CustomToolbar
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:title="@{customToolbar.title}">
+                android:textAlignment="center"
+                android:theme="@style/AppActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-            <ImageView
-                    android:id="@+id/leftButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@{customToolbar.leftIcon}"
-                    android:visibility="@{customToolbar.leftIcon == null? View.GONE: View.VISIBLE}" />
-
-            <ImageView
-                    android:id="@+id/rightButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@{customToolbar.rightIcon}"
-                    android:visibility="@{customToolbar.rightIcon == null? View.GONE: View.VISIBLE}" />
-        </com.example.myalbums.custom_views.CustomToolbar>
-
-
+            </androidx.appcompat.widget.Toolbar>
+        </RelativeLayout>
     </com.google.android.material.appbar.AppBarLayout>
 </layout>
