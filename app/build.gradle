@@ -50,9 +50,9 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'io.reactivex.rxjava3:rxkotlin:3.0.1'
     implementation 'com.google.android.material:material:1.2.1'
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
 
     //retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
@@ -69,7 +69,7 @@ dependencies {
     //koin
     implementation "org.koin:koin-core:$koin_version"
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
     testImplementation "org.koin:koin-test:$koin_version"
     implementation "org.koin:koin-android:$koin_version"
     implementation "org.koin:koin-android-scope:$koin_version"

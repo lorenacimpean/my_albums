@@ -8,4 +8,10 @@ data class Album(
         @SerializedName("id")
         val id: Int,
         @SerializedName("title")
-        val title: String)
+        val title: String) {
+
+        val userIdString: String
+                get() = userId.toString()
+
+}
+

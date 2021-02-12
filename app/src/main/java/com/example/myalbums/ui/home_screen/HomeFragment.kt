@@ -9,6 +9,7 @@ import com.example.myalbums.R
 import com.example.myalbums.databinding.FragmentHomeBinding
 import com.example.myalbums.di.DisposableFragment
 import com.example.myalbums.utils.State
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : DisposableFragment() {
@@ -38,15 +39,17 @@ class HomeFragment : DisposableFragment() {
     }
 
     private fun listenToAlbumsList() {
-        disposeLater(viewModel.output.albumsFetched.subscribe { response ->
-            when (response.state) {
-                State.SUCCESS -> response.data?.let {
-                    binding.albumsRecyclerView.addAlbums(it)
-                }
-                State.LOADING -> print("LOADING")
-                State.ERROR   -> print("ERROR")
-            }
-        })
+        disposeLater(viewModel.output.albumsFetched
+                         .observeOn(AndroidSchedulers.mainThread())
+                         .subscribe { response ->
+                             when (response.state) {
+                                 State.SUCCESS -> response.data?.let {
+                                     binding.albumsRecyclerView.addAlbums(it)
+                                 }
+                                 State.LOADING -> print("LOADING")
+                                 State.ERROR   -> print("ERROR")
+                             }
+                         })
     }
 
 }
