@@ -17,6 +17,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class ProfileFragment : BaseFragment() {
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -30,14 +31,15 @@ class ProfileFragment : BaseFragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
-        setHasOptionsMenu(true)
+        super.enableBackButton()
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 
     companion object {
+
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
@@ -58,7 +60,7 @@ class ProfileFragment : BaseFragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        enableOptionMenuWithIcon(menu, inflater)
+        enableOptionMenu(menu, inflater)
         super.onCreateOptionsMenu(menu, inflater)
     }
 }
