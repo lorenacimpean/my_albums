@@ -5,7 +5,7 @@ import com.example.myalbums.endpoint.AlbumsService
 import com.example.myalbums.models.Album
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
-import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.observers.TestObserver
 import org.junit.Assert
 import org.junit.Assert.assertEquals
@@ -42,7 +42,7 @@ class AlbumsRepoTest {
         val albums = listOf(Album(1, 2, "title"))
         val expected = Response.success(albums)
         val testObserver = TestObserver<Response<List<Album>>>()
-        whenever(api.fetchAlbums()).thenReturn(Observable.just(expected))
+        whenever(api.fetchAlbums()).thenReturn(Single.just(expected))
         repo.getAlbums().subscribe(testObserver)
         val result = testObserver.values()[0]
 
@@ -57,7 +57,7 @@ class AlbumsRepoTest {
         val albums = listOf(Album(1, 2, "title"))
         val expected = Response.success(albums)
         val testObserver = TestObserver<Response<List<Album>>>()
-        whenever(api.fetchAlbums()).thenReturn(Observable.just(expected))
+        whenever(api.fetchAlbums()).thenReturn(Single.just(expected))
         repo.getAlbums().subscribe(testObserver)
         val result = testObserver.values()[0]
 

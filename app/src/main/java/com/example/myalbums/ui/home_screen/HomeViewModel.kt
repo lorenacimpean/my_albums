@@ -17,7 +17,6 @@ class HomeViewModel(val input: Input, private val albumsRepo: AlbumsRepo) : View
                     .map {
                         return@map UiModel.success(it.body())
                     }
-                    .onErrorReturn { UiModel.error(it.localizedMessage) }
 
             }
                 .startWith(Observable.just(UiModel.loading()))
