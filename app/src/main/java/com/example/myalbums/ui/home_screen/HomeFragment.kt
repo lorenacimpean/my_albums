@@ -11,14 +11,13 @@ import com.example.myalbums.databinding.FragmentHomeBinding
 import com.example.myalbums.di.DisposableFragment
 import com.example.myalbums.models.Album
 import com.example.myalbums.utils.State
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import com.example.myalbums.utils.subscribeOnMainThread
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : DisposableFragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeViewModel by viewModel<HomeViewModel>()
-
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -37,8 +36,7 @@ class HomeFragment : DisposableFragment() {
 
     private fun listenToAlbumsList() {
         disposeLater(viewModel.output.albumsFetched
-                         .observeOn(AndroidSchedulers.mainThread())
-                         .subscribe { response ->
+                         .subscribeOnMainThread { response ->
                              when (response.state) {
                                  State.SUCCESS -> response.data?.let {
                                      createRecyclerView(it)
@@ -56,5 +54,4 @@ class HomeFragment : DisposableFragment() {
         adapter.albumsList = list
         adapter.notifyDataSetChanged()
     }
-
 }
