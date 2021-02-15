@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myalbums.R
 import com.example.myalbums.databinding.FragmentHomeBinding
 import com.example.myalbums.di.DisposableFragment
+import com.example.myalbums.models.Album
 import com.example.myalbums.utils.State
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -44,12 +46,20 @@ class HomeFragment : DisposableFragment() {
                          .subscribe { response ->
                              when (response.state) {
                                  State.SUCCESS -> response.data?.let {
-                                     binding.albumsRecyclerView.addAlbums(it)
+                                     createRecyclerView(it)
                                  }
                                  State.LOADING -> print("LOADING")
                                  State.ERROR   -> print("ERROR")
                              }
                          })
+    }
+
+    private fun createRecyclerView(list: List<Album>) {
+        binding.albumsRecyclerView.layoutManager = LinearLayoutManager(context)
+        val adapter = AlbumAdapter()
+        binding.albumsRecyclerView.adapter = adapter
+        adapter.albumsList = list
+        adapter.notifyDataSetChanged()
     }
 
 }

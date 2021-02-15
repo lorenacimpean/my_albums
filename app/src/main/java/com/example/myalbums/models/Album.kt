@@ -12,6 +12,8 @@ data class Album(
 
         val userIdString: String
                 get() = userId.toString()
+        val albumIdString: String
+                get() = id.toString()
 
 }
 
