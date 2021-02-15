@@ -5,5 +5,8 @@
     <string name="friends">Friends</string>
     <string name="news">News</string>
     <string name="profile">Profile</string>
+    <string name="back">Back</string>
+    <string name="notifications">Notifications</string>
+    <string name="apply">Apply</string>
 
 </resources>

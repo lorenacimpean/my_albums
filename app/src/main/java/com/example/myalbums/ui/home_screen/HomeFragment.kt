@@ -19,6 +19,7 @@ class HomeFragment : DisposableFragment() {
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeViewModel by viewModel<HomeViewModel>()
 
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -28,16 +29,10 @@ class HomeFragment : DisposableFragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        listenToAlbumsList()
-        viewModel.input.onFragmentStart.onNext(true)
-
-    }
-
     override fun onStart() {
         super.onStart()
-
+        listenToAlbumsList()
+        viewModel.input.onFragmentStart.onNext(true)
     }
 
     private fun listenToAlbumsList() {

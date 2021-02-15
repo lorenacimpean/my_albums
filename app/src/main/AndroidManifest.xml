@@ -3,6 +3,7 @@
         package="com.example.myalbums">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
             android:name=".di.BaseApplication"
             android:allowBackup="true"
@@ -17,15 +18,15 @@
                 android:theme="@style/AppTheme.NoActionBar.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-                android:name="com.example.myalbums.HomeActivity"
+                android:name=".HomeActivity"
                 android:label="@string/app_name"
-                android:theme="@style/AppTheme">
+                android:theme="@style/AppTheme.NoActionBar.Launcher" />
 
-        </activity>
     </application>
 
 </manifest>
