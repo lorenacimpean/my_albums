@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+                name="album"
+                type="com.example.myalbums.models.Album" />
+    </data>
+
+
+    <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/large_padding"
+            android:layout_marginVertical="@dimen/small_padding"
+            app:cardBackgroundColor="@color/app_white"
+            app:strokeColor="@color/extra_light_grey"
+            app:strokeWidth="@dimen/border_width">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/default_padding"
+                android:orientation="horizontal">
+
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0"
+                    android:src="@drawable/album_icon" />
+
+
+            <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/default_padding">
+
+                <TextView
+                        android:id="@+id/albumName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/default_padding"
+                        android:text="@{album.title}"
+                        android:textColor="@color/app_primary"
+                        android:textSize="@dimen/mid_text_size"
+                        android:textStyle="bold" />
+
+                <TextView
+                        android:id="@+id/albumDetails"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="8dp"
+                        android:text="@{@string/albumId(album.albumIdString)}"
+                        android:textColor="@color/app_dark_grey"
+                        android:textSize="@dimen/default_text_size" />
+
+            </LinearLayout>
+
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0"
+                    android:src="@drawable/arrow_right" />
+
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>
