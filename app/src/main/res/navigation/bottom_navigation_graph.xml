@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/bottom_nav_graph"
         app:startDestination="@id/homeFragment">
     <fragment
@@ -26,14 +25,18 @@
             android:label="@string/profile" />
     <fragment
             android:id="@+id/albumDetailsFragment"
-            android:name="com.example.myalbums.ui.home_screen.AlbumDetailsFragment"
-            android:label="AlbumDetailsFragment">
+            android:name="com.example.myalbums.ui.album_details.AlbumDetailsFragment"
+            android:label="@string/details">
         <argument
                 android:name="album"
                 app:argType="com.example.myalbums.models.Album"
                 app:nullable="true" />
         <action
-                android:id="@+id/action_albumDetailsFragment_to_homeFragment"
-                app:popUpTo="@id/homeFragment" />
+                android:id="@+id/action_albumDetailsFragment_to_bottom_nav_graph"
+                app:popUpTo="@id/homeFragment"
+                app:destination="@id/homeFragment"
+                app:popUpToInclusive="true"
+                app:launchSingleTop="true"
+                app:popExitAnim="@animator/nav_default_pop_exit_anim" />
     </fragment>
 </navigation>

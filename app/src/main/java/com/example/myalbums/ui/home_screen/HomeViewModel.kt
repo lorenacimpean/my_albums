@@ -26,6 +26,7 @@ class HomeViewModel(val input: Input, private val albumsRepo: AlbumsRepo) : View
         }
         Output(albums, albumClicked)
     }
+
 }
 
 data class Output(
@@ -35,3 +36,4 @@ data class Output(
 data class Input(
         val onFragmentStart: PublishSubject<Boolean>,
         val onAlbumClick: PublishSubject<Album>)
+

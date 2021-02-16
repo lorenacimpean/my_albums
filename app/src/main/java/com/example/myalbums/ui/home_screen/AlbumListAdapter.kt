@@ -9,10 +9,10 @@ import com.example.myalbums.databinding.LayoutAlbumCellBinding
 import com.example.myalbums.models.Album
 import kotlin.properties.Delegates
 
-class AlbumAdapter : RecyclerView.Adapter<AlbumAdapter.ViewHolder?>() {
+class AlbumListAdapter : RecyclerView.Adapter<AlbumListAdapter.ViewHolder?>() {
 
     var onItemClick: ((Album) -> Unit)? = null
-    var albumsList: List<Album> by Delegates.observable(listOf()) { _, old, new ->
+    var albumsList: List<Album> by Delegates.observable(listOf()) { _, _, _ ->
     }
 
     inner class ViewHolder(val albumCellBinding: LayoutAlbumCellBinding) : RecyclerView.ViewHolder(albumCellBinding.root) {
