@@ -8,5 +8,7 @@
     <string name="back">Back</string>
     <string name="notifications">Notifications</string>
     <string name="apply">Apply</string>
+    <string name="albumId">Album with id: %1$s</string>
+
 
 </resources>

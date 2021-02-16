@@ -9,7 +9,7 @@ import com.example.myalbums.utils.State
 import com.example.myalbums.utils.UiModel
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
-import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.observers.TestObserver
 import io.reactivex.rxjava3.subjects.PublishSubject
 import junit.framework.Assert.assertEquals
@@ -20,7 +20,6 @@ import org.junit.Test
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import retrofit2.Response
-
 
 class HomeViewModelTest {
 
@@ -40,14 +39,13 @@ class HomeViewModelTest {
         vm = HomeViewModel(input, repo)
     }
 
-
     @Test
     fun `check output not null`() {
         val testObserver = TestObserver<UiModel<List<Album>>>()
         val albums = listOf(Album(1, 2, "title"))
         val resp = Response.success(albums)
 
-        whenever(repo.getAlbums()).thenReturn(Observable.just(resp))
+        whenever(repo.getAlbums()).thenReturn(Single.just(resp))
         vm.output.albumsFetched.subscribe(testObserver)
         vm.input.onFragmentStart.onNext(true)
 
@@ -65,7 +63,7 @@ class HomeViewModelTest {
         val expected = UiModel.success(albums)
 
 
-        whenever(repo.getAlbums()).thenReturn(Observable.just(resp))
+        whenever(repo.getAlbums()).thenReturn(Single.just(resp))
         vm.output.albumsFetched.subscribe(testObserver)
         vm.input.onFragmentStart.onNext(true)
 
@@ -83,7 +81,7 @@ class HomeViewModelTest {
         val testObserver = TestObserver<UiModel<List<Album>>>()
         val error = Exception("error")
 
-        whenever(repo.getAlbums()).thenReturn(Observable.error(error))
+        whenever(repo.getAlbums()).thenReturn(Single.error(error))
         vm.output.albumsFetched.subscribe(testObserver)
         vm.input.onFragmentStart.onNext(true)
 
@@ -97,8 +95,6 @@ class HomeViewModelTest {
         assertEquals(null, value.data)
         assertEquals(error.localizedMessage, value.error)
 
-
     }
-
 
 }
