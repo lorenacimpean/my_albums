@@ -7,16 +7,17 @@ import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
 
-private const val PATH = "/albums/"
+private const val PATH = "/photos/"
 private const val HEADERS = "Content-Type:application/json"
 
-interface AlbumsService {
+interface PhotosService {
 
     @GET(PATH)
     @Headers(HEADERS)
-    fun fetchAlbums(): Single<Response<List<Album>>>
+    fun fetchPhotosForAlbum(): Single<Response<List<Album>>>
 
     @GET(PATH)
     @Headers(HEADERS)
-    fun fetchAlbumWithId(@Query("albumId") albumId: Int): Single<Response<Album>>
+    fun fetchPhotoWithId(@Query("albumId") photoId: Int): Single<Response<Album>>
+
 }

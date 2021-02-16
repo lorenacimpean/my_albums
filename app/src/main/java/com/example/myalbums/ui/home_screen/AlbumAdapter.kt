@@ -11,10 +11,18 @@ import kotlin.properties.Delegates
 
 class AlbumAdapter : RecyclerView.Adapter<AlbumAdapter.ViewHolder?>() {
 
+    var onItemClick: ((Album) -> Unit)? = null
     var albumsList: List<Album> by Delegates.observable(listOf()) { _, old, new ->
     }
 
-    class ViewHolder(val albumCellBinding: LayoutAlbumCellBinding) : RecyclerView.ViewHolder(albumCellBinding.root)
+    inner class ViewHolder(val albumCellBinding: LayoutAlbumCellBinding) : RecyclerView.ViewHolder(albumCellBinding.root) {
+
+        init {
+            itemView.setOnClickListener {
+                onItemClick?.invoke(albumsList[adapterPosition])
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = DataBindingUtil.inflate<LayoutAlbumCellBinding>(LayoutInflater.from(parent.context), R.layout
@@ -24,8 +32,10 @@ class AlbumAdapter : RecyclerView.Adapter<AlbumAdapter.ViewHolder?>() {
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.albumCellBinding.album = albumsList[position]
+
     }
 
     override fun getItemCount() = albumsList.size
 
 }
+

@@ -21,14 +21,17 @@ class HomeViewModel(val input: Input, private val albumsRepo: AlbumsRepo) : View
             }
                 .startWith(Observable.just(UiModel.loading()))
                 .onErrorReturn { UiModel.error(it.localizedMessage) }
-        Output(albums)
+        val albumClicked = input.onAlbumClick.map {
+            return@map UiModel.success(it)
+        }
+        Output(albums, albumClicked)
     }
 }
 
 data class Output(
-        val albumsFetched: Observable<UiModel<List<Album>>>
-)
+        val albumsFetched: Observable<UiModel<List<Album>>>,
+        val albumClicked: Observable<UiModel<Album>>)
 
 data class Input(
-        val onFragmentStart: PublishSubject<Boolean>
-)
+        val onFragmentStart: PublishSubject<Boolean>,
+        val onAlbumClick: PublishSubject<Album>)
