@@ -35,7 +35,9 @@ class AlbumDetailsFragment : BaseFragment() {
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View {
-        album = args.album!!
+        args.album?.let {
+            album = it
+        }
         super.enableBackButton()
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_album_details, container, false)
         binding.albumDetailsRecyclerView.layoutManager = LinearLayoutManager(context)
