@@ -1,7 +1,6 @@
 package com.example.myalbums.ui.home_screen
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myalbums.R
 import com.example.myalbums.databinding.FragmentHomeBinding
-
 import com.example.myalbums.di.DisposableFragment
 import com.example.myalbums.models.Album
 import com.example.myalbums.utils.State
@@ -30,9 +28,7 @@ class HomeFragment : DisposableFragment() {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         binding.albumsRecyclerView.layoutManager = LinearLayoutManager(context)
-        listAdapter = AlbumListAdapter()
-        binding.albumsRecyclerView.adapter = listAdapter
-
+        setupAdapter()
         return binding.root
     }
 
@@ -40,18 +36,12 @@ class HomeFragment : DisposableFragment() {
         super.onStart()
         listenToAlbumsList()
         listenToAlbumClick()
-        viewModel.input.onFragmentStart.onNext(true)
+        viewModel.input.onLoadData.onNext(true)
     }
 
     private fun listenToAlbumClick() {
-        disposeLater(viewModel.output.albumClicked.subscribeOnMainThread { response ->
-            when (response.state) {
-                State.SUCCESS -> response.data?.let {
-                    openAlbumDetails(it)
-                }
-                State.LOADING -> print("LOADING")
-                State.ERROR   -> print("ERROR")
-            }
+        disposeLater(viewModel.output.albumClicked.subscribeOnMainThread { album ->
+            openAlbumDetails(album)
         })
     }
 
@@ -71,17 +61,21 @@ class HomeFragment : DisposableFragment() {
     private fun openAlbumDetails(album: Album) {
         val directions = HomeFragmentDirections.actionHomeFragmentToAlbumDetailsFragment(album)
         findNavController().navigate(directions)
-
     }
 
     private fun setRecyclerViewItems(list: List<Album>) {
         listAdapter.albumsList = list
         listAdapter.notifyDataSetChanged()
-        listAdapter.onItemClick = { album ->
-            viewModel.input.onAlbumClick.onNext(album)
-            Log.d("ALBUM_TAP", album.id.toString())
-        }
+    }
 
+    private fun setupAdapter() {
+        listAdapter = AlbumListAdapter()
+        disposeLater(listAdapter.clickSubject.subscribeOnMainThread {
+            print(it.albumIdString)
+            viewModel.input.onAlbumClick.onNext(it)
+
+        })
+        binding.albumsRecyclerView.adapter = listAdapter
     }
 
 }

@@ -11,7 +11,6 @@ import com.example.myalbums.R
 import com.example.myalbums.databinding.FragmentAlbumDetailsBinding
 import com.example.myalbums.di.BaseFragment
 import com.example.myalbums.models.Album
-import com.example.myalbums.models.AlbumDetailsItem
 import com.example.myalbums.ui.home_screen.AlbumDetailsAdapter
 import com.example.myalbums.utils.State
 import com.example.myalbums.utils.subscribeOnMainThread
@@ -24,7 +23,6 @@ class AlbumDetailsFragment : BaseFragment() {
     private lateinit var binding: FragmentAlbumDetailsBinding
     private lateinit var listAdapter: AlbumDetailsAdapter
     private val viewModel: AlbumDetailsViewModel by viewModel<AlbumDetailsViewModel>()
-
     override fun onStart() {
         super.onStart()
         listenToLoadData()
@@ -41,9 +39,7 @@ class AlbumDetailsFragment : BaseFragment() {
         super.enableBackButton()
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_album_details, container, false)
         binding.albumDetailsRecyclerView.layoutManager = LinearLayoutManager(context)
-
-        listAdapter = AlbumDetailsAdapter()
-        binding.albumDetailsRecyclerView.adapter = listAdapter
+        setupAdapter()
         return binding.root
     }
 
@@ -60,25 +56,23 @@ class AlbumDetailsFragment : BaseFragment() {
     }
 
     private fun listenToItemClick() {
-        disposeLater(viewModel.output.onItemClicked.subscribeOnMainThread { response ->
-            when (response.state) {
-                State.SUCCESS -> response.data?.let {
-                    print(it.toString())
-
-                }
-                State.LOADING -> print("LOADING")
-                State.ERROR   -> print("ERROR")
-            }
+        disposeLater(viewModel.output.onItemClicked.subscribeOnMainThread { item ->
+            print(item.photo?.albumIdString)
+            print(item.header?.album?.albumTitle)
         })
     }
 
-    private fun setRecyclerViewItems(itemList: List<AlbumDetailsItem>) {
-        listAdapter.itemAlbumDetails = itemList
-        listAdapter.notifyDataSetChanged()
-        listAdapter.onItemClick = { item ->
-            viewModel.input.clickOnItem.onNext(item)
-        }
+    private fun setupAdapter() {
+        listAdapter = AlbumDetailsAdapter()
+        disposeLater(listAdapter.clickSubject.subscribeOnMainThread {
+            viewModel.input.clickOnItem.onNext(it)
+        })
+        binding.albumDetailsRecyclerView.adapter = listAdapter
+    }
 
+    private fun setRecyclerViewItems(itemList: List<AlbumDetailsItem>) {
+        listAdapter.itemList = itemList
+        listAdapter.notifyDataSetChanged()
     }
 
 }

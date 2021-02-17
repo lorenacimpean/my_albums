@@ -2,7 +2,7 @@ package com.example.myalbums.di
 
 import com.example.myalbums.endpoint.*
 import com.example.myalbums.models.Album
-import com.example.myalbums.models.AlbumDetailsItem
+import com.example.myalbums.ui.album_details.AlbumDetailsItem
 import com.example.myalbums.repo.AlbumsRepo
 import com.example.myalbums.ui.album_details.AlbumDetailsViewModel
 import com.example.myalbums.repo.PhotosRepo
