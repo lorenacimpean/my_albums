@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import com.example.myalbums.models.Album
 import com.example.myalbums.models.Photo
 import com.example.myalbums.repo.PhotosRepo
-import com.example.myalbums.ui.album_details.HeaderModel.Companion.HEADER
-import com.example.myalbums.ui.album_details.HeaderModel.Companion.PHOTO
+import com.example.myalbums.ui.album_details.AlbumDetailsItem.Companion.HEADER
+import com.example.myalbums.ui.album_details.AlbumDetailsItem.Companion.PHOTO
 import com.example.myalbums.utils.RxOnItemClickListener
 import com.example.myalbums.utils.UiModel
 import io.reactivex.rxjava3.core.Observable
@@ -55,9 +55,7 @@ data class Input(
         val loadData: PublishSubject<Album>,
         val clickOnItem: RxOnItemClickListener<AlbumDetailsItem>)
 
-data class AlbumDetailsItem(var type: Int, var photo: Photo? = null, var header: HeaderModel? = null)
-
-data class HeaderModel(val album: Album, val photoCount: Int) {
+data class AlbumDetailsItem(var type: Int, var photo: Photo? = null, var header: HeaderModel? = null) {
     companion object {
 
         @IntDef(HEADER, PHOTO)
@@ -69,10 +67,6 @@ data class HeaderModel(val album: Album, val photoCount: Int) {
 
     }
 
-    @ItemType
-    private var itemType: Int = HEADER
-
-    public fun setItemType(@ItemType itemType: Int) {
-        this.itemType = itemType
-    }
 }
+
+data class HeaderModel(val album: Album, val photoCount: Int)

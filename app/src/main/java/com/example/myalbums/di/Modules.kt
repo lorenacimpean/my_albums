@@ -2,7 +2,6 @@ package com.example.myalbums.di
 
 import com.example.myalbums.endpoint.*
 import com.example.myalbums.models.Album
-import com.example.myalbums.models.Photo
 import com.example.myalbums.repo.AlbumsRepo
 import com.example.myalbums.repo.PhotosRepo
 import com.example.myalbums.ui.album_details.AlbumDetailsItem
@@ -36,7 +35,6 @@ val subjectModule = module {
     factory {
         PublishSubject.create<Boolean>()
         PublishSubject.create<Album>()
-        PublishSubject.create<AlbumDetailsItem>()
     }
 }
 
@@ -44,7 +42,7 @@ val subjectModule = module {
 val itemClicksModule = module {
     factory {
         RxOnItemClickListener<Album>()
-        RxOnItemClickListener<Photo>()
+        RxOnItemClickListener<AlbumDetailsItem>()
     }
 }
 

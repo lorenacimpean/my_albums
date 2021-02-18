@@ -3,9 +3,10 @@
 
     <data>
 
+
         <variable
-                name="photo"
-                type="com.example.myalbums.models.Photo" />
+                name="item"
+                type="com.example.myalbums.ui.album_details.AlbumDetailsItem" />
 
         <variable
                 name="listener"
@@ -17,7 +18,7 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="@{(view) -> listener.onItemClick(photo)}"
+            android:onClick="@{(view) -> listener.onItemClick(item)}"
             android:orientation="horizontal">
 
         <ImageView
@@ -35,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:paddingTop="@dimen/default_padding"
-                android:text="@{photo.title}"
+                android:text="@{item.photo.title}"
                 android:textColor="@color/app_primary"
                 android:textSize="@dimen/mid_text_size"
                 android:textStyle="bold" />
@@ -46,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="8dp"
                 android:gravity="center"
-                android:text="@{@string/photoId(photo.photoId)}"
+                android:text="@{@string/photoId(item.photo.photoId)}"
                 android:textColor="@color/app_dark_grey"
                 android:textSize="@dimen/default_text_size" />
 

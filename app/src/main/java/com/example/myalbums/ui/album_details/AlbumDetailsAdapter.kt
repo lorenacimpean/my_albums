@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myalbums.R
 import com.example.myalbums.databinding.LayoutDetailsHeaderBinding
 import com.example.myalbums.databinding.LayoutPhotoCellBinding
-import com.example.myalbums.ui.album_details.HeaderModel.Companion.HEADER
+import com.example.myalbums.ui.album_details.AlbumDetailsItem.Companion.HEADER
 import com.example.myalbums.utils.RxOnItemClickListener
 import kotlin.properties.Delegates
 
@@ -63,7 +63,7 @@ class AlbumDetailsAdapter(private val onItemClickListener: RxOnItemClickListener
         }
         else {
             val binding = (holder as PhotoViewHolder).photoCellBinding
-            binding?.photo = element.photo
+            binding?.item = element
             binding?.listener = onItemClickListener
         }
 
