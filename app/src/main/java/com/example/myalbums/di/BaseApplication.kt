@@ -18,6 +18,7 @@ class BaseApplication : Application() {
                     viewModelModule,
                     viewModelInputModule,
                     subjectModule,
+                    itemClicksModule,
                     repoModule,
                     apiModule
                 )

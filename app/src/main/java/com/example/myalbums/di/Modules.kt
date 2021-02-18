@@ -2,12 +2,13 @@ package com.example.myalbums.di
 
 import com.example.myalbums.endpoint.*
 import com.example.myalbums.models.Album
-import com.example.myalbums.ui.album_details.AlbumDetailsItem
 import com.example.myalbums.repo.AlbumsRepo
-import com.example.myalbums.ui.album_details.AlbumDetailsViewModel
 import com.example.myalbums.repo.PhotosRepo
+import com.example.myalbums.ui.album_details.AlbumDetailsItem
+import com.example.myalbums.ui.album_details.AlbumDetailsViewModel
 import com.example.myalbums.ui.home_screen.HomeViewModel
 import com.example.myalbums.ui.splash_screen.SplashViewModel
+import com.example.myalbums.utils.RxOnItemClickListener
 import io.reactivex.rxjava3.subjects.PublishSubject
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -35,6 +36,13 @@ val subjectModule = module {
         PublishSubject.create<Boolean>()
         PublishSubject.create<Album>()
         PublishSubject.create<AlbumDetailsItem>()
+    }
+}
+
+// view model clicks di
+val itemClicksModule = module {
+    factory {
+        RxOnItemClickListener<Album>()
     }
 }
 

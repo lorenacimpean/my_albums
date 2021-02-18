@@ -69,12 +69,7 @@ class HomeFragment : DisposableFragment() {
     }
 
     private fun setupAdapter() {
-        listAdapter = AlbumListAdapter()
-        disposeLater(listAdapter.clickSubject.subscribeOnMainThread {
-            print(it.albumIdString)
-            viewModel.input.onAlbumClick.onNext(it)
-
-        })
+        listAdapter = AlbumListAdapter(viewModel.input.onAlbumClick)
         binding.albumsRecyclerView.adapter = listAdapter
     }
 
