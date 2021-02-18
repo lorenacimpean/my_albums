@@ -2,7 +2,6 @@ package com.example.myalbums.ui.album_details
 
 import androidx.lifecycle.ViewModel
 import com.example.myalbums.models.Album
-import com.example.myalbums.models.AlbumDetailsItem
 import com.example.myalbums.repo.PhotosRepo
 import com.example.myalbums.ui.home_screen.ItemType
 import com.example.myalbums.utils.UiModel
@@ -13,25 +12,28 @@ class AlbumDetailsViewModel(val input: Input, private val photosRepo: PhotosRepo
 
     val output: Output by lazy {
         val albums =
-            input.loadData.flatMap {
+            input.loadData.flatMap { album ->
                 val list = mutableListOf<AlbumDetailsItem>()
-                list.add(AlbumDetailsItem(ItemType.HEADER, header = it))
-                photosRepo.getPhotosForAlbum(it.id)
+
+                photosRepo.getPhotosForAlbum(album.id)
                     .toObservable()
-                    .map { photoList ->
-                        photoList.body()
-                            ?.map { photo ->
-                                list.add(AlbumDetailsItem(ItemType.PHOTO, photo = photo))
+                    .map { response ->
+                        response.body()
+                            ?.let { photoList ->
+                                val header = HeaderModel(album, photoList.size)
+                                list.add(AlbumDetailsItem(ItemType.HEADER, header = header, photo = null))
+                                photoList.map { photo ->
+                                    list.add(AlbumDetailsItem(ItemType.PHOTO, photo = photo, header = null))
+                                }
                             }
                         return@map UiModel.success(list.toList())
                     }
-
+                    .startWith(Observable.just(UiModel.loading()))
+                    .onErrorReturn { UiModel.error(it.localizedMessage) }
             }
-                .startWith(Observable.just(UiModel.loading()))
-                .onErrorReturn { UiModel.error(it.localizedMessage) }
 
         val albumClicked = input.clickOnItem.map {
-            return@map UiModel.success(it)
+            return@map it
         }
         Output(albums, albumClicked)
     }
@@ -40,7 +42,7 @@ class AlbumDetailsViewModel(val input: Input, private val photosRepo: PhotosRepo
 
 data class Output(
         val onDataFetched: Observable<UiModel<List<AlbumDetailsItem>>>,
-        val onItemClicked: Observable<UiModel<AlbumDetailsItem>>)
+        val onItemClicked: Observable<AlbumDetailsItem>)
 
 data class Input(
         val loadData: PublishSubject<Album>,

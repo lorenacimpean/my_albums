@@ -8,49 +8,53 @@
                 type="com.example.myalbums.models.Photo" />
     </data>
 
-
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:divider="?android:dividerHorizontal"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/large_padding"
+            android:showDividers="end">
 
         <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="horizontal">
 
             <ImageView
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="0"
                     android:background="@drawable/circle_drawable"
-                    android:padding="@dimen/default_padding"
                     android:src="@drawable/album_icon" />
 
-            <TextView
-                    android:id="@+id/albumName"
+            <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:paddingTop="@dimen/default_padding"
-                    android:text="@{photo.title}"
-                    android:textColor="@color/app_primary"
-                    android:textSize="@dimen/mid_text_size"
-                    android:textStyle="bold" />
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/mid_padding"
+                    android:showDividers="end">
 
-            <TextView
-                    android:id="@+id/albumDetails"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="8dp"
-                    android:gravity="center"
-                    android:text="@{@string/photoId(photo.photoId)}"
-                    android:textColor="@color/app_dark_grey"
-                    android:textSize="@dimen/default_text_size" />
+                <TextView
+                        android:id="@+id/albumName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/default_padding"
+                        android:text="@{photo.title}"
+                        android:textColor="@color/app_primary"
+                        android:textSize="@dimen/mid_text_size"
+                        android:textStyle="bold" />
 
+                <TextView
+                        android:id="@+id/albumDetails"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="8dp"
+                        android:text="@{@string/photoId(photo.photoId)}"
+                        android:textColor="@color/app_dark_grey"
+                        android:textSize="@dimen/default_text_size" />
 
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
 </layout>

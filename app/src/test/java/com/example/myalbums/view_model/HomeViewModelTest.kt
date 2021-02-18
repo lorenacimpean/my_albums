@@ -47,7 +47,7 @@ class HomeViewModelTest {
 
         whenever(repo.getAlbums()).thenReturn(Single.just(resp))
         vm.output.albumsFetched.subscribe(testObserver)
-        vm.input.onFragmentStart.onNext(true)
+        vm.input.onLoadData.onNext(true)
 
         val result = testObserver.values()[0]
         Assert.assertNotNull(result)
@@ -65,7 +65,7 @@ class HomeViewModelTest {
 
         whenever(repo.getAlbums()).thenReturn(Single.just(resp))
         vm.output.albumsFetched.subscribe(testObserver)
-        vm.input.onFragmentStart.onNext(true)
+        vm.input.onLoadData.onNext(true)
 
         val loading = testObserver.values()[0]
         val value = testObserver.values()[1]
@@ -83,7 +83,7 @@ class HomeViewModelTest {
 
         whenever(repo.getAlbums()).thenReturn(Single.error(error))
         vm.output.albumsFetched.subscribe(testObserver)
-        vm.input.onFragmentStart.onNext(true)
+        vm.input.onLoadData.onNext(true)
 
         val loading = testObserver.values()[0]
         val value = testObserver.values()[1]

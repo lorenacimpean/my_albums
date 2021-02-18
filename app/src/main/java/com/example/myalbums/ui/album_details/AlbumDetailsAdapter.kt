@@ -8,13 +8,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myalbums.R
 import com.example.myalbums.databinding.LayoutDetailsHeaderBinding
 import com.example.myalbums.databinding.LayoutPhotoCellBinding
-import com.example.myalbums.models.AlbumDetailsItem
+import com.example.myalbums.ui.album_details.AlbumDetailsItem
+import com.jakewharton.rxbinding.view.RxView
+import io.reactivex.rxjava3.subjects.PublishSubject
 import kotlin.properties.Delegates
 
-class AlbumDetailsAdapter() : RecyclerView.Adapter<AlbumDetailsAdapter.AlbumDetailsViewHolder>() {
+class AlbumDetailsAdapter : RecyclerView.Adapter<AlbumDetailsAdapter.AlbumDetailsViewHolder>() {
 
-    var onItemClick: ((AlbumDetailsItem) -> Unit)? = null
-    var itemAlbumDetails: List<AlbumDetailsItem> by Delegates.observable(listOf()) { _, _, _ ->
+    val clickSubject: PublishSubject<AlbumDetailsItem> = PublishSubject.create()
+    var itemList: List<AlbumDetailsItem> by Delegates.observable(listOf()) { _, _, _ ->
     }
 
     inner class AlbumDetailsViewHolder : RecyclerView.ViewHolder {
@@ -22,11 +24,11 @@ class AlbumDetailsAdapter() : RecyclerView.Adapter<AlbumDetailsAdapter.AlbumDeta
         var headerBinding: LayoutDetailsHeaderBinding? = null
         var photoCellBinding: LayoutPhotoCellBinding? = null
 
-        constructor(binding: LayoutDetailsHeaderBinding) : super(binding.getRoot()) {
+        constructor(binding: LayoutDetailsHeaderBinding) : super(binding.root) {
             headerBinding = binding
         }
 
-        constructor(binding: LayoutPhotoCellBinding) : super(binding.getRoot()) {
+        constructor(binding: LayoutPhotoCellBinding) : super(binding.root) {
             photoCellBinding = binding
         }
     }
@@ -35,6 +37,7 @@ class AlbumDetailsAdapter() : RecyclerView.Adapter<AlbumDetailsAdapter.AlbumDeta
         val inflater = LayoutInflater.from(parent.context)
         val binding: ViewDataBinding
         when (viewType) {
+
             ItemType.HEADER.ordinal -> {
                 binding = DataBindingUtil.inflate<LayoutDetailsHeaderBinding>(inflater,
                                                                               R.layout.layout_details_header,
@@ -55,15 +58,40 @@ class AlbumDetailsAdapter() : RecyclerView.Adapter<AlbumDetailsAdapter.AlbumDeta
 
     override fun onBindViewHolder(holder: AlbumDetailsViewHolder, position: Int) {
         when (position) {
-            0 -> holder.headerBinding?.album = itemAlbumDetails[position].header
-            else -> holder.photoCellBinding?.photo = itemAlbumDetails[position].photo
+            0 -> holder.headerBinding?.let { binding ->
+                binding.header = itemList[position].header
+                RxView.clicks(binding.root)
+                    .subscribe {
+                        clickSubject.onNext(
+                            itemList[position]
+                        )
+                    }
+            }
+            else -> holder.photoCellBinding?.let { binding ->
+                binding.photo = itemList[position].photo
+                RxView.clicks(binding.root)
+                    .subscribe {
+                        clickSubject.onNext(
+                            itemList[position]
+                        )
+                    }
+            }
         }
+
     }
 
     override fun getItemCount(): Int {
-        return itemAlbumDetails.size
+        return itemList.size
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return if (itemList[position].header != null) {
+            0
+        }
+        else {
+            1
+        }
+    }
 }
 
 enum class ItemType {
