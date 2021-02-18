@@ -11,6 +11,9 @@
     <string name="albumId">Album with id: %1$s</string>
     <string name="photoId">Photo with id: %1$s</string>
     <string name="details">Details</string>
+    <string name="save_to_favorites">Save to favorites</string>
+    <string name="photos">Photos</string>
+    <string name="add_a_comment">Add a comment</string>
 
 
 </resources>
