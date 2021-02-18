@@ -56,17 +56,13 @@ class AlbumDetailsFragment : BaseFragment() {
     }
 
     private fun listenToItemClick() {
-        disposeLater(viewModel.output.onItemClicked.subscribeOnMainThread { item ->
-            print(item.photo?.albumIdString)
-            print(item.header?.album?.albumTitle)
+        disposeLater(viewModel.output.onPhotoClicked.subscribeOnMainThread { photo ->
+            print(photo.title)
         })
     }
 
     private fun setupAdapter() {
-        listAdapter = AlbumDetailsAdapter()
-        disposeLater(listAdapter.clickSubject.subscribeOnMainThread {
-            viewModel.input.clickOnItem.onNext(it)
-        })
+        listAdapter = AlbumDetailsAdapter(viewModel.input.clickOnItem)
         binding.albumDetailsRecyclerView.adapter = listAdapter
     }
 

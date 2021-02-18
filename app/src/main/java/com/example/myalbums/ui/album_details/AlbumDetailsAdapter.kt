@@ -8,14 +8,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myalbums.R
 import com.example.myalbums.databinding.LayoutDetailsHeaderBinding
 import com.example.myalbums.databinding.LayoutPhotoCellBinding
+
+import com.example.myalbums.models.Photo
 import com.example.myalbums.ui.album_details.AlbumDetailsItem
-import com.jakewharton.rxbinding.view.RxView
-import io.reactivex.rxjava3.subjects.PublishSubject
+import com.example.myalbums.utils.RxOnItemClickListener
 import kotlin.properties.Delegates
 
-class AlbumDetailsAdapter : RecyclerView.Adapter<AlbumDetailsAdapter.AlbumDetailsViewHolder>() {
+class AlbumDetailsAdapter(private val onPhotoClickListener: RxOnItemClickListener<Photo>)
+    : RecyclerView.Adapter<AlbumDetailsAdapter.AlbumDetailsViewHolder>() {
 
-    val clickSubject: PublishSubject<AlbumDetailsItem> = PublishSubject.create()
     var itemList: List<AlbumDetailsItem> by Delegates.observable(listOf()) { _, _, _ ->
     }
 
@@ -37,7 +38,6 @@ class AlbumDetailsAdapter : RecyclerView.Adapter<AlbumDetailsAdapter.AlbumDetail
         val inflater = LayoutInflater.from(parent.context)
         val binding: ViewDataBinding
         when (viewType) {
-
             ItemType.HEADER.ordinal -> {
                 binding = DataBindingUtil.inflate<LayoutDetailsHeaderBinding>(inflater,
                                                                               R.layout.layout_details_header,
@@ -49,7 +49,10 @@ class AlbumDetailsAdapter : RecyclerView.Adapter<AlbumDetailsAdapter.AlbumDetail
             else                    -> {
 
                 binding =
-                    DataBindingUtil.inflate<LayoutPhotoCellBinding>(inflater, R.layout.layout_photo_cell, parent, false)
+                    DataBindingUtil.inflate<LayoutPhotoCellBinding>(inflater,
+                                                                    R.layout.layout_photo_cell,
+                                                                    parent,
+                                                                    false)
                 return AlbumDetailsViewHolder(binding)
             }
         }
@@ -60,21 +63,13 @@ class AlbumDetailsAdapter : RecyclerView.Adapter<AlbumDetailsAdapter.AlbumDetail
         when (position) {
             0 -> holder.headerBinding?.let { binding ->
                 binding.header = itemList[position].header
-                RxView.clicks(binding.root)
-                    .subscribe {
-                        clickSubject.onNext(
-                            itemList[position]
-                        )
-                    }
+
             }
             else -> holder.photoCellBinding?.let { binding ->
+
                 binding.photo = itemList[position].photo
-                RxView.clicks(binding.root)
-                    .subscribe {
-                        clickSubject.onNext(
-                            itemList[position]
-                        )
-                    }
+                binding.listener = onPhotoClickListener
+
             }
         }
 

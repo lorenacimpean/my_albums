@@ -6,51 +6,52 @@
         <variable
                 name="photo"
                 type="com.example.myalbums.models.Photo" />
+
+        <variable
+                name="listener"
+                type="com.example.myalbums.utils.RxOnItemClickListener" />
+
     </data>
 
 
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:onClick="@{(view) -> listener.onItemClick(photo)}"
+            android:orientation="horizontal">
 
-        <LinearLayout
+        <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0"
+                android:background="@drawable/circle_drawable"
+                android:padding="@dimen/default_padding"
+                android:src="@drawable/album_icon" />
+
+        <TextView
+                android:id="@+id/albumName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:gravity="center"
+                android:paddingTop="@dimen/default_padding"
+                android:text="@{photo.title}"
+                android:textColor="@color/app_primary"
+                android:textSize="@dimen/mid_text_size"
+                android:textStyle="bold" />
 
-            <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="0"
-                    android:background="@drawable/circle_drawable"
-                    android:padding="@dimen/default_padding"
-                    android:src="@drawable/album_icon" />
-
-            <TextView
-                    android:id="@+id/albumName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:paddingTop="@dimen/default_padding"
-                    android:text="@{photo.title}"
-                    android:textColor="@color/app_primary"
-                    android:textSize="@dimen/mid_text_size"
-                    android:textStyle="bold" />
-
-            <TextView
-                    android:id="@+id/albumDetails"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="8dp"
-                    android:gravity="center"
-                    android:text="@{@string/photoId(photo.photoId)}"
-                    android:textColor="@color/app_dark_grey"
-                    android:textSize="@dimen/default_text_size" />
+        <TextView
+                android:id="@+id/albumDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp"
+                android:gravity="center"
+                android:text="@{@string/photoId(photo.photoId)}"
+                android:textColor="@color/app_dark_grey"
+                android:textSize="@dimen/default_text_size" />
 
 
-        </LinearLayout>
     </LinearLayout>
+
 
 </layout>

@@ -11,13 +11,13 @@ import com.example.myalbums.utils.RxOnItemClickListener
 import kotlin.properties.Delegates
 
 class AlbumListAdapter(private val onItemClickListener: RxOnItemClickListener<Album>?) :
-    RecyclerView.Adapter<AlbumListAdapter.ViewHolder?>() {
+        RecyclerView.Adapter<AlbumListAdapter.ViewHolder?>() {
 
     var albumsList: List<Album> by Delegates.observable(listOf()) { _, _, _ ->
     }
 
     inner class ViewHolder(val albumCellBinding: LayoutAlbumCellBinding) :
-        RecyclerView.ViewHolder(albumCellBinding.root)
+            RecyclerView.ViewHolder(albumCellBinding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = DataBindingUtil.inflate<LayoutAlbumCellBinding>(
