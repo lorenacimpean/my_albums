@@ -5,6 +5,7 @@ import com.example.myalbums.models.Album
 import com.example.myalbums.repo.AlbumsRepo
 import com.example.myalbums.ui.home_screen.HomeViewModel
 import com.example.myalbums.ui.home_screen.Input
+import com.example.myalbums.utils.RxOnItemClickListener
 import com.example.myalbums.utils.State
 import com.example.myalbums.utils.UiModel
 import com.nhaarman.mockito_kotlin.mock
@@ -35,7 +36,7 @@ class HomeViewModelTest {
     fun setup() {
         MockitoAnnotations.initMocks(this)
         repo = mock<AlbumsRepo>()
-        input = Input(PublishSubject.create<Boolean>())
+        input = Input(PublishSubject.create<Boolean>(), RxOnItemClickListener<Album>())
         vm = HomeViewModel(input, repo)
     }
 
