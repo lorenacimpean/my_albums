@@ -35,7 +35,6 @@ val subjectModule = module {
     factory {
         PublishSubject.create<Boolean>()
         PublishSubject.create<Album>()
-        PublishSubject.create<AlbumDetailsItem>()
     }
 }
 
@@ -43,6 +42,7 @@ val subjectModule = module {
 val itemClicksModule = module {
     factory {
         RxOnItemClickListener<Album>()
+        RxOnItemClickListener<AlbumDetailsItem>()
     }
 }
 

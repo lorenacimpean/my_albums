@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myalbums.R
 import com.example.myalbums.databinding.FragmentHomeBinding
 import com.example.myalbums.di.DisposableFragment
-import com.example.myalbums.models.Album
 import com.example.myalbums.utils.State
 import com.example.myalbums.utils.subscribeOnMainThread
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -28,7 +27,8 @@ class HomeFragment : DisposableFragment() {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         binding.albumsRecyclerView.layoutManager = LinearLayoutManager(context)
-        setupAdapter()
+        listAdapter = AlbumListAdapter(viewModel.input.onAlbumClick)
+        binding.albumsRecyclerView.adapter = listAdapter
         return binding.root
     }
 
@@ -41,7 +41,8 @@ class HomeFragment : DisposableFragment() {
 
     private fun listenToAlbumClick() {
         disposeLater(viewModel.output.albumClicked.subscribeOnMainThread { album ->
-            openAlbumDetails(album)
+            val directions = HomeFragmentDirections.actionHomeFragmentToAlbumDetailsFragment(album)
+            findNavController().navigate(directions)
         })
     }
 
@@ -50,27 +51,13 @@ class HomeFragment : DisposableFragment() {
                          .subscribeOnMainThread { response ->
                              when (response.state) {
                                  State.SUCCESS -> response.data?.let {
-                                     setRecyclerViewItems(it)
+                                     listAdapter.albumsList = it
+                                     listAdapter.notifyDataSetChanged()
                                  }
                                  State.LOADING -> print("LOADING")
                                  State.ERROR   -> print("ERROR")
                              }
                          })
-    }
-
-    private fun openAlbumDetails(album: Album) {
-        val directions = HomeFragmentDirections.actionHomeFragmentToAlbumDetailsFragment(album)
-        findNavController().navigate(directions)
-    }
-
-    private fun setRecyclerViewItems(list: List<Album>) {
-        listAdapter.albumsList = list
-        listAdapter.notifyDataSetChanged()
-    }
-
-    private fun setupAdapter() {
-        listAdapter = AlbumListAdapter(viewModel.input.onAlbumClick)
-        binding.albumsRecyclerView.adapter = listAdapter
     }
 
 }
