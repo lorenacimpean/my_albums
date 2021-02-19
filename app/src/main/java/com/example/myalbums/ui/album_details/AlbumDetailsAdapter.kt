@@ -63,8 +63,12 @@ class AlbumDetailsAdapter(private val onItemClickListener: RxOnItemClickListener
         }
         else {
             val binding = (holder as PhotoViewHolder).photoCellBinding
-            binding?.item = element
-            binding?.listener = onItemClickListener
+
+            binding?.let {
+                it.item = element
+                it.listener = onItemClickListener
+            }
+
         }
 
     }

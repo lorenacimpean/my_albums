@@ -98,4 +98,30 @@ class HomeViewModelTest {
 
     }
 
+    @Test
+    fun `check click output not null`() {
+        val testObserver = TestObserver<Album>()
+        val album = Album(1, 2, "title")
+
+        vm.output.albumClicked.subscribe(testObserver)
+        vm.input.onAlbumClick.onItemClick(album)
+
+        Assert.assertNotNull(album)
+        testObserver.assertNoErrors()
+
+    }
+
+    @Test
+    fun `check click output check values`() {
+        val testObserver = TestObserver<Album>()
+        val album = Album(1, 2, "title")
+
+        vm.output.albumClicked.subscribe(testObserver)
+        vm.input.onAlbumClick.onItemClick(album)
+
+        val result = testObserver.values()[0]
+        testObserver.assertValueCount(1)
+        assertEquals(album, result)
+    }
+
 }
