@@ -5,12 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myalbums.R
 import com.example.myalbums.databinding.FragmentHomeBinding
-
 import com.example.myalbums.di.DisposableFragment
-import com.example.myalbums.models.Album
 import com.example.myalbums.utils.State
 import com.example.myalbums.utils.subscribeOnMainThread
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -18,7 +17,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class HomeFragment : DisposableFragment() {
 
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var adapter: AlbumAdapter
+    private lateinit var listAdapter: AlbumListAdapter
     private val viewModel: HomeViewModel by viewModel<HomeViewModel>()
 
     override fun onCreateView(
@@ -28,15 +27,23 @@ class HomeFragment : DisposableFragment() {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         binding.albumsRecyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = AlbumAdapter()
-        binding.albumsRecyclerView.adapter = adapter
+        listAdapter = AlbumListAdapter(viewModel.input.onAlbumClick)
+        binding.albumsRecyclerView.adapter = listAdapter
         return binding.root
     }
 
     override fun onStart() {
         super.onStart()
         listenToAlbumsList()
-        viewModel.input.onFragmentStart.onNext(true)
+        listenToAlbumClick()
+        viewModel.input.onLoadData.onNext(true)
+    }
+
+    private fun listenToAlbumClick() {
+        disposeLater(viewModel.output.albumClicked.subscribeOnMainThread { album ->
+            val directions = HomeFragmentDirections.actionHomeFragmentToAlbumDetailsFragment(album)
+            findNavController().navigate(directions)
+        })
     }
 
     private fun listenToAlbumsList() {
@@ -44,7 +51,8 @@ class HomeFragment : DisposableFragment() {
                          .subscribeOnMainThread { response ->
                              when (response.state) {
                                  State.SUCCESS -> response.data?.let {
-                                     setRecyclerViewItems(it)
+                                     listAdapter.albumsList = it
+                                     listAdapter.notifyDataSetChanged()
                                  }
                                  State.LOADING -> print("LOADING")
                                  State.ERROR   -> print("ERROR")
@@ -52,9 +60,4 @@ class HomeFragment : DisposableFragment() {
                          })
     }
 
-    private fun setRecyclerViewItems(list: List<Album>) {
-
-        adapter.albumsList = list
-        adapter.notifyDataSetChanged()
-    }
 }

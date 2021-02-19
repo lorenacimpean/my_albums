@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+                name="header"
+                type="com.example.myalbums.ui.album_details.HeaderModel" />
+    </data>
+
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/large_padding"
+            android:layout_marginVertical="@dimen/small_padding"
+            android:divider="?android:dividerHorizontal"
+            android:orientation="vertical"
+            android:showDividers="end">
+
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/circle_drawable"
+                android:contentDescription="@null"
+                android:padding="@dimen/large_padding"
+                android:src="@drawable/album_icon" />
+
+        <TextView
+                android:id="@+id/albumName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="@dimen/default_padding"
+                android:text="@{header.album.albumTitle}"
+                android:textColor="@color/app_primary"
+                android:textSize="@dimen/mid_text_size"
+                android:textStyle="bold" />
+
+        <TextView
+                android:id="@+id/albumDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp"
+                android:gravity="center"
+                android:text="@{@string/albumId(header.album.albumIdString)}"
+                android:textColor="@color/app_dark_grey"
+                android:textSize="@dimen/default_text_size" />
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/border_width"
+                android:background="@color/light_grey" />
+
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/large_padding"
+                    android:paddingVertical="@dimen/small_padding"
+                    android:showDividers="beginning">
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:contentDescription="@null"
+                        android:padding="@dimen/default_padding"
+                        android:src="@drawable/heart_icon" />
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="8dp"
+                        android:gravity="center"
+                        android:text="@string/save_to_favorites"
+                        android:textColor="@color/app_dark_grey"
+                        android:textSize="@dimen/default_text_size" />
+
+
+            </LinearLayout>
+
+            <View
+                    android:layout_width="@dimen/border_width"
+                    android:layout_height="match_parent"
+                    android:layout_marginVertical="@dimen/default_padding"
+                    android:background="@color/light_grey" />
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/large_padding"
+                    android:paddingVertical="@dimen/small_padding">
+
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="8dp"
+                        android:gravity="center"
+                        android:text="@{header.photoCountString}"
+                        android:textColor="@color/app_primary"
+                        android:textSize="@dimen/large_text_size"
+                        android:textStyle="bold" />
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="8dp"
+                        android:gravity="center"
+                        android:text="@string/photos"
+                        android:textColor="@color/app_dark_grey"
+                        android:textSize="@dimen/default_text_size" />
+            </LinearLayout>
+
+            <View
+                    android:layout_width="@dimen/border_width"
+                    android:layout_height="match_parent"
+                    android:layout_marginVertical="@dimen/default_padding"
+                    android:background="@color/light_grey" />
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/large_padding"
+                    android:paddingVertical="@dimen/small_padding">
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:contentDescription="@null"
+                        android:padding="@dimen/default_padding"
+                        android:src="@drawable/message_icon" />
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="8dp"
+                        android:gravity="center"
+                        android:text="@string/add_a_comment"
+                        android:textColor="@color/app_dark_grey"
+                        android:textSize="@dimen/default_text_size" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</layout>

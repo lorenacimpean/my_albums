@@ -3,6 +3,7 @@ package com.example.myalbums.ui.home_screen
 import androidx.lifecycle.ViewModel
 import com.example.myalbums.models.Album
 import com.example.myalbums.repo.AlbumsRepo
+import com.example.myalbums.utils.RxOnItemClickListener
 import com.example.myalbums.utils.UiModel
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.subjects.PublishSubject
@@ -11,7 +12,7 @@ class HomeViewModel(val input: Input, private val albumsRepo: AlbumsRepo) : View
 
     val output: Output by lazy {
         val albums =
-            input.onFragmentStart.flatMap {
+            input.onLoadData.flatMap {
                 albumsRepo.getAlbums()
                     .toObservable()
                     .map {
@@ -21,14 +22,19 @@ class HomeViewModel(val input: Input, private val albumsRepo: AlbumsRepo) : View
             }
                 .startWith(Observable.just(UiModel.loading()))
                 .onErrorReturn { UiModel.error(it.localizedMessage) }
-        Output(albums)
+        val albumClicked = input.onAlbumClick.rx
+        Output(albums, albumClicked)
     }
+
 }
 
 data class Output(
-        val albumsFetched: Observable<UiModel<List<Album>>>
+        val albumsFetched: Observable<UiModel<List<Album>>>,
+        val albumClicked: Observable<Album>
 )
 
 data class Input(
-        val onFragmentStart: PublishSubject<Boolean>
+        val onLoadData: PublishSubject<Boolean>,
+        val onAlbumClick: RxOnItemClickListener<Album>
 )
+

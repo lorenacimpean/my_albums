@@ -32,4 +32,6 @@ class HomeActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbarLayout.toolbar)
         setupActionBarWithNavController(navigationController, appBarConfiguration)
     }
+
+
 }
