@@ -69,4 +69,9 @@ data class AlbumDetailsItem(var type: Int, var photo: Photo? = null, var header:
 
 }
 
-data class HeaderModel(val album: Album, val photoCount: Int)
+data class HeaderModel(val album: Album, val photoCount: Int) {
+
+    val photoCountString: String
+        get() = photoCount.toString()
+
+}
