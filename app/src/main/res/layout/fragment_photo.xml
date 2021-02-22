@@ -9,6 +9,10 @@
                 name="url"
                 type="String" />
 
+        <variable
+                name="onBackClick"
+                type="com.example.myalbums.utils.RxOnItemClickListener" />
+
     </data>
 
     <LinearLayout
@@ -16,19 +20,22 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:onClick="@{(view) -> onBackClick.onItemClick(true)}"
+                android:text="@string/back"
+                android:textColor="@color/app_navy"
+                android:textSize="@dimen/large_text_size" />
+
         <ImageView
                 itemImage="@{url}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:contentDescription="@null" />
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/back"
-                android:textColor="@color/app_navy"
-                android:textSize="@dimen/large_text_size" />
+
     </LinearLayout>
 
 </layout>

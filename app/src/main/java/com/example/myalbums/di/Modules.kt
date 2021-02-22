@@ -7,6 +7,7 @@ import com.example.myalbums.repo.PhotosRepo
 import com.example.myalbums.ui.album_details.AlbumDetailsItem
 import com.example.myalbums.ui.album_details.AlbumDetailsViewModel
 import com.example.myalbums.ui.home_screen.HomeViewModel
+import com.example.myalbums.ui.photo_gallery.PhotoViewModel
 import com.example.myalbums.ui.splash_screen.SplashViewModel
 import com.example.myalbums.utils.RxOnItemClickListener
 import io.reactivex.rxjava3.subjects.PublishSubject
@@ -14,6 +15,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import com.example.myalbums.ui.album_details.Input as detailsInput
 import com.example.myalbums.ui.home_screen.Input as homeInput
+import com.example.myalbums.ui.photo_gallery.Input as photoInput
 import com.example.myalbums.ui.splash_screen.Input as splashInput
 
 // view model di
@@ -21,6 +23,7 @@ val viewModelModule = module {
     viewModel { SplashViewModel(get()) }
     viewModel { HomeViewModel(get(), get()) }
     viewModel { AlbumDetailsViewModel(get(), get()) }
+    viewModel { PhotoViewModel(get()) }
 }
 
 // view model input di
@@ -28,6 +31,7 @@ val viewModelInputModule = module {
     single { splashInput(get()) }
     single { homeInput(get(), get()) }
     single { detailsInput(get(), get()) }
+    single { photoInput(get()) }
 }
 
 // view model subjects di
@@ -43,6 +47,7 @@ val itemClicksModule = module {
     factory {
         RxOnItemClickListener<Album>()
         RxOnItemClickListener<AlbumDetailsItem>()
+        RxOnItemClickListener<Boolean>()
     }
 }
 

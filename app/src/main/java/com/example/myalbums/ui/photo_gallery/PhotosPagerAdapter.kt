@@ -6,7 +6,8 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.myalbums.models.Photo
 import kotlin.properties.Delegates
 
-class PhotosPagerAdapter(activity: AppCompatActivity) :
+class PhotosPagerAdapter(
+        activity: AppCompatActivity) :
         FragmentStateAdapter(activity) {
 
     var photos: ArrayList<Photo> by Delegates.observable(arrayListOf()) { _, _, _ ->
@@ -19,7 +20,5 @@ class PhotosPagerAdapter(activity: AppCompatActivity) :
     override fun createFragment(position: Int): Fragment {
         return PhotoFragment.newInstance(photos[position].url)
     }
-
-
 
 }
