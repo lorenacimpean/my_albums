@@ -1,19 +1,19 @@
 package com.example.myalbums.ui.photo_gallery
 
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.myalbums.models.Photo
 
-class PhotosPagerAdapter(fragmentManager: FragmentManager, private val photos: List<Photo>) :
-        FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+class PhotosPagerAdapter(activity: AppCompatActivity, private val photos: ArrayList<Photo>) :
+        FragmentStateAdapter(activity) {
 
-    override fun getCount(): Int {
+    override fun getItemCount(): Int {
         return photos.size
     }
 
-    override fun getItem(position: Int): Fragment {
-        return PhotoFragment.newInstance(photos[position])
+    override fun createFragment(position: Int): Fragment {
+        return PhotoFragment.newInstance(photos[position].url)
     }
 
 }

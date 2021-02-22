@@ -8,9 +8,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.myalbums.R
 import com.example.myalbums.databinding.FragmentPhotoBinding
-import com.example.myalbums.models.Photo
-
-private const val PHOTO_URL = "url"
 
 class PhotoFragment : Fragment() {
 
@@ -20,17 +17,23 @@ class PhotoFragment : Fragment() {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_photo, container, false)
-        val args = arguments
-        binding.url = args?.getString(PHOTO_URL)
+
         return inflater.inflate(R.layout.fragment_photo, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.url = requireArguments().getString(PHOTO_URL)
+
     }
 
     companion object {
 
-        fun newInstance(photo: Photo): PhotoFragment {
-            val args = Bundle()
-            args.putString(PHOTO_URL, photo.url)
+        private const val PHOTO_URL = "photoUrl"
+        fun newInstance(photoUrl: String): PhotoFragment {
             val fragment = PhotoFragment()
+            val args = Bundle()
+            args.putString(PHOTO_URL, photoUrl)
             fragment.arguments = args
             return fragment
         }

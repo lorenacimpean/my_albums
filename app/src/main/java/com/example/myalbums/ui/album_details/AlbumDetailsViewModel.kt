@@ -14,6 +14,7 @@ import io.reactivex.rxjava3.subjects.PublishSubject
 
 class AlbumDetailsViewModel(val input: Input, private val photosRepo: PhotosRepo) : ViewModel() {
 
+    private lateinit var photos: List<Photo>
     val output: Output by lazy {
         val items =
             input.loadData.flatMap { album ->
@@ -24,6 +25,7 @@ class AlbumDetailsViewModel(val input: Input, private val photosRepo: PhotosRepo
                     .map { response ->
                         response.body()
                             ?.let { photoList ->
+                                photos = photoList
                                 val header = HeaderModel(album, photoList.size)
                                 list.add(AlbumDetailsItem(HEADER, header = header, photo = null))
                                 photoList.map { photo ->
@@ -38,9 +40,9 @@ class AlbumDetailsViewModel(val input: Input, private val photosRepo: PhotosRepo
 
         val photoClicked = input.clickOnItem.rx.flatMap { item ->
             return@flatMap if (item.type == PHOTO) {
-                Observable.just(item.photo)
+                Observable.just(photos)
             }
-            else Observable.empty<Photo>()
+            else Observable.empty<List<Photo>>()
         }
         Output(items, photoClicked)
     }
@@ -49,7 +51,7 @@ class AlbumDetailsViewModel(val input: Input, private val photosRepo: PhotosRepo
 
 data class Output(
         val onDataFetched: Observable<UiModel<List<AlbumDetailsItem>>>,
-        val onPhotoClicked: Observable<Photo?>)
+        val onPhotoClicked: Observable<List<Photo>>)
 
 data class Input(
         val loadData: PublishSubject<Album>,
