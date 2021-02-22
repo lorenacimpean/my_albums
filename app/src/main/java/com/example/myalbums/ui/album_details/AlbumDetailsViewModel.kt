@@ -42,7 +42,7 @@ class AlbumDetailsViewModel(val input: Input, private val photosRepo: PhotosRepo
             return@flatMap if (item.type == PHOTO) {
                 Observable.just(photos)
             }
-            else Observable.empty<List<Photo>>()
+            else Observable.empty()
         }
         Output(items, photoClicked)
     }

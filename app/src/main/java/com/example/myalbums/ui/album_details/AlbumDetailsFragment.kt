@@ -12,6 +12,7 @@ import com.example.myalbums.R
 import com.example.myalbums.databinding.FragmentAlbumDetailsBinding
 import com.example.myalbums.di.BaseFragment
 import com.example.myalbums.models.Album
+import com.example.myalbums.ui.photo_gallery.PHOTOS
 import com.example.myalbums.ui.photo_gallery.PhotoGalleryActivity
 import com.example.myalbums.utils.State
 import com.example.myalbums.utils.subscribeOnMainThread
@@ -40,7 +41,7 @@ class AlbumDetailsFragment : BaseFragment() {
         disposeLater(viewModel.output.onPhotoClicked.subscribeOnMainThread { photos ->
             activity?.let {
                 val intent = Intent(it, PhotoGalleryActivity::class.java)
-                intent.putParcelableArrayListExtra("photos",
+                intent.putParcelableArrayListExtra(PHOTOS,
                                                    ArrayList(photos))
                 it.startActivity(intent)
             }

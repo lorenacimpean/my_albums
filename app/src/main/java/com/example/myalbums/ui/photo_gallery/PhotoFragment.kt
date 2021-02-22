@@ -17,14 +17,8 @@ class PhotoFragment : Fragment() {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_photo, container, false)
-
-        return inflater.inflate(R.layout.fragment_photo, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         binding.url = requireArguments().getString(PHOTO_URL)
-
+        return inflater.inflate(R.layout.fragment_photo, container, false)
     }
 
     companion object {

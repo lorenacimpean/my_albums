@@ -11,10 +11,24 @@
 
     </data>
 
-    <ImageView
-            itemImage="@{url}"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:contentDescription="@null" />
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <ImageView
+                itemImage="@{url}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/back"
+                android:textColor="@color/app_navy"
+                android:textSize="@dimen/large_text_size" />
+    </LinearLayout>
 
 </layout>

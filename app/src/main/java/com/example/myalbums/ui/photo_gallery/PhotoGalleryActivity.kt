@@ -8,6 +8,8 @@ import com.example.myalbums.databinding.ActivityPhotoGalleryBinding
 
 import com.example.myalbums.models.Photo
 
+const val PHOTOS = "photos"
+
 class PhotoGalleryActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPhotoGalleryBinding
@@ -16,9 +18,13 @@ class PhotoGalleryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_photo_gallery)
-        val photos = intent.getParcelableArrayListExtra<Photo>("photos")
-        pagerAdapter = photos?.let { PhotosPagerAdapter(this, it) }!!
-        binding.viewPager.adapter = pagerAdapter
+        intent.getParcelableArrayListExtra<Photo>(PHOTOS)
+            ?.let {
+                pagerAdapter = PhotosPagerAdapter(this)
+                pagerAdapter.photos = it
+                binding.viewPager.adapter = pagerAdapter
+                pagerAdapter.notifyDataSetChanged()
+            }
 
     }
 }
