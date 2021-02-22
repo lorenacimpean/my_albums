@@ -39,8 +39,9 @@ class AlbumDetailsViewModel(val input: Input, private val photosRepo: PhotosRepo
             }
 
         val photoClicked = input.clickOnItem.rx.flatMap { item ->
+
             return@flatMap if (item.type == PHOTO) {
-                Observable.just(photos)
+                Observable.just(PhotoInfo(photos, photos.indexOf(item.photo)))
             }
             else Observable.empty()
         }
@@ -51,7 +52,7 @@ class AlbumDetailsViewModel(val input: Input, private val photosRepo: PhotosRepo
 
 data class Output(
         val onDataFetched: Observable<UiModel<List<AlbumDetailsItem>>>,
-        val onPhotoClicked: Observable<List<Photo>>)
+        val onPhotoClicked: Observable<PhotoInfo>)
 
 data class Input(
         val loadData: PublishSubject<Album>,
@@ -75,5 +76,9 @@ data class HeaderModel(val album: Album, val photoCount: Int) {
 
     val photoCountString: String
         get() = photoCount.toString()
+
+}
+
+data class PhotoInfo(val photos: List<Photo>, val currentPhotoIndex: Int) {
 
 }

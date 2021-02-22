@@ -7,7 +7,7 @@ import com.example.myalbums.repo.PhotosRepo
 import com.example.myalbums.ui.album_details.AlbumDetailsItem
 import com.example.myalbums.ui.album_details.AlbumDetailsViewModel
 import com.example.myalbums.ui.home_screen.HomeViewModel
-import com.example.myalbums.ui.photo_gallery.PhotoViewModel
+import com.example.myalbums.ui.photo_gallery.PhotoGalleryViewModel
 import com.example.myalbums.ui.splash_screen.SplashViewModel
 import com.example.myalbums.utils.RxOnItemClickListener
 import io.reactivex.rxjava3.subjects.PublishSubject
@@ -23,7 +23,7 @@ val viewModelModule = module {
     viewModel { SplashViewModel(get()) }
     viewModel { HomeViewModel(get(), get()) }
     viewModel { AlbumDetailsViewModel(get(), get()) }
-    viewModel { PhotoViewModel(get()) }
+    viewModel { PhotoGalleryViewModel(get()) }
 }
 
 // view model input di

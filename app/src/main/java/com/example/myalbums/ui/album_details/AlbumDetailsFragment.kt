@@ -13,6 +13,7 @@ import com.example.myalbums.databinding.FragmentAlbumDetailsBinding
 import com.example.myalbums.di.BaseFragment
 import com.example.myalbums.models.Album
 import com.example.myalbums.ui.photo_gallery.PHOTOS
+import com.example.myalbums.ui.photo_gallery.PHOTO_INDEX
 import com.example.myalbums.ui.photo_gallery.PhotoGalleryActivity
 import com.example.myalbums.utils.State
 import com.example.myalbums.utils.subscribeOnMainThread
@@ -38,11 +39,13 @@ class AlbumDetailsFragment : BaseFragment() {
                 State.ERROR   -> print("ERROR")
             }
         })
-        disposeLater(viewModel.output.onPhotoClicked.subscribeOnMainThread { photos ->
+        disposeLater(viewModel.output.onPhotoClicked.subscribeOnMainThread { photoInfo ->
             activity?.let {
                 val intent = Intent(it, PhotoGalleryActivity::class.java)
                 intent.putParcelableArrayListExtra(PHOTOS,
-                                                   ArrayList(photos))
+                                                   ArrayList(photoInfo.photos))
+
+                intent.putExtra(PHOTO_INDEX, photoInfo.currentPhotoIndex)
                 it.startActivity(intent)
             }
         })

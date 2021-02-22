@@ -66,10 +66,4 @@ class NewsFragment : DisposableFragment() {
             }
     }
 
-    override fun onDestroyView() {
-
-        super.onDestroyView()
-
-        (activity as AppCompatActivity?)?.supportActionBar?.show()
-    }
 }
