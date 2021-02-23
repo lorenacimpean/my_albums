@@ -26,6 +26,9 @@
                 android:name=".HomeActivity"
                 android:label="@string/app_name"
                 android:theme="@style/AppTheme.NoActionBar.Launcher" />
+        <activity
+                android:name=".ui.photo_gallery.PhotoGalleryActivity"
+                android:theme="@style/AppTheme.NoActionBar.Launcher" />
     </application>
 
 </manifest>
