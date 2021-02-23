@@ -12,7 +12,7 @@
             android:roundIcon="@mipmap/app_logo"
             android:supportsRtl="true"
             android:theme="@style/Theme.MyAlbums">
-
+        <activity android:name=".ui.profile_screen.ContactDetailsActivity"></activity>
         <activity
                 android:name=".ui.splash_screen.SplashScreen"
                 android:theme="@style/AppTheme.NoActionBar.Launcher">
@@ -26,7 +26,6 @@
                 android:name=".HomeActivity"
                 android:label="@string/app_name"
                 android:theme="@style/AppTheme.NoActionBar.Launcher" />
-
     </application>
 
 </manifest>
