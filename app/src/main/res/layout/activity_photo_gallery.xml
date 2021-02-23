@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".ui.photo_gallery.PhotoGalleryActivity">
+
+    <data>
+
+        <variable
+                name="listener"
+                type="com.example.myalbums.utils.RxOnItemClickListener" />
+
+    </data>
+
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+        <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        <Button
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/app_white"
+                android:gravity="end"
+                android:onClick="@{(view) -> listener.onItemClick(true)}"
+                android:padding="@dimen/default_padding"
+                android:text="@string/back"
+                android:textColor="@color/app_navy"
+                android:textSize="@dimen/large_text_size" />
+
+    </FrameLayout>
+
+</layout>
