@@ -14,12 +14,12 @@ class PhotosPagerAdapter(
     }
 
     override fun getItemCount(): Int {
-        return photos?.size
+        return photos?.size ?: 0
     }
 
     override fun createFragment(position: Int): Fragment {
 
-        return PhotoFragment.newInstance(photos[position]?.url)
+        return PhotoFragment.newInstance(photos[position].url)
     }
 
 }
