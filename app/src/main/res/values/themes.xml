@@ -24,6 +24,8 @@
         <item name="colorAccent">@color/app_light_blue</item>
         <item name="android:colorBackground">@color/app_white</item>
         <item name="android:navigationBarColor">@color/app_white</item>
+        <item name="colorError">@color/app_red</item>
+        <item name="colorOnSurface">@color/app_navy</item>
         <item name="android:statusBarColor">@color/app_white</item>
         <item name="android:textColorPrimary">@color/app_navy</item>
 
@@ -50,12 +52,10 @@
         <item name="boxBackgroundColor">@color/app_white</item>
         <item name="android:textColorHint">@color/app_navy</item>
         <item name="errorTextColor">@color/app_red</item>
-        <item name="android:textColor">@color/app_navy</item>
-        <item name="hintTextColor">@color/app_navy</item>
         <item name="placeholderTextColor">@color/app_navy</item>
-        <item name="android:label">@color/app_navy</item>
         <item name="errorIconTint">@color/app_red</item>
         <item name="endIconTint">@color/app_navy</item>
+        <item name="endIconDrawable">@drawable/clear_icon</item>
         <item name="startIconTint">@color/app_navy</item>
         <item name="boxStrokeColor">@color/app_navy</item>
         <item name="boxStrokeErrorColor">@color/app_red</item>

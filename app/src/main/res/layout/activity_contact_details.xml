@@ -1,128 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical"
-        android:paddingHorizontal="@dimen/large_padding"
         tools:context=".ui.profile_screen.ContactDetailsActivity">
 
+    <data>
+
+        <import type="android.text.InputType" />
+    </data>
+
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
         <include
-                android:id="@+id/first_name_field"
-                layout="@layout/layout_app_edit_text"
+                android:id="@+id/toolbar_layout"
+                layout="@layout/custom_toolbar" />
+
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_marginTop="@dimen/large_padding"
+                android:orientation="horizontal">
 
-        <include
-                android:id="@+id/last_name_field"
-                layout="@layout/layout_app_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+            <com.example.myalbums.ui.custom_views.AppEditText
+                    android:id="@+id/first_name_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:inputType="@{InputType.TYPE_CLASS_TEXT}"
+                    app:label="@{@string/first_name}" />
 
-    </LinearLayout>
+            <com.example.myalbums.ui.custom_views.AppEditText
+                    android:id="@+id/last_name_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:inputType="@{InputType.TYPE_CLASS_TEXT}"
+                    app:label="@{@string/last_name}" />
 
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+        </LinearLayout>
 
-        <include
-                android:id="@+id/email_field"
-                layout="@layout/layout_app_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-        <include
-                android:id="@+id/phone_field"
-                layout="@layout/layout_app_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-        <View
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:orientation="horizontal">
 
-    </LinearLayout>
+            <com.example.myalbums.ui.custom_views.AppEditText
+                    android:id="@+id/email_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:inputType="@{InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS}"
+                    app:label="@{@string/email_address}" />
 
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+        </LinearLayout>
 
-        <include
-                android:id="@+id/address_field"
-                layout="@layout/layout_app_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-        <include
-                android:id="@+id/city_field"
-                layout="@layout/layout_app_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-        <include
-                android:id="@+id/country_field"
-                layout="@layout/layout_app_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-    </LinearLayout>
-
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-        <include
-                android:id="@+id/zip_code_field"
-                layout="@layout/layout_app_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-        <View
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:orientation="horizontal">
+
+            <com.example.myalbums.ui.custom_views.AppEditText
+                    android:id="@+id/phone_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:inputType="@{InputType.TYPE_CLASS_PHONE}"
+                    app:label="@{@string/phone_number}" />
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+            <com.example.myalbums.ui.custom_views.AppEditText
+                    android:id="@+id/address_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:inputType="@{InputType.TYPE_CLASS_TEXT}"
+                    app:label="@{@string/street_address}" />
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <com.example.myalbums.ui.custom_views.AppEditText
+                    android:id="@+id/city_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:inputType="@{InputType.TYPE_CLASS_TEXT}"
+                    app:label="@{@string/city}" />
+
+            <com.example.myalbums.ui.custom_views.AppEditText
+                    android:id="@+id/country_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:inputType="@{InputType.TYPE_CLASS_TEXT}"
+                    app:label="@{@string/country}" />
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+            <com.example.myalbums.ui.custom_views.AppEditText
+                    android:id="@+id/zip_code_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:inputType="@{InputType.TYPE_CLASS_NUMBER}"
+                    app:label="@{@string/zip_code}" />
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginVertical="@dimen/large_padding"
+                android:text="@string/use_location"
+                android:textAllCaps="false"
+                app:cornerRadius="@dimen/button_radius" />
 
     </LinearLayout>
 
-    <com.google.android.material.button.MaterialButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginVertical="@dimen/large_padding"
-            android:text="@string/use_location"
-            android:textAllCaps="false"
-            app:cornerRadius="@dimen/button_radius" />
-
-</LinearLayout>
+</layout>
