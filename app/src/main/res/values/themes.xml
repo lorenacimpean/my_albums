@@ -26,9 +26,6 @@
         <item name="android:navigationBarColor">@color/app_white</item>
         <item name="android:statusBarColor">@color/app_white</item>
         <item name="android:textColorPrimary">@color/app_navy</item>
-        <item name="colorControlNormal">@color/app_primary</item>
-        <item name="colorControlActivated">@color/app_red</item>
-        <item name="colorControlHighlight">@color/app_navy</item>
 
     </style>
 
