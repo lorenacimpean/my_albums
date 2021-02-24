@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.text.InputType" />
+
+        <variable
+                name="label"
+                type="String" />
+
+        <variable
+                name="input"
+                type="String" />
+
+        <variable
+                name="inputType"
+                type="Integer" />
+    </data>
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/default_text_input_layout"
+            style="@style/AppTextInputLayoutStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@{label}"
+            android:paddingHorizontal="@dimen/mid_padding">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/default_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_padding"
+                android:singleLine="true"
+                android:text="@{input}" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+</layout>

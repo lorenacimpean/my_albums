@@ -15,6 +15,7 @@
     <string name="photos">Photos</string>
     <string name="add_a_comment">Add a comment</string>
     <string name="contact_info">Contact Info</string>
+    <string name="use_location">Use my location</string>
 
 
 </resources>

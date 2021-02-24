@@ -2,6 +2,7 @@
     <!-- Base application theme. -->
 
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+
         <item name="windowActionBar">true</item>
         <item name="colorPrimary">@color/app_primary</item>
         <item name="colorPrimaryDark">@color/app_navy</item>
@@ -15,6 +16,7 @@
     </style>
 
     <style name="AppTheme.NoActionBar" parent="Theme.MaterialComponents.Light.NoActionBar">
+
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="colorPrimary">@color/app_primary</item>
@@ -24,13 +26,18 @@
         <item name="android:navigationBarColor">@color/app_white</item>
         <item name="android:statusBarColor">@color/app_white</item>
         <item name="android:textColorPrimary">@color/app_navy</item>
+        <item name="colorControlNormal">@color/app_primary</item>
+        <item name="colorControlActivated">@color/app_red</item>
+        <item name="colorControlHighlight">@color/app_navy</item>
 
     </style>
 
     <style name="AppActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
+
         <item name="android:colorBackground">@color/app_white</item>
         <item name="android:background">@color/app_white</item>
         <item name="android:textColor">@color/app_navy</item>
+
     </style>
 
     <style name="AppTheme.NoActionBar.Launcher" parent="AppTheme.NoActionBar">
@@ -40,5 +47,24 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
+
+        <item name="boxBackgroundColor">@color/app_white</item>
+        <item name="android:textColorHint">@color/app_navy</item>
+        <item name="errorTextColor">@color/app_red</item>
+        <item name="android:textColor">@color/app_navy</item>
+        <item name="hintTextColor">@color/app_navy</item>
+        <item name="placeholderTextColor">@color/app_navy</item>
+        <item name="android:label">@color/app_navy</item>
+        <item name="errorIconTint">@color/app_red</item>
+        <item name="endIconTint">@color/app_navy</item>
+        <item name="startIconTint">@color/app_navy</item>
+        <item name="boxStrokeColor">@color/app_navy</item>
+        <item name="boxStrokeErrorColor">@color/app_red</item>
+        <item name="boxStrokeWidth">2dp</item>
+        <item name="boxStrokeWidthFocused">2dp</item>
+
+    </style>
 
 </resources>

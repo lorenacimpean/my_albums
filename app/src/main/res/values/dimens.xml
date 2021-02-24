@@ -21,6 +21,7 @@
     <dimen name="border_width">1dp</dimen>
     <dimen name="small_circle_size">40dp</dimen>
     <dimen name="photoSize">56dp</dimen>
+    <dimen name="button_radius">100dp</dimen>
 
 
 </resources>
