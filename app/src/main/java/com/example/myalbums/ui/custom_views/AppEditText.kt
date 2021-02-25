@@ -26,6 +26,12 @@ class AppEditText(context: Context, attrs: AttributeSet) : LinearLayout(context,
             binding.input = value
         }
 
+    var error: String?
+        get() = binding.defaultTextInputLayout.error.toString()
+        set(value) {
+            binding.error = value
+        }
+
     fun setLabel(label: String?) {
         binding.label = label
     }
@@ -34,16 +40,8 @@ class AppEditText(context: Context, attrs: AttributeSet) : LinearLayout(context,
         binding.inputType = inputType
     }
 
-    fun setError(error: String?) {
-        binding.defaultTextInputLayout.error = error
-    }
-
     fun addTextChangedListener(listener: TextWatcher) =
         binding.defaultEditText.addTextChangedListener(listener)
-
-    fun setInputText(inputTextField: String) {
-        binding.defaultEditText.setText(inputTextField)
-    }
 
 }
 
@@ -63,12 +61,10 @@ object AppEditTextBinder {
     fun setListener(editText: AppEditText, listener: InverseBindingListener?) {
         if (listener != null) {
             editText.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-
-                }
+                override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
 
                 override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-
+                    editText.error = null
                 }
 
                 override fun afterTextChanged(editable: Editable) {
@@ -85,6 +81,13 @@ object AppEditTextBinder {
             editText.text = (text)
         }
     }
+
+    @JvmStatic
+    @BindingAdapter("app:errorText")
+    fun setError(editText: AppEditText, error: String?) {
+        editText.error = error
+    }
+
 }
 
 

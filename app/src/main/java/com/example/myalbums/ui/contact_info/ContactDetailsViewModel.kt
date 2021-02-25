@@ -39,20 +39,3 @@ data class Output(
 
 data class UserContactInfo(var firstName: String? = "", var lastName: String? = "")
 
-//class UserContactInfo : BaseObservable() {
-//
-//    @get:Bindable
-//    var firstName: String = ""
-//        set(value) {
-//            field = value
-//            notifyPropertyChanged(BR.firstName)
-//        }
-//
-//    @get:Bindable
-//    var lastName: String = ""
-//        set(value) {
-//            field = value
-//            notifyPropertyChanged(BR.lastName)
-//        }
-//
-//}
