@@ -1,4 +1,4 @@
-package com.example.myalbums.ui.profile_screen
+package com.example.myalbums.ui.contact_info
 
 import android.os.Bundle
 import android.view.Menu
@@ -13,6 +13,7 @@ class ContactDetailsActivity : DisposableActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_contact_details)
+        binding.user = UserModel("test", "user")
         binding.toolbarLayout.toolbar.title = getString(R.string.contact_info)
         setSupportActionBar(binding.toolbarLayout.toolbar)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.arrow_left)

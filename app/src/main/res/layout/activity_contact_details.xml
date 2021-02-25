@@ -2,11 +2,17 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        tools:context=".ui.profile_screen.ContactDetailsActivity">
+        tools:context=".ui.contact_info.ContactDetailsActivity">
 
     <data>
 
         <import type="android.text.InputType" />
+
+        <variable
+                name="user"
+                type="com.example.myalbums.ui.contact_info.UserModel" />
+
+
     </data>
 
     <LinearLayout
@@ -30,7 +36,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:inputType="@{InputType.TYPE_CLASS_TEXT}"
-                    app:label="@{@string/first_name}" />
+                    app:label="@{@string/first_name}"
+                    app:text="@{user.firstName}" />
 
             <com.example.myalbums.ui.custom_views.AppEditText
                     android:id="@+id/last_name_field"
@@ -38,7 +45,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:inputType="@{InputType.TYPE_CLASS_TEXT}"
-                    app:label="@{@string/last_name}" />
+                    app:label="@{@string/last_name}"
+                    app:text="@{user.lastName}" />
 
         </LinearLayout>
 

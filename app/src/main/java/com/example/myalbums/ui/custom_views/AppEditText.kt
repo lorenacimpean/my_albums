@@ -21,9 +21,9 @@ class AppEditText(context: Context, attrs: AttributeSet) : LinearLayout(context,
         binding.label = label
     }
 
-//    fun setText(input: String?) {
-//        binding.input = input
-//    }
+    fun setText(input: String?) {
+        binding.input = input
+    }
 
     fun setInputType(inputType: Int?) {
         binding.inputType = inputType

@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil
 import com.example.myalbums.R
 import com.example.myalbums.databinding.FragmentProfileBinding
 import com.example.myalbums.di.BaseFragment
+import com.example.myalbums.ui.contact_info.ContactDetailsActivity
 import com.example.myalbums.utils.subscribeOnMainThread
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
