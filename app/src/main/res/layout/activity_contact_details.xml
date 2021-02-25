@@ -10,7 +10,7 @@
 
         <variable
                 name="user"
-                type="com.example.myalbums.ui.contact_info.UserModel" />
+                type="com.example.myalbums.ui.contact_info.UserContactInfo" />
 
 
     </data>
@@ -35,18 +35,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:text="@={user.firstName}"
                     app:inputType="@{InputType.TYPE_CLASS_TEXT}"
-                    app:label="@{@string/first_name}"
-                    app:text="@{user.firstName}" />
+                    app:label="@{@string/first_name}" />
 
             <com.example.myalbums.ui.custom_views.AppEditText
                     android:id="@+id/last_name_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:text="@={user.lastName}"
                     app:inputType="@{InputType.TYPE_CLASS_TEXT}"
-                    app:label="@{@string/last_name}"
-                    app:text="@{user.lastName}" />
+                    app:label="@{@string/last_name}" />
 
         </LinearLayout>
 
