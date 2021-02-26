@@ -23,15 +23,15 @@ fun setTextListener(editText: AppEditText, listener: InverseBindingListener?) {
     if (listener != null) {
         editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-                editText.isErrorEnabled = true
-                editText.error = "Please enter a value"
+
             }
 
             override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-
             }
 
             override fun afterTextChanged(editable: Editable) {
+                editText.isErrorEnabled = true
+                editText.validateField()
                 listener.onChange()
             }
         })

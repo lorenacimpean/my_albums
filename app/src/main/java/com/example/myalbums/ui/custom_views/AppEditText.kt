@@ -40,13 +40,26 @@ class AppEditText(context: Context, attrs: AttributeSet) : TextInputLayout(conte
             field = value
         }
 
-
     fun setInputType(inputType: Int?) {
         binding.inputType = inputType
     }
 
     fun addTextChangedListener(listener: TextWatcher) =
         binding.defaultEditText.addTextChangedListener(listener)
+
+    fun validateField(): Boolean {
+        if (binding.input.toString()
+                .trim()
+                .isEmpty()
+        ) {
+            binding.defaultTextInputLayout.error = context.getString(R.string.required_field)
+            return false
+        }
+        else {
+            binding.defaultTextInputLayout.isErrorEnabled = false
+        }
+        return true
+    }
 
 }
 

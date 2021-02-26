@@ -16,9 +16,6 @@ class ContactDetailsViewModel(val input: Input) : ViewModel() {
     val output: Output by lazy {
         val onInfoLoaded = input.loadInfo.flatMap {
             userInfo = UserInfo()
-            userInfo.firstName = "test"
-            userInfo.lastName = "info"
-
             return@flatMap Observable.just(UiModel.success(userInfo))
         }
             .startWith(Observable.just(UiModel.loading()))
@@ -56,6 +53,48 @@ class UserInfo : BaseObservable() {
         set(value) {
             field = value
             notifyPropertyChanged(BR.lastName)
+        }
+
+    @get:Bindable
+    var email: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.email)
+        }
+
+    @get:Bindable
+    var phone: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.phone)
+        }
+
+    @get:Bindable
+    var address: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.address)
+        }
+
+    @get:Bindable
+    var city: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.city)
+        }
+
+    @get:Bindable
+    var country: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.country)
+        }
+
+    @get:Bindable
+    var zipCode: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.zipCode)
         }
 
 }

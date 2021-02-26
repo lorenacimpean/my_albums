@@ -60,6 +60,7 @@
                     android:id="@+id/email_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@={user.email}"
                     app:inputType="@{InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS}"
                     app:label="@{@string/email_address}" />
 
@@ -75,6 +76,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:text="@={user.phone}"
                     app:inputType="@{InputType.TYPE_CLASS_PHONE}"
                     app:label="@{@string/phone_number}" />
 
@@ -94,6 +96,7 @@
                     android:id="@+id/address_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@={user.address}"
                     app:inputType="@{InputType.TYPE_CLASS_TEXT}"
                     app:label="@{@string/street_address}" />
 
@@ -109,6 +112,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:text="@={user.city}"
                     app:inputType="@{InputType.TYPE_CLASS_TEXT}"
                     app:label="@{@string/city}" />
 
@@ -117,6 +121,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:text="@={user.country}"
                     app:inputType="@{InputType.TYPE_CLASS_TEXT}"
                     app:label="@{@string/country}" />
 
@@ -132,6 +137,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:text="@={user.zipCode}"
                     app:inputType="@{InputType.TYPE_CLASS_NUMBER}"
                     app:label="@{@string/zip_code}" />
 
