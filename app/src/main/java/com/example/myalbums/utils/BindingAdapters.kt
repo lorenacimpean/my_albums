@@ -14,5 +14,3 @@ fun ImageView.setPhoto(url: String) {
 
 }
 
-
-
