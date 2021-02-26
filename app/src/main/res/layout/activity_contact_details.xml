@@ -10,7 +10,7 @@
 
         <variable
                 name="user"
-                type="com.example.myalbums.ui.contact_info.UserContactInfo" />
+                type="com.example.myalbums.ui.contact_info.UserInfo" />
 
 
     </data>
@@ -37,8 +37,7 @@
                     android:layout_weight="1"
                     android:text="@={user.firstName}"
                     app:inputType="@{InputType.TYPE_CLASS_TEXT}"
-                    app:label="@{@string/first_name}"
-                    app:errorText="@={user.}"/>
+                    app:label="@{@string/first_name}" />
 
             <com.example.myalbums.ui.custom_views.AppEditText
                     android:id="@+id/last_name_field"

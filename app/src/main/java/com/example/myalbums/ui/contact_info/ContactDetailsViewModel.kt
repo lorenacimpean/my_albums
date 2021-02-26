@@ -1,6 +1,9 @@
 package com.example.myalbums.ui.contact_info
 
+import androidx.databinding.BaseObservable
+import androidx.databinding.Bindable
 import androidx.lifecycle.ViewModel
+import com.example.myalbums.BR
 import com.example.myalbums.utils.RxOnItemClickListener
 import com.example.myalbums.utils.UiModel
 import io.reactivex.rxjava3.core.Observable
@@ -8,11 +11,13 @@ import io.reactivex.rxjava3.subjects.PublishSubject
 
 class ContactDetailsViewModel(val input: Input) : ViewModel() {
 
-    private lateinit var userInfo: UserContactInfo
+    private lateinit var userInfo: UserInfo
 
     val output: Output by lazy {
         val onInfoLoaded = input.loadInfo.flatMap {
-            userInfo = UserContactInfo()
+            userInfo = UserInfo()
+            userInfo.firstName = "test"
+            userInfo.lastName = "info"
 
             return@flatMap Observable.just(UiModel.success(userInfo))
         }
@@ -33,9 +38,26 @@ data class Input(
 )
 
 data class Output(
-        val onInfoLoaded: Observable<UiModel<UserContactInfo>>,
+        val onInfoLoaded: Observable<UiModel<UserInfo>>,
         val onSaveInfo: Observable<Boolean>
 )
 
-data class UserContactInfo(var firstName: String? = "", var lastName: String? = "")
+class UserInfo : BaseObservable() {
+
+    @get:Bindable
+    var firstName: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.firstName)
+        }
+
+    @get:Bindable
+    var lastName: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.lastName)
+        }
+
+}
+
 

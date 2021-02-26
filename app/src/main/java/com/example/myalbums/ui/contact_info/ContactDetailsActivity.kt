@@ -18,7 +18,7 @@ class ContactDetailsActivity : DisposableActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_contact_details)
-        binding.user = UserContactInfo()
+        binding.user = UserInfo()
         disposeLater(viewModel.output.onInfoLoaded.subscribeOnMainThread { response ->
             when (response.state) {
                 State.SUCCESS -> response.data?.let {

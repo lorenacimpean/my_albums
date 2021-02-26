@@ -32,7 +32,6 @@
             android:paddingHorizontal="@dimen/large_padding"
             app:endIconMode="clear_text"
             app:errorEnabled="true"
-            app:errorText="@={error}"
             app:hintTextColor="@color/app_navy">
 
         <com.google.android.material.textfield.TextInputEditText
