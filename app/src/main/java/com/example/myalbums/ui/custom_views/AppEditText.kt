@@ -1,6 +1,7 @@
 package com.example.myalbums.ui.custom_views
 
 import android.content.Context
+import android.text.InputType.TYPE_CLASS_TEXT
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -40,9 +41,11 @@ class AppEditText(context: Context, attrs: AttributeSet) : TextInputLayout(conte
             field = value
         }
 
-    fun setInputType(inputType: Int?) {
-        binding.inputType = inputType
-    }
+    var inputType: Int = TYPE_CLASS_TEXT
+        set(value) {
+            binding.inputType = value
+            field = value
+        }
 
     fun addTextChangedListener(listener: TextWatcher) =
         binding.defaultEditText.addTextChangedListener(listener)
@@ -52,6 +55,7 @@ class AppEditText(context: Context, attrs: AttributeSet) : TextInputLayout(conte
                 .trim()
                 .isEmpty()
         ) {
+            binding.defaultTextInputLayout.isErrorEnabled = true
             binding.defaultTextInputLayout.error = context.getString(R.string.required_field)
             return false
         }

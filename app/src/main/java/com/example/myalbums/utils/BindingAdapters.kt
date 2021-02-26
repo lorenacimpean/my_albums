@@ -30,7 +30,6 @@ fun setTextListener(editText: AppEditText, listener: InverseBindingListener?) {
             }
 
             override fun afterTextChanged(editable: Editable) {
-                editText.isErrorEnabled = true
                 editText.validateField()
                 listener.onChange()
             }
