@@ -10,15 +10,18 @@ import androidx.databinding.InverseBindingMethod
 import androidx.databinding.InverseBindingMethods
 import com.example.myalbums.R
 import com.example.myalbums.databinding.LayoutAppEditTextBinding
+import com.example.myalbums.ui.contact_info.ValidationError
 import com.google.android.material.textfield.TextInputLayout
 
 @InverseBindingMethods(
     InverseBindingMethod(
         type = AppEditText::class,
         attribute = "android:text",
+        event = "android:textAttrChanged",
         method = "getText"
     ),
 )
+
 class AppEditText(context: Context, attrs: AttributeSet) : TextInputLayout(context, attrs) {
 
     private val binding: LayoutAppEditTextBinding
@@ -35,6 +38,12 @@ class AppEditText(context: Context, attrs: AttributeSet) : TextInputLayout(conte
             binding.input = value
         }
 
+    var error: ValidationError?
+        get() = binding.error
+        set(value) {
+            binding.error = value
+        }
+
     var label: String = ""
         set(value) {
             binding.label = value
@@ -49,21 +58,6 @@ class AppEditText(context: Context, attrs: AttributeSet) : TextInputLayout(conte
 
     fun addTextChangedListener(listener: TextWatcher) =
         binding.defaultEditText.addTextChangedListener(listener)
-
-    fun validateField(): Boolean {
-        if (binding.input.toString()
-                .trim()
-                .isEmpty()
-        ) {
-            binding.defaultTextInputLayout.isErrorEnabled = true
-            binding.defaultTextInputLayout.error = context.getString(R.string.required_field)
-            return false
-        }
-        else {
-            binding.defaultTextInputLayout.isErrorEnabled = false
-        }
-        return true
-    }
 
 }
 

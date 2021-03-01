@@ -12,6 +12,10 @@
                 name="user"
                 type="com.example.myalbums.ui.contact_info.UserInfo" />
 
+        <variable
+                name="error"
+                type="com.example.myalbums.ui.contact_info.ValidationErrors" />
+
 
     </data>
 
@@ -36,6 +40,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@={user.firstName}"
+                    app:error="@{error.firstNameError}"
                     app:inputType="@{InputType.TYPE_CLASS_TEXT}"
                     app:label="@{@string/first_name}" />
 
@@ -45,6 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@={user.lastName}"
+                    app:error="@{error.lastNameError}"
                     app:inputType="@{InputType.TYPE_CLASS_TEXT}"
                     app:label="@{@string/last_name}" />
 
@@ -60,6 +66,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@={user.email}"
+                    app:error="@{error.emailError}"
                     app:inputType="@{InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS}"
                     app:label="@{@string/email_address}" />
 
@@ -76,6 +83,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@={user.phone}"
+                    app:error="@{error.phoneError}"
                     app:inputType="@{InputType.TYPE_CLASS_PHONE}"
                     app:label="@{@string/phone_number}" />
 
@@ -96,6 +104,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@={user.address}"
+                    app:error="@{error.addressError}"
                     app:inputType="@{InputType.TYPE_CLASS_TEXT}"
                     app:label="@{@string/street_address}" />
 
@@ -112,6 +121,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@={user.city}"
+                    app:error="@{error.cityError}"
                     app:inputType="@{InputType.TYPE_CLASS_TEXT}"
                     app:label="@{@string/city}" />
 
@@ -121,6 +131,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@={user.country}"
+                    app:error="@{error.countryError}"
                     app:inputType="@{InputType.TYPE_CLASS_TEXT}"
                     app:label="@{@string/country}" />
 
@@ -137,6 +148,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@={user.zipCode}"
+                    app:error="@{error.zipError}"
                     app:inputType="@{InputType.TYPE_CLASS_NUMBER}"
                     app:label="@{@string/zip_code}" />
 

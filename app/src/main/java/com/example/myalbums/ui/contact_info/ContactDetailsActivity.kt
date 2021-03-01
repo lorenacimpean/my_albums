@@ -17,11 +17,13 @@ class ContactDetailsActivity : DisposableActivity() {
     private val viewModel: ContactDetailsViewModel by viewModel<ContactDetailsViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         disposeLater(viewModel.output.onInfoLoaded.subscribeOnMainThread { response ->
             when (response.state) {
                 State.SUCCESS -> response.data?.let {
                     binding = DataBindingUtil.setContentView(this, R.layout.activity_contact_details)
                     binding.user = it
+                    binding.error = ValidationErrors()
                     binding.toolbarLayout.toolbar.title = getString(R.string.contact_info)
                     setSupportActionBar(binding.toolbarLayout.toolbar)
                     supportActionBar?.setHomeAsUpIndicator(R.drawable.arrow_left)
@@ -32,8 +34,15 @@ class ContactDetailsActivity : DisposableActivity() {
             }
 
         })
-        disposeLater(viewModel.output.onSaveInfo.subscribeOnMainThread { it ->
-            print("TAPPPED ON APPLY")
+        disposeLater(viewModel.output.onSaveInfo.subscribeOnMainThread { response ->
+            when (response.state) {
+                State.SUCCESS -> response.data?.let {
+                    binding.error = it
+
+                }
+                State.LOADING -> print("LOADING")
+                State.ERROR   -> print("ERROR")
+            }
         })
         viewModel.input.loadInfo.onNext(true)
     }
