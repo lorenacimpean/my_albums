@@ -32,7 +32,7 @@ class AppEditText(context: Context, attrs: AttributeSet) : TextInputLayout(conte
 
     }
 
-    var text: String
+    var text: String?
         get() = binding.input.toString()
         set(value) {
             binding.input = value
