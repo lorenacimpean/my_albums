@@ -4,6 +4,8 @@ import com.example.myalbums.endpoint.*
 import com.example.myalbums.models.Album
 import com.example.myalbums.repo.AlbumsRepo
 import com.example.myalbums.repo.PhotosRepo
+import com.example.myalbums.repo.SharedPreferencesRepo
+import com.example.myalbums.repo.getSharedPrefs
 import com.example.myalbums.ui.album_details.AlbumDetailsItem
 import com.example.myalbums.ui.album_details.AlbumDetailsViewModel
 import com.example.myalbums.ui.contact_info.ContactDetailsViewModel
@@ -13,6 +15,7 @@ import com.example.myalbums.ui.profile_screen.ProfileViewModel
 import com.example.myalbums.ui.splash_screen.SplashViewModel
 import com.example.myalbums.utils.RxOnItemClickListener
 import io.reactivex.rxjava3.subjects.PublishSubject
+import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import com.example.myalbums.ui.album_details.Input as detailsInput
@@ -29,7 +32,7 @@ val viewModelModule = module {
     viewModel { AlbumDetailsViewModel(get(), get()) }
     viewModel { PhotoGalleryViewModel(get()) }
     viewModel { ProfileViewModel(get()) }
-    viewModel { ContactDetailsViewModel(get()) }
+    viewModel { ContactDetailsViewModel(get(), get()) }
 }
 
 // view model input di
@@ -63,6 +66,7 @@ val itemClicksModule = module {
 val repoModule = module {
     factory { AlbumsRepo(get()) }
     factory { PhotosRepo(get()) }
+    factory { SharedPreferencesRepo(get()) }
 }
 
 // endpoint di
@@ -71,5 +75,14 @@ val apiModule = module {
     factory { provideLoggingInterceptor() }
     single { provideRetrofit(get()) }
     factory { provideAlbumsApi(get()) }
-    factory { providePhotosApi(get()) }
+    factory {
+        providePhotosApi(get())
+    }
 }
+
+val appModule = module {
+    single {
+        getSharedPrefs(androidApplication())
+    }
+}
+

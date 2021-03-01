@@ -4,18 +4,25 @@ import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.lifecycle.ViewModel
 import com.example.myalbums.BR
+import com.example.myalbums.repo.SharedPreferencesRepo
 import com.example.myalbums.utils.RxOnItemClickListener
 import com.example.myalbums.utils.UiModel
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.subjects.PublishSubject
 
-class ContactDetailsViewModel(val input: Input) : ViewModel() {
+class ContactDetailsViewModel(
+        val input: Input,
+        val sharedPreferences: SharedPreferencesRepo) :
+        ViewModel() {
 
     private lateinit var userInfo: UserInfo
 
     val output: Output by lazy {
         val onInfoLoaded = input.loadInfo.flatMap {
-            userInfo = UserInfo()
+            sharedPreferences.getUserInfoFromSharedPreferences()
+                .map {
+                    it?.let { userInfo = it }
+                }
             return@flatMap Observable.just(UiModel.success(userInfo))
         }
             .startWith(Observable.just(UiModel.loading()))
@@ -23,10 +30,12 @@ class ContactDetailsViewModel(val input: Input) : ViewModel() {
 
         val onSaveInfo = input.saveInfo.rx.map {
             print(userInfo.firstName)
+            sharedPreferences.saveUserInfo(userInfo)
             return@map it
         }
         Output(onInfoLoaded, onSaveInfo)
     }
+
 }
 
 data class Input(
