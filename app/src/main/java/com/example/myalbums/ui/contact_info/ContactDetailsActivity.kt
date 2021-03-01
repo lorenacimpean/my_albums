@@ -37,11 +37,15 @@ class ContactDetailsActivity : DisposableActivity() {
         disposeLater(viewModel.output.onSaveInfo.subscribeOnMainThread { response ->
             when (response.state) {
                 State.SUCCESS -> response.data?.let {
-                    binding.error = it
+                    binding.error = response.data
+                    print("SUCCESS -> save in shared preferences")
 
                 }
                 State.LOADING -> print("LOADING")
-                State.ERROR   -> print("ERROR")
+
+                State.ERROR   -> {
+                    binding.error = response.data
+                }
             }
         })
         viewModel.input.loadInfo.onNext(true)

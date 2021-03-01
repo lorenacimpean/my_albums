@@ -32,11 +32,11 @@ fun setTextListener(editText: AppEditText, listener: InverseBindingListener?) {
 
             override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
                 editText.error = ValidationError()
+                listener.onChange()
             }
 
             override fun afterTextChanged(editable: Editable) {
 
-                listener.onChange()
             }
         })
 
@@ -45,14 +45,11 @@ fun setTextListener(editText: AppEditText, listener: InverseBindingListener?) {
 
 @BindingAdapter("errorText")
 fun setError(textInputLayout: TextInputLayout, error: ValidationError?) {
-    if (error?.hasError == true) {
-        when (error.errorType) {
-            ErrorType.FIELD_EMPTY ->
-                textInputLayout.error = textInputLayout.context.getString(R.string.required_field)
+    when (error?.errorType) {
+        ErrorType.FIELD_EMPTY ->
+            textInputLayout.error = textInputLayout.context.getString(R.string.required_field)
 
-            else                  -> textInputLayout.error = ""
-        }
-
+        else                  -> textInputLayout.error = ""
     }
 
 }

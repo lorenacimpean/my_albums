@@ -22,8 +22,16 @@ class ContactDetailsViewModel(val input: Input) : ViewModel() {
             .onErrorReturn { UiModel.error(it.localizedMessage) }
 
         val onSaveInfo = input.saveInfo.rx.map {
-            return@map UiModel.success(validateAllFields())
+            val errors = validateAllFields()
+            if (errors.areAllFieldsValid()) {
+                return@map UiModel.success(errors)
+            }
+            else {
+                return@map UiModel.error(errorMessage = null, data = errors)
+            }
         }
+            .startWith(Observable.just(UiModel.loading()))
+
         Output(onInfoLoaded, onSaveInfo)
     }
 
@@ -62,7 +70,19 @@ data class ValidationErrors(
         var cityError: ValidationError? = null,
         var countryError: ValidationError? = null,
         var zipError: ValidationError? = null,
-)
+) {
+
+    fun areAllFieldsValid(): Boolean {
+        return firstNameError?.hasError == false &&
+                lastNameError?.hasError == false &&
+                emailError?.hasError == false &&
+                phoneError?.hasError == false &&
+                addressError?.hasError == false &&
+                cityError?.hasError == false &&
+                countryError?.hasError == false &&
+                zipError?.hasError == false
+    }
+}
 
 enum class ErrorType { FIELD_EMPTY, NONE }
 data class ValidationError(
