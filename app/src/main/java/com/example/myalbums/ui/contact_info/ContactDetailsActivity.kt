@@ -17,23 +17,34 @@ class ContactDetailsActivity : DisposableActivity() {
     private val viewModel: ContactDetailsViewModel by viewModel<ContactDetailsViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_contact_details)
+        binding.toolbarLayout.toolbar.title = getString(R.string.contact_info)
+        setSupportActionBar(binding.toolbarLayout.toolbar)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.arrow_left)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         disposeLater(viewModel.output.onInfoLoaded.subscribeOnMainThread { response ->
             when (response.state) {
                 State.SUCCESS -> response.data?.let {
-                    binding = DataBindingUtil.setContentView(this, R.layout.activity_contact_details)
-                    binding.user = it
-                    binding.toolbarLayout.toolbar.title = getString(R.string.contact_info)
-                    setSupportActionBar(binding.toolbarLayout.toolbar)
-                    supportActionBar?.setHomeAsUpIndicator(R.drawable.arrow_left)
-                    supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                    binding.userInfo = it
+
                 }
                 State.LOADING -> print("LOADING")
                 State.ERROR   -> print("ERROR")
             }
 
         })
-        disposeLater(viewModel.output.onSaveInfo.subscribeOnMainThread { it ->
-            print("TAPPPED ON APPLY")
+        disposeLater(viewModel.output.onSaveInfo.subscribeOnMainThread { response ->
+            when (response.state) {
+                State.SUCCESS -> response.data?.let {
+                    binding.error = response.data
+
+                }
+                State.LOADING -> print("LOADING")
+
+                State.ERROR   -> {
+                    binding.error = response.data
+                }
+            }
         })
         viewModel.input.loadInfo.onNext(true)
     }

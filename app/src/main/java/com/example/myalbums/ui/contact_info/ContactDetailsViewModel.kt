@@ -12,29 +12,98 @@ import io.reactivex.rxjava3.subjects.PublishSubject
 
 class ContactDetailsViewModel(
         val input: Input,
-        val sharedPreferences: SharedPreferencesRepo) :
+
+        private val sharedPreferences: SharedPreferencesRepo) :
         ViewModel() {
 
     private lateinit var userInfo: UserInfo
 
     val output: Output by lazy {
         val onInfoLoaded = input.loadInfo.flatMap {
+            userInfo = UserInfo()
             sharedPreferences.getUserInfoFromSharedPreferences()
-                .map {
-                    it?.let { userInfo = it }
+                .map { info ->
+                    info?.let {
+                        userInfo = info
+                    }
                 }
             return@flatMap Observable.just(UiModel.success(userInfo))
         }
             .startWith(Observable.just(UiModel.loading()))
             .onErrorReturn { UiModel.error(it.localizedMessage) }
 
-        val onSaveInfo = input.saveInfo.rx.map {
-            print(userInfo.firstName)
-            sharedPreferences.saveUserInfo(userInfo)
-            return@map it
+        val onSaveInfo = input.saveInfo.rx.flatMap {
+            val errors = validateAllFields()
+            if (errors.areAllFieldsValid()) {
+                sharedPreferences.saveUserInfo(userInfo)
+
+                return@flatMap Observable.just(UiModel.success(errors))
+            }
+            else {
+                return@flatMap Observable.just(UiModel.error(errorMessage = null, data = errors))
+            }
         }
+            .startWith(Observable.just(UiModel.loading()))
+
         Output(onInfoLoaded, onSaveInfo)
     }
+
+    private fun validateAllFields(): ValidationErrors {
+        val errors = ValidationErrors()
+        errors.firstNameError = validateField(userInfo.firstName)
+        errors.lastNameError = validateField(userInfo.lastName)
+        errors.emailError = validateField(userInfo.email)
+        errors.phoneError = validateField(userInfo.phone)
+        errors.cityError = validateField(userInfo.city)
+        errors.addressError = validateField(userInfo.address)
+        errors.countryError = validateField(userInfo.country)
+        errors.zipError = validateField(userInfo.zipCode)
+        return errors
+
+    }
+
+    private fun validateField(input: String?): ValidationError? {
+        return if (input?.trim()
+                ?.isEmpty() == true
+        ) {
+            ValidationError(ErrorType.FIELD_EMPTY, true)
+        }
+        else null
+
+    }
+
+}
+
+data class ValidationErrors(
+        var firstNameError: ValidationError? = null,
+        var lastNameError: ValidationError? = null,
+        var emailError: ValidationError? = null,
+        var phoneError: ValidationError? = null,
+        var addressError: ValidationError? = null,
+        var cityError: ValidationError? = null,
+        var countryError: ValidationError? = null,
+        var zipError: ValidationError? = null,
+) {
+
+    fun areAllFieldsValid(): Boolean {
+        return firstNameError?.hasError == false &&
+                lastNameError?.hasError == false &&
+                emailError?.hasError == false &&
+                phoneError?.hasError == false &&
+                addressError?.hasError == false &&
+                cityError?.hasError == false &&
+                countryError?.hasError == false &&
+                zipError?.hasError == false
+    }
+}
+
+enum class ErrorType { FIELD_EMPTY, NONE }
+data class ValidationError(
+        var errorType: ErrorType,
+        var hasError: Boolean
+) {
+
+    constructor() : this(ErrorType.NONE, false)
 
 }
 
@@ -45,7 +114,7 @@ data class Input(
 
 data class Output(
         val onInfoLoaded: Observable<UiModel<UserInfo>>,
-        val onSaveInfo: Observable<Boolean>
+        val onSaveInfo: Observable<UiModel<ValidationErrors>>
 )
 
 class UserInfo : BaseObservable() {
