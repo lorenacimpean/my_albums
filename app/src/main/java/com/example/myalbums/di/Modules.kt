@@ -6,6 +6,7 @@ import com.example.myalbums.repo.AlbumsRepo
 import com.example.myalbums.repo.PhotosRepo
 import com.example.myalbums.ui.album_details.AlbumDetailsItem
 import com.example.myalbums.ui.album_details.AlbumDetailsViewModel
+import com.example.myalbums.ui.contact_info.ContactDetailsViewModel
 import com.example.myalbums.ui.home_screen.HomeViewModel
 import com.example.myalbums.ui.photo_gallery.PhotoGalleryViewModel
 import com.example.myalbums.ui.profile_screen.ProfileViewModel
@@ -15,6 +16,7 @@ import io.reactivex.rxjava3.subjects.PublishSubject
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import com.example.myalbums.ui.album_details.Input as detailsInput
+import com.example.myalbums.ui.contact_info.Input as contactInput
 import com.example.myalbums.ui.home_screen.Input as homeInput
 import com.example.myalbums.ui.photo_gallery.Input as photoInput
 import com.example.myalbums.ui.profile_screen.Input as profileInput
@@ -27,6 +29,7 @@ val viewModelModule = module {
     viewModel { AlbumDetailsViewModel(get(), get()) }
     viewModel { PhotoGalleryViewModel(get()) }
     viewModel { ProfileViewModel(get()) }
+    viewModel { ContactDetailsViewModel(get()) }
 }
 
 // view model input di
@@ -36,6 +39,7 @@ val viewModelInputModule = module {
     single { detailsInput(get(), get()) }
     single { photoInput(get()) }
     single { profileInput(get()) }
+    single { contactInput(get(), get()) }
 }
 
 // view model subjects di

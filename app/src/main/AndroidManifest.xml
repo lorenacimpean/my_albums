@@ -30,7 +30,7 @@
                 android:name=".ui.photo_gallery.PhotoGalleryActivity"
                 android:theme="@style/AppTheme.NoActionBar.Launcher" />
         <activity
-                android:name=".ui.profile_screen.ContactDetailsActivity"
+                android:name=".ui.contact_info.ContactDetailsActivity"
                 android:theme="@style/AppTheme.NoActionBar.Launcher" />
     </application>
 
