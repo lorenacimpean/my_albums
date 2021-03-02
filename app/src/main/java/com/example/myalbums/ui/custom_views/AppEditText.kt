@@ -5,7 +5,9 @@ import android.text.InputType.TYPE_CLASS_TEXT
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import androidx.databinding.*
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.InverseBindingMethod
+import androidx.databinding.InverseBindingMethods
 import com.example.myalbums.R
 import com.example.myalbums.databinding.LayoutAppEditTextBinding
 import com.example.myalbums.ui.contact_info.ValidationError
@@ -20,7 +22,7 @@ import com.google.android.material.textfield.TextInputLayout
     ),
 )
 
-class AppEditText(context: Context, attrs: AttributeSet) : TextInputLayout(context, attrs), Observable {
+class AppEditText(context: Context, attrs: AttributeSet) : TextInputLayout(context, attrs) {
 
     private val binding: LayoutAppEditTextBinding
 
@@ -30,7 +32,7 @@ class AppEditText(context: Context, attrs: AttributeSet) : TextInputLayout(conte
 
     }
 
-    @get:Bindable
+
     var text: String? = ""
         get() = binding.input.toString()
         set(value) {
@@ -61,13 +63,7 @@ class AppEditText(context: Context, attrs: AttributeSet) : TextInputLayout(conte
     fun addTextChangedListener(listener: TextWatcher) =
         binding.defaultEditText.addTextChangedListener(listener)
 
-    override fun addOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
-        callback
-    }
 
-    override fun removeOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
-        TODO("Not yet implemented")
-    }
 
 }
 
