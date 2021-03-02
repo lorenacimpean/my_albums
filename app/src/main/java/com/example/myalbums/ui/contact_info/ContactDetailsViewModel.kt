@@ -16,14 +16,12 @@ class ContactDetailsViewModel(val input: Input, private val sharedPreferences: S
 
     val output: Output by lazy {
         val onInfoLoaded = input.loadInfo.flatMap {
-            userInfo = UserInfo()
             sharedPreferences.getUserInfoFromSharedPreferences()
                 .map { info ->
-                    info?.let {
-                        userInfo = info
-                    }
+                    userInfo = info ?: UserInfo()
+                    return@map UiModel.success(userInfo)
                 }
-            return@flatMap Observable.just(UiModel.success(userInfo))
+
         }
             .startWith(Observable.just(UiModel.loading()))
             .onErrorReturn { UiModel.error(it.localizedMessage) }
@@ -187,63 +185,3 @@ data class UserInfo(
                          "",
                          "")
 }
-
-//data class UserInfo() : BaseObservable() {
-//
-//    @get:Bindable
-//    var firstName: String = ""
-//        set(value) {
-//            field = value
-//            notifyPropertyChanged(BR.firstName)
-//        }
-//
-//    @get:Bindable
-//    var lastName: String = ""
-//        set(value) {
-//            field = value
-//            notifyPropertyChanged(BR.lastName)
-//        }
-//
-//    @get:Bindable
-//    var email: String = ""
-//        set(value) {
-//            field = value
-//            notifyPropertyChanged(BR.email)
-//        }
-//
-//    @get:Bindable
-//    var phone: String = ""
-//        set(value) {
-//            field = value
-//            notifyPropertyChanged(BR.phone)
-//        }
-//
-//    @get:Bindable
-//    var address: String = ""
-//        set(value) {
-//            field = value
-//            notifyPropertyChanged(BR.address)
-//        }
-//
-//    @get:Bindable
-//    var city: String = ""
-//        set(value) {
-//            field = value
-//            notifyPropertyChanged(BR.city)
-//        }
-//
-//    @get:Bindable
-//    var country: String = ""
-//        set(value) {
-//            field = value
-//            notifyPropertyChanged(BR.country)
-//        }
-//
-//    @get:Bindable
-//    var zipCode: String = ""
-//        set(value) {
-//            field = value
-//            notifyPropertyChanged(BR.zipCode)
-//        }
-//
-//}

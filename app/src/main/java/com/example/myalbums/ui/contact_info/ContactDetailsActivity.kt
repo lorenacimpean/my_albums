@@ -26,8 +26,6 @@ class ContactDetailsActivity : DisposableActivity() {
             when (response.state) {
                 State.SUCCESS -> response.data?.let {
                     binding.userInfo = it
-
-
                 }
                 State.LOADING -> print("LOADING")
                 State.ERROR   -> print("ERROR")
