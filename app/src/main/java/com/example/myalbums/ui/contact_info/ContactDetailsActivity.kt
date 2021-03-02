@@ -3,6 +3,7 @@ package com.example.myalbums.ui.contact_info
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.myalbums.R
 import com.example.myalbums.databinding.ActivityContactDetailsBinding
@@ -35,8 +36,9 @@ class ContactDetailsActivity : DisposableActivity() {
         disposeLater(viewModel.output.onSaveInfo.subscribeOnMainThread { response ->
             when (response.state) {
                 State.SUCCESS -> response.data?.let {
-                    binding.error = response.data
-
+                    Toast.makeText(this, getString(R.string.info_saved), Toast.LENGTH_SHORT)
+                        .show()
+                    this.finish()
                 }
                 State.LOADING -> print("LOADING")
 

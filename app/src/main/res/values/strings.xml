@@ -27,5 +27,6 @@
     <string name="zip_code">Zip Code</string>
     <string name="use_location">Use my location</string>
     <string name="required_field">Required Field!</string>
+    <string name="info_saved">Info saved!</string>
 
 </resources>
