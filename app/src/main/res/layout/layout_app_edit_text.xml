@@ -42,12 +42,5 @@
                 android:singleLine="true"
                 android:text="@={input}" />
 
-        <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/error_view"
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/app_red" />
-
     </com.google.android.material.textfield.TextInputLayout>
 </layout>
