@@ -21,8 +21,8 @@ class ContactDetailsActivity : DisposableActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_contact_details)
         binding.toolbarLayout.toolbar.title = getString(R.string.contact_info)
         setSupportActionBar(binding.toolbarLayout.toolbar)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.arrow_left)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        setUpBackButton()
+
         disposeLater(viewModel.output.onInfoLoaded.subscribeOnMainThread { response ->
             when (response.state) {
                 State.SUCCESS -> response.data?.let {
@@ -52,8 +52,7 @@ class ContactDetailsActivity : DisposableActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menu.clear()
-        val inflater = menuInflater
-        inflater.inflate(R.menu.menu_items, menu)
+        menuInflater.inflate(R.menu.menu_items, menu)
         menu.getItem(0).title = getText(R.string.apply)
         menu.getItem(0).icon = null
         return super.onCreateOptionsMenu(menu)
@@ -62,6 +61,11 @@ class ContactDetailsActivity : DisposableActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         viewModel.input.saveInfo.onItemClick(true)
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        this.finish()
+        return super.onSupportNavigateUp()
     }
 
 }
