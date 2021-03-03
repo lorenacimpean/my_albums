@@ -14,7 +14,6 @@ class BaseApplication : Application() {
             androidFileProperties()
             modules(
                 listOf(
-                    appModule,
                     viewModelModule,
                     viewModelInputModule,
                     subjectModule,

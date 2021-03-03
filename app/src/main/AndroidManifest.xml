@@ -3,7 +3,9 @@
         package="com.example.myalbums">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
 
     <application
             android:name=".di.BaseApplication"
@@ -33,6 +35,9 @@
         <activity
                 android:name=".ui.contact_info.ContactDetailsActivity"
                 android:theme="@style/AppTheme.NoActionBar.Launcher" />
+
+
+
     </application>
 
 </manifest>

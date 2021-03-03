@@ -1,174 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        tools:context=".ui.contact_info.ContactDetailsActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.contact_info.ContactDetailsActivity">
 
     <data>
 
         <import type="android.text.InputType" />
 
         <variable
-                name="userInfo"
-                type="com.example.myalbums.ui.contact_info.UserInfo" />
+            name="userInfo"
+            type="com.example.myalbums.ui.contact_info.UserInfo" />
 
         <variable
-                name="error"
-                type="com.example.myalbums.ui.contact_info.ValidationErrors" />
+            name="error"
+            type="com.example.myalbums.ui.contact_info.ValidationErrors" />
 
+        <variable
+            name="listener"
+            type="com.example.myalbums.utils.RxOnItemClickListener" />
 
     </data>
 
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <include
-                android:id="@+id/toolbar_layout"
-                layout="@layout/custom_toolbar" />
-
+            android:id="@+id/toolbar_layout"
+            layout="@layout/custom_toolbar" />
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/large_padding"
+            android:orientation="horizontal">
+
+            <com.example.myalbums.ui.custom_views.AppEditText
+                android:id="@+id/first_name_field"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/large_padding"
-                android:orientation="horizontal">
+                android:layout_weight="1"
+                android:text="@={userInfo.firstName}"
+                app:error="@{error.firstNameError}"
+                app:inputType="@{InputType.TYPE_CLASS_TEXT}"
+                app:label="@{@string/first_name}" />
 
             <com.example.myalbums.ui.custom_views.AppEditText
-                    android:id="@+id/first_name_field"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@={userInfo.firstName}"
-                    app:error="@{error.firstNameError}"
-                    app:inputType="@{InputType.TYPE_CLASS_TEXT}"
-                    app:label="@{@string/first_name}" />
-
-            <com.example.myalbums.ui.custom_views.AppEditText
-                    android:id="@+id/last_name_field"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@={userInfo.lastName}"
-                    app:error="@{error.lastNameError}"
-                    app:inputType="@{InputType.TYPE_CLASS_TEXT}"
-                    app:label="@{@string/last_name}" />
-
-        </LinearLayout>
-
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-            <com.example.myalbums.ui.custom_views.AppEditText
-                    android:id="@+id/email_field"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@={userInfo.email}"
-                    app:error="@{error.emailError}"
-                    app:inputType="@{InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS}"
-                    app:label="@{@string/email_address}" />
-
-        </LinearLayout>
-
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-            <com.example.myalbums.ui.custom_views.AppEditText
-                    android:id="@+id/phone_field"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@={userInfo.phone}"
-                    app:error="@{error.phoneError}"
-                    app:inputType="@{InputType.TYPE_CLASS_PHONE}"
-                    app:label="@{@string/phone_number}" />
-
-            <View
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-
-        </LinearLayout>
-
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-            <com.example.myalbums.ui.custom_views.AppEditText
-                    android:id="@+id/address_field"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@={userInfo.address}"
-                    app:error="@{error.addressError}"
-                    app:inputType="@{InputType.TYPE_CLASS_TEXT}"
-                    app:label="@{@string/street_address}" />
-
-        </LinearLayout>
-
-        <LinearLayout
+                android:id="@+id/last_name_field"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-            <com.example.myalbums.ui.custom_views.AppEditText
-                    android:id="@+id/city_field"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@={userInfo.city}"
-                    app:error="@{error.cityError}"
-                    app:inputType="@{InputType.TYPE_CLASS_TEXT}"
-                    app:label="@{@string/city}" />
-
-            <com.example.myalbums.ui.custom_views.AppEditText
-                    android:id="@+id/country_field"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@={userInfo.country}"
-                    app:error="@{error.countryError}"
-                    app:inputType="@{InputType.TYPE_CLASS_TEXT}"
-                    app:label="@{@string/country}" />
+                android:layout_weight="1"
+                android:text="@={userInfo.lastName}"
+                app:error="@{error.lastNameError}"
+                app:inputType="@{InputType.TYPE_CLASS_TEXT}"
+                app:label="@{@string/last_name}" />
 
         </LinearLayout>
 
         <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
             <com.example.myalbums.ui.custom_views.AppEditText
-                    android:id="@+id/zip_code_field"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@={userInfo.zipCode}"
-                    app:error="@{error.zipError}"
-                    app:inputType="@{InputType.TYPE_CLASS_NUMBER}"
-                    app:label="@{@string/zip_code}" />
+                android:id="@+id/email_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={userInfo.email}"
+                app:error="@{error.emailError}"
+                app:inputType="@{InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS}"
+                app:label="@{@string/email_address}" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <com.example.myalbums.ui.custom_views.AppEditText
+                android:id="@+id/phone_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@={userInfo.phone}"
+                app:error="@{error.phoneError}"
+                app:inputType="@{InputType.TYPE_CLASS_PHONE}"
+                app:label="@{@string/phone_number}" />
 
             <View
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <com.example.myalbums.ui.custom_views.AppEditText
+                android:id="@+id/address_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={userInfo.address}"
+                app:error="@{error.addressError}"
+                app:inputType="@{InputType.TYPE_CLASS_TEXT}"
+                app:label="@{@string/street_address}" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.example.myalbums.ui.custom_views.AppEditText
+                android:id="@+id/city_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@={userInfo.city}"
+                app:error="@{error.cityError}"
+                app:inputType="@{InputType.TYPE_CLASS_TEXT}"
+                app:label="@{@string/city}" />
+
+            <com.example.myalbums.ui.custom_views.AppEditText
+                android:id="@+id/country_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@={userInfo.country}"
+                app:error="@{error.countryError}"
+                app:inputType="@{InputType.TYPE_CLASS_TEXT}"
+                app:label="@{@string/country}" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <com.example.myalbums.ui.custom_views.AppEditText
+                android:id="@+id/zip_code_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@={userInfo.zipCode}"
+                app:error="@{error.zipError}"
+                app:inputType="@{InputType.TYPE_CLASS_NUMBER}"
+                app:label="@{@string/zip_code}" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
 
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginVertical="@dimen/large_padding"
-                android:text="@string/use_location"
-                android:textAllCaps="false"
-                app:cornerRadius="@dimen/button_radius" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginVertical="@dimen/large_padding"
+            android:onClick="@{(view) -> listener.onItemClick(true)}"
+            android:text="@string/use_location"
+            android:textAllCaps="false"
+            app:cornerRadius="@dimen/button_radius" />
     </LinearLayout>
-
 
 </layout>
