@@ -27,16 +27,15 @@ fun setTextListener(editText: AppEditText, listener: InverseBindingListener?) {
     if (listener != null) {
         editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-
             }
 
             override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+                editText.text = charSequence.toString()
                 editText.error = ValidationError()
                 listener.onChange()
             }
 
             override fun afterTextChanged(editable: Editable) {
-
             }
         })
 
@@ -53,3 +52,8 @@ fun setError(textInputLayout: TextInputLayout, error: ValidationError?) {
     }
 
 }
+
+
+
+
+

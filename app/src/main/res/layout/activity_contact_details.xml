@@ -9,7 +9,7 @@
         <import type="android.text.InputType" />
 
         <variable
-                name="user"
+                name="userInfo"
                 type="com.example.myalbums.ui.contact_info.UserInfo" />
 
         <variable
@@ -28,6 +28,7 @@
                 android:id="@+id/toolbar_layout"
                 layout="@layout/custom_toolbar" />
 
+
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -39,7 +40,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@={user.firstName}"
+                    android:text="@={userInfo.firstName}"
                     app:error="@{error.firstNameError}"
                     app:inputType="@{InputType.TYPE_CLASS_TEXT}"
                     app:label="@{@string/first_name}" />
@@ -49,7 +50,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@={user.lastName}"
+                    android:text="@={userInfo.lastName}"
                     app:error="@{error.lastNameError}"
                     app:inputType="@{InputType.TYPE_CLASS_TEXT}"
                     app:label="@{@string/last_name}" />
@@ -65,7 +66,7 @@
                     android:id="@+id/email_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@={user.email}"
+                    android:text="@={userInfo.email}"
                     app:error="@{error.emailError}"
                     app:inputType="@{InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS}"
                     app:label="@{@string/email_address}" />
@@ -82,7 +83,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@={user.phone}"
+                    android:text="@={userInfo.phone}"
                     app:error="@{error.phoneError}"
                     app:inputType="@{InputType.TYPE_CLASS_PHONE}"
                     app:label="@{@string/phone_number}" />
@@ -103,7 +104,7 @@
                     android:id="@+id/address_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@={user.address}"
+                    android:text="@={userInfo.address}"
                     app:error="@{error.addressError}"
                     app:inputType="@{InputType.TYPE_CLASS_TEXT}"
                     app:label="@{@string/street_address}" />
@@ -120,7 +121,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@={user.city}"
+                    android:text="@={userInfo.city}"
                     app:error="@{error.cityError}"
                     app:inputType="@{InputType.TYPE_CLASS_TEXT}"
                     app:label="@{@string/city}" />
@@ -130,7 +131,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@={user.country}"
+                    android:text="@={userInfo.country}"
                     app:error="@{error.countryError}"
                     app:inputType="@{InputType.TYPE_CLASS_TEXT}"
                     app:label="@{@string/country}" />
@@ -147,7 +148,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@={user.zipCode}"
+                    android:text="@={userInfo.zipCode}"
                     app:error="@{error.zipError}"
                     app:inputType="@{InputType.TYPE_CLASS_NUMBER}"
                     app:label="@{@string/zip_code}" />
@@ -167,7 +168,7 @@
                 android:text="@string/use_location"
                 android:textAllCaps="false"
                 app:cornerRadius="@dimen/button_radius" />
-
     </LinearLayout>
+
 
 </layout>

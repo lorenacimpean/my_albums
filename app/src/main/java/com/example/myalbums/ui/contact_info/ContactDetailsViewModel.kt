@@ -4,30 +4,38 @@ import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.lifecycle.ViewModel
 import com.example.myalbums.BR
+import com.example.myalbums.repo.SharedPreferencesRepo
 import com.example.myalbums.utils.RxOnItemClickListener
 import com.example.myalbums.utils.UiModel
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.subjects.PublishSubject
 
-class ContactDetailsViewModel(val input: Input) : ViewModel() {
+class ContactDetailsViewModel(val input: Input, private val sharedPreferences: SharedPreferencesRepo) : ViewModel() {
 
     private lateinit var userInfo: UserInfo
 
     val output: Output by lazy {
         val onInfoLoaded = input.loadInfo.flatMap {
-            userInfo = UserInfo()
-            return@flatMap Observable.just(UiModel.success(userInfo))
+            sharedPreferences.getUserInfoFromSharedPreferences()
+                .map { info ->
+                    userInfo = info ?: UserInfo()
+                    return@map UiModel.success(userInfo)
+                }
+
         }
             .startWith(Observable.just(UiModel.loading()))
             .onErrorReturn { UiModel.error(it.localizedMessage) }
 
-        val onSaveInfo = input.saveInfo.rx.map {
+        val onSaveInfo = input.saveInfo.rx.flatMap {
             val errors = validateAllFields()
             if (errors.areAllFieldsValid()) {
-                return@map UiModel.success(errors)
+                sharedPreferences.saveUserInfo(userInfo)
+                return@flatMap Observable.just(UiModel.success(errors))
             }
             else {
-                return@map UiModel.error(errorMessage = null, data = errors)
+
+                return@flatMap Observable.just(UiModel.error(errorMessage = "Please check that fields are not empty",
+                                                             data = errors))
             }
         }
             .startWith(Observable.just(UiModel.loading()))
@@ -49,13 +57,13 @@ class ContactDetailsViewModel(val input: Input) : ViewModel() {
 
     }
 
-    private fun validateField(input: String?): ValidationError? {
+    private fun validateField(input: String?): ValidationError {
         return if (input?.trim()
                 ?.isEmpty() == true
         ) {
             ValidationError(ErrorType.FIELD_EMPTY, true)
         }
-        else null
+        else ValidationError()
 
     }
 
@@ -104,65 +112,78 @@ data class Output(
         val onSaveInfo: Observable<UiModel<ValidationErrors>>
 )
 
-class UserInfo : BaseObservable() {
+data class UserInfo(
+        private var _firstName: String,
+        private var _lastName: String,
+        private var _email: String,
+        private var _phone: String,
+        private var _address: String,
+        private var _city: String,
+        private var _country: String,
+        private var _zipCode: String) : BaseObservable() {
 
-    @get:Bindable
-    var firstName: String = ""
+    var firstName: String
+        @Bindable get() = _firstName
         set(value) {
-            field = value
+            _firstName = value
             notifyPropertyChanged(BR.firstName)
         }
 
-    @get:Bindable
-    var lastName: String = ""
+    var lastName: String
+        @Bindable get() = _lastName
         set(value) {
-            field = value
+            _lastName = value
             notifyPropertyChanged(BR.lastName)
         }
 
-    @get:Bindable
-    var email: String = ""
+    var email: String
+        @Bindable get() = _email
         set(value) {
-            field = value
+            _email = value
             notifyPropertyChanged(BR.email)
         }
 
-    @get:Bindable
-    var phone: String = ""
+    var phone: String
+        @Bindable get() = _phone
         set(value) {
-            field = value
+            _phone = value
             notifyPropertyChanged(BR.phone)
         }
 
-    @get:Bindable
-    var address: String = ""
+    var address: String
+        @Bindable get() = _address
         set(value) {
-            field = value
+            _address = value
             notifyPropertyChanged(BR.address)
         }
 
-    @get:Bindable
-    var city: String = ""
+    var city: String
+        @Bindable get() = _city
         set(value) {
-            field = value
+            _city = value
             notifyPropertyChanged(BR.city)
         }
 
-    @get:Bindable
-    var country: String = ""
+    var country: String
+        @Bindable get() = _country
         set(value) {
-            field = value
+            _country = value
             notifyPropertyChanged(BR.country)
         }
 
-    @get:Bindable
-    var zipCode: String = ""
+    var zipCode: String
+        @Bindable get() = _zipCode
         set(value) {
-            field = value
+            _zipCode = value
             notifyPropertyChanged(BR.zipCode)
         }
 
+    constructor() : this("",
+                         "",
+                         "",
+                         "",
+                         "",
+                         "",
+                         "",
+                         "")
 }
-
-
-

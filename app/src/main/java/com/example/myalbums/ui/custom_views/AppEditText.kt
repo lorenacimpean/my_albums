@@ -32,16 +32,18 @@ class AppEditText(context: Context, attrs: AttributeSet) : TextInputLayout(conte
 
     }
 
-    var text: String?
-        get() = binding.input.toString()
+    var text: String? = ""
+        get() = binding.input
         set(value) {
             binding.input = value
+            field = value
         }
 
-    var error: ValidationError?
+    var error: ValidationError? = ValidationError()
         get() = binding.error
         set(value) {
             binding.error = value
+            field = value
         }
 
     var label: String = ""

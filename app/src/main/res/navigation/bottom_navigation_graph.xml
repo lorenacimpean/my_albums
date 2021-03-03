@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/bottom_nav_graph"
         app:startDestination="@id/homeFragment">
     <fragment
@@ -22,7 +23,11 @@
     <fragment
             android:id="@+id/profileFragment"
             android:name="com.example.myalbums.ui.profile_screen.ProfileFragment"
-            android:label="@string/profile" />
+            android:label="@string/profile" >
+        <action
+                android:id="@+id/action_profileFragment_to_contactDetailsActivity"
+                app:destination="@id/contactDetailsActivity" />
+    </fragment>
     <fragment
             android:id="@+id/albumDetailsFragment"
             android:name="com.example.myalbums.ui.album_details.AlbumDetailsFragment"
@@ -39,4 +44,10 @@
                 app:launchSingleTop="true"
                 app:popExitAnim="@animator/nav_default_pop_exit_anim" />
     </fragment>
+    <activity
+            android:id="@+id/contactDetailsActivity"
+            android:name="com.example.myalbums.ui.contact_info.ContactDetailsActivity"
+            android:label="activity_contact_details"
+            app:data=" "
+            tools:layout="@layout/activity_contact_details" />
 </navigation>
