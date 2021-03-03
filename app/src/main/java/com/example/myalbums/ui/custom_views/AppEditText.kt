@@ -32,13 +32,11 @@ class AppEditText(context: Context, attrs: AttributeSet) : TextInputLayout(conte
 
     }
 
-
     var text: String? = ""
-        get() = binding.input.toString()
+        get() = binding.input
         set(value) {
             binding.input = value
             field = value
-
         }
 
     var error: ValidationError? = ValidationError()
@@ -62,8 +60,6 @@ class AppEditText(context: Context, attrs: AttributeSet) : TextInputLayout(conte
 
     fun addTextChangedListener(listener: TextWatcher) =
         binding.defaultEditText.addTextChangedListener(listener)
-
-
 
 }
 

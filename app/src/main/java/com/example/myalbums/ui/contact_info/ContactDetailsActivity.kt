@@ -33,6 +33,7 @@ class ContactDetailsActivity : DisposableActivity() {
             }
 
         })
+
         disposeLater(viewModel.output.onSaveInfo.subscribeOnMainThread { response ->
             when (response.state) {
                 State.SUCCESS -> response.data?.let {
@@ -44,28 +45,28 @@ class ContactDetailsActivity : DisposableActivity() {
 
                 State.ERROR   -> {
                     binding.error = response.data
+                    Toast.makeText(this, response.error, Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         })
+
         viewModel.input.loadInfo.onNext(true)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menu.clear()
-        menuInflater.inflate(R.menu.menu_items, menu)
-        menu.getItem(0).title = getText(R.string.apply)
-        menu.getItem(0).icon = null
+        menuInflater.inflate(R.menu.text_button_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        viewModel.input.saveInfo.onItemClick(true)
+        if (item.itemId == R.id.menuButton) {
+            viewModel.input.saveInfo.onItemClick(true)
+        }
+        else {
+            this.finish()
+        }
         return super.onOptionsItemSelected(item)
     }
-
-    override fun onSupportNavigateUp(): Boolean {
-        this.finish()
-        return super.onSupportNavigateUp()
-    }
-
 }

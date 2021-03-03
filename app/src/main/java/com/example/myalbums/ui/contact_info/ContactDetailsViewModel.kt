@@ -33,7 +33,9 @@ class ContactDetailsViewModel(val input: Input, private val sharedPreferences: S
                 return@flatMap Observable.just(UiModel.success(errors))
             }
             else {
-                return@flatMap Observable.just(UiModel.error(errorMessage = null, data = errors))
+
+                return@flatMap Observable.just(UiModel.error(errorMessage = "Please check that fields are not empty",
+                                                             data = errors))
             }
         }
             .startWith(Observable.just(UiModel.loading()))

@@ -7,9 +7,7 @@ import com.example.myalbums.ui.contact_info.UserInfo
 import com.google.gson.Gson
 import io.reactivex.rxjava3.core.Observable
 
-class SharedPreferencesRepo(val sharedPref: SharedPreferences) {
-
-    private val USER_INFO = "userInfo"
+class SharedPreferencesRepo(private val sharedPref: SharedPreferences) {
 
     fun saveUserInfo(userInfo: UserInfo): Observable<Boolean> {
         val json = Gson().toJson(userInfo)
@@ -24,6 +22,11 @@ class SharedPreferencesRepo(val sharedPref: SharedPreferences) {
         val json = sharedPref.getString(USER_INFO, "")
         val result = Gson().fromJson(json, UserInfo::class.java)
         return Observable.just(result)
+    }
+
+    companion object {
+
+        private const val USER_INFO = "userInfo"
     }
 
 }
