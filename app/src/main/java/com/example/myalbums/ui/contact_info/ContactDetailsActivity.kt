@@ -39,7 +39,6 @@ class ContactDetailsActivity : DisposableActivity() {
                 State.SUCCESS -> response.data?.let {
                     Toast.makeText(this, getString(R.string.info_saved), Toast.LENGTH_SHORT)
                         .show()
-                    this.finish()
                 }
                 State.LOADING -> print("LOADING")
 
