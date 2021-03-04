@@ -40,7 +40,7 @@ class ContactDetailsViewModel(
                 .startWith(Observable.just(UiModel.loading()))
                 .onErrorReturn { UiModel.error(it.localizedMessage) }
         val onLocationClick = input.clickLocation.rx.flatMap {
-            locationRepo.getCurrentLocation()
+            locationRepo.getCurrentLocation().retry()
                     .toObservable()
                     .map {
                         //add decode location
