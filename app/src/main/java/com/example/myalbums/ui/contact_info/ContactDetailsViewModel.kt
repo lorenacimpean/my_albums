@@ -14,15 +14,14 @@ import io.reactivex.rxjava3.subjects.PublishSubject
 class ContactDetailsViewModel(
     val input : Input,
     private val sharedPreferences : SharedPreferencesRepo,
-    private val locationRepo : LocationRepo) :
-        ViewModel() {
+    private val locationRepo : LocationRepo) : ViewModel() {
 
     private lateinit var userInfo : UserInfo
     val output : Output by lazy {
         val onInfoLoaded = input.loadInfo.flatMap {
             sharedPreferences.getUserInfoFromSharedPreferences()
                     .map { info ->
-                        userInfo = info ?: UserInfo()
+                        userInfo = info
                         return@map UiModel.success(userInfo)
                     }
         }
@@ -42,11 +41,12 @@ class ContactDetailsViewModel(
                 .onErrorReturn { UiModel.error(it.localizedMessage) }
         val onLocationClick = input.clickLocation.rx.flatMap {
             locationRepo.getCurrentLocation()
+                    .toObservable()
                     .map {
                         //add decode location
                         print(it.latitude)
-                        userInfo.address = "TEST"
-                        userInfo.city = "TEST"
+                        userInfo.address = it.latitude.toString()
+                        userInfo.city = it.longitude.toString()
                         userInfo.country = "TEST"
                         userInfo.zipCode = "TEST"
                         return@map UiModel.success(userInfo)

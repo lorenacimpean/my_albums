@@ -1,30 +1,41 @@
 package com.example.myalbums.repo
 
-import android.annotation.SuppressLint
+import android.Manifest
 import android.app.Application
+import android.content.pm.PackageManager
 import android.location.Location
-import android.util.Log
+import androidx.core.app.ActivityCompat
+import com.example.myalbums.R
 import com.google.android.gms.location.FusedLocationProviderClient
-import io.reactivex.rxjava3.core.Observable
+import com.google.android.gms.location.LocationServices
+import io.reactivex.rxjava3.core.Single
 
-class LocationRepo(private val fusedLocationClient: FusedLocationProviderClient) {
+class LocationRepo(private val fusedLocationClient : FusedLocationProviderClient,
+                   private val application : Application) {
 
-    @SuppressLint("MissingPermission")
-    fun getCurrentLocation(): Observable<Location> {
-        Log.d(TAG, fusedLocationClient.lastLocation.result.latitude.toString())
-        Log.d(TAG, fusedLocationClient.lastLocation.result.longitude.toString())
-        return Observable.just(fusedLocationClient.lastLocation.result)
-
+    private lateinit var location : Location
+    fun getCurrentLocation() : Single<Location> {
+        return if (ActivityCompat.checkSelfPermission(application.applicationContext,
+                                                      Manifest.permission.ACCESS_FINE_LOCATION) !=
+            PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(
+                    application.applicationContext, Manifest.permission.ACCESS_COARSE_LOCATION) !=
+            PackageManager.PERMISSION_GRANTED) {
+            Single.error(LocationPermissionError(application.applicationContext.getString(R.string.permission_denied)))
+        } else {
+            fusedLocationClient.lastLocation
+                    .addOnSuccessListener { loc ->
+                        if (loc != null) {
+                            location = loc
+                        }
+                    }
+            return Single.just(location)
+        }
     }
-
-    companion object {
-
-        private const val TAG = "LocationRepo"
-    }
-
 }
 
-@SuppressLint("VisibleForTests")
-fun provideLocationRepo(application: Application): FusedLocationProviderClient {
-    return FusedLocationProviderClient(application.baseContext)
+fun provideLocationRepo(application : Application) : FusedLocationProviderClient {
+    return LocationServices.getFusedLocationProviderClient(application.applicationContext)
 }
+
+data class LocationPermissionError(var error : String) : Throwable()

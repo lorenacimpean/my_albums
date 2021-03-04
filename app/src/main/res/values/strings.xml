@@ -28,5 +28,8 @@
     <string name="use_location">Use my location</string>
     <string name="required_field">Required Field!</string>
     <string name="info_saved">Info saved!</string>
+    <string name="permission_denied">Location Permission is not granted</string>
+    <string name="permission_granted">Permission granted</string>
+    <string name="no_location">No location found!</string>
 
 </resources>

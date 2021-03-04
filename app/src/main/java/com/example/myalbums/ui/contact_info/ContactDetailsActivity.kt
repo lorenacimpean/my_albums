@@ -1,29 +1,36 @@
 package com.example.myalbums.ui.contact_info
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import android.widget.Toast.makeText
+import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import com.example.myalbums.R
 import com.example.myalbums.databinding.ActivityContactDetailsBinding
-import com.example.myalbums.di.PermissionActivity
+import com.example.myalbums.di.DisposableActivity
 import com.example.myalbums.utils.State
 import com.example.myalbums.utils.subscribeOnMainThread
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ContactDetailsActivity : PermissionActivity() {
+class ContactDetailsActivity : DisposableActivity() {
 
     private lateinit var binding : ActivityContactDetailsBinding
     private val viewModel : ContactDetailsViewModel by viewModel<ContactDetailsViewModel>()
     override fun onCreate(savedInstanceState : Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_contact_details)
-        binding.listener = viewModel.input.clickLocation
         binding.toolbarLayout.toolbar.title = getString(R.string.contact_info)
+        binding.listener = viewModel.input.clickLocation
         setSupportActionBar(binding.toolbarLayout.toolbar)
         setUpBackButton()
-        super.requestLocationPermissions()
+
+
+
         disposeLater(viewModel.output.onInfoLoaded.subscribeOnMainThread { response ->
             when (response.state) {
                 State.SUCCESS -> response.data?.let {
@@ -37,13 +44,13 @@ class ContactDetailsActivity : PermissionActivity() {
         disposeLater(viewModel.output.onSaveInfo.subscribeOnMainThread { response ->
             when (response.state) {
                 State.SUCCESS -> response.data?.let {
-                    Toast.makeText(this, getString(R.string.info_saved), Toast.LENGTH_SHORT)
+                    makeText(this, getString(R.string.info_saved), Toast.LENGTH_SHORT)
                             .show()
                 }
                 State.LOADING -> print("LOADING")
                 State.ERROR -> {
                     binding.error = response.data
-                    Toast.makeText(this, response.error, Toast.LENGTH_SHORT)
+                    makeText(this, response.error, Toast.LENGTH_SHORT)
                             .show()
                 }
             }
@@ -54,10 +61,11 @@ class ContactDetailsActivity : PermissionActivity() {
                     binding.userInfo = it
                 }
                 State.LOADING -> print("LOADING")
-                State.ERROR -> print("ERROR")
+                State.ERROR -> {
+                    requestLocationPermissions()
+                }
             }
         })
-
 
         viewModel.input.loadInfo.onNext(true)
     }
@@ -75,5 +83,31 @@ class ContactDetailsActivity : PermissionActivity() {
             this.finish()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onRequestPermissionsResult(requestCode : Int, permissions : Array<String>, grantResults : IntArray) {
+        if (requestCode == REQUEST_LOCATION) {
+            if (grantResults.size == 2 && grantResults.all {
+                    it == PackageManager.PERMISSION_GRANTED
+                }) {
+                Log.d(TAG, getString(R.string.permission_granted))
+                viewModel.input.clickLocation.onItemClick(true)
+            } else {
+                Log.e(TAG, getString(R.string.permission_denied))
+            }
+        }
+    }
+
+    private fun requestLocationPermissions() {
+        ActivityCompat.requestPermissions(this,
+                                          arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,
+                                                  Manifest.permission.ACCESS_COARSE_LOCATION),
+                                          REQUEST_LOCATION)
+    }
+
+    companion object {
+
+        private const val TAG = "ContactDetailsActivity"
+        private const val REQUEST_LOCATION = 1
     }
 }

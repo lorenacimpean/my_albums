@@ -7,20 +7,20 @@ import com.example.myalbums.ui.contact_info.UserInfo
 import com.google.gson.Gson
 import io.reactivex.rxjava3.core.Observable
 
-class SharedPreferencesRepo(private val sharedPref: SharedPreferences) {
+class SharedPreferencesRepo(private val sharedPref : SharedPreferences) {
 
-    fun saveUserInfo(userInfo: UserInfo): Observable<Boolean> {
+    fun saveUserInfo(userInfo : UserInfo) : Observable<Boolean> {
         val json = Gson().toJson(userInfo)
         sharedPref.edit()
-            .putString(USER_INFO, json)
-            .apply()
+                .putString(USER_INFO, json)
+                .apply()
         return Observable.just(true)
-
     }
 
-    fun getUserInfoFromSharedPreferences(): Observable<UserInfo> {
+    fun getUserInfoFromSharedPreferences() : Observable<UserInfo> {
         val json = sharedPref.getString(USER_INFO, "")
-        val result = Gson().fromJson(json, UserInfo::class.java)
+        var result = Gson().fromJson(json, UserInfo::class.java)
+        result = result ?: UserInfo()
         return Observable.just(result)
     }
 
@@ -28,9 +28,8 @@ class SharedPreferencesRepo(private val sharedPref: SharedPreferences) {
 
         private const val USER_INFO = "userInfo"
     }
-
 }
 
-fun getSharedPrefs(androidApplication: Application): SharedPreferences {
+fun getSharedPrefs(androidApplication : Application) : SharedPreferences {
     return androidApplication.getSharedPreferences("default", Context.MODE_PRIVATE)
 }
