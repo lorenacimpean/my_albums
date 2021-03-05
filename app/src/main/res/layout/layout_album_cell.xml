@@ -38,7 +38,7 @@
                 android:layout_weight="0"
                 android:background="@drawable/circle_drawable"
                 android:padding="@dimen/default_padding"
-                android:src="@drawable/album_icon" />
+                android:src="@drawable/contact_icon" />
 
 
             <LinearLayout
