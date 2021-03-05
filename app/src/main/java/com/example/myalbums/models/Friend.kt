@@ -2,7 +2,7 @@ package com.example.myalbums.models
 
 import com.google.gson.annotations.SerializedName
 
-data class User(
+data class Friend(
     @SerializedName("id")
     val id : Int,
     @SerializedName("name")

@@ -4,8 +4,8 @@
     <data>
 
         <variable
-            name="user"
-            type="com.example.myalbums.models.User" />
+            name="friend"
+            type="com.example.myalbums.models.Friend" />
 
     </data>
 
@@ -43,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="start"
                     android:paddingTop="@dimen/default_padding"
-                    android:text="@{user.name}"
+                    android:text="@{friend.name}"
                     android:textColor="@color/app_primary"
                     android:textSize="@dimen/mid_text_size"
                     android:textStyle="bold" />
@@ -54,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="@dimen/small_padding"
                     android:gravity="start"
-                    android:text="@{user.email}"
+                    android:text="@{friend.email}"
                     android:textColor="@color/app_dark_grey"
                     android:textSize="@dimen/default_text_size" />
 
