@@ -65,6 +65,7 @@ val repoModule = module {
     factory { PhotosRepo(get()) }
     factory { SharedPreferencesRepo(get()) }
     factory { LocationRepo(get(), get()) }
+    factory { FriendsRepo(get()) }
 }
 
 // endpoint di
@@ -75,6 +76,9 @@ val apiModule = module {
     factory { provideAlbumsApi(get()) }
     factory {
         providePhotosApi(get())
+    }
+    factory {
+        provideFriendsApi(get())
     }
     single {
         getSharedPrefs(androidApplication())
