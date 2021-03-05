@@ -1,8 +1,7 @@
 package com.example.myalbums.endpoint
 
 import com.example.myalbums.models.Friend
-import io.reactivex.rxjava3.core.Single
-import retrofit2.Response
+import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Headers
 
@@ -13,6 +12,6 @@ interface FriendsService {
 
     @GET(PATH)
     @Headers(HEADERS)
-    fun fetchFriends() : Single<Response<List<Friend>>>
+    fun fetchFriends() : Call<List<Friend>>
 }
 

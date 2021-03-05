@@ -31,7 +31,7 @@ val viewModelModule = module {
     viewModel { PhotoGalleryViewModel(get()) }
     viewModel { ProfileViewModel(get()) }
     viewModel { ContactDetailsViewModel(get(), get(), get()) }
-    viewModel { FriendsViewModel(get()) }
+    viewModel { FriendsViewModel(get(), get()) }
 }
 
 // view model input di
