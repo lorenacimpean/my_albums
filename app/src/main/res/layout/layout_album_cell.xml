@@ -14,7 +14,6 @@
 
     </data>
 
-
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,8 +37,7 @@
                 android:layout_weight="0"
                 android:background="@drawable/circle_drawable"
                 android:padding="@dimen/default_padding"
-                android:src="@drawable/contact_icon" />
-
+                android:src="@drawable/album_icon" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -76,7 +74,6 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="0"
                 android:src="@drawable/arrow_right" />
-
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
