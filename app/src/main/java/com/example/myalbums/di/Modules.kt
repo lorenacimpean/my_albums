@@ -39,7 +39,7 @@ val viewModelInputModule = module {
     single { detailsInput(get(), get()) }
     single { photoInput(get()) }
     single { profileInput(get()) }
-    single { contactInput(get(), get(), get()) }
+    single { contactInput(get(), get(), get(), get()) }
 }
 
 // view model subjects di

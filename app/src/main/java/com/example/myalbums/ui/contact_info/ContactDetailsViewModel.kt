@@ -4,8 +4,7 @@ import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.lifecycle.ViewModel
 import com.example.myalbums.BR
-import com.example.myalbums.repo.LocationRepo
-import com.example.myalbums.repo.SharedPreferencesRepo
+import com.example.myalbums.repo.*
 import com.example.myalbums.utils.RxOnItemClickListener
 import com.example.myalbums.utils.UiModel
 import io.reactivex.rxjava3.core.Observable
@@ -40,7 +39,11 @@ class ContactDetailsViewModel(
                 .startWith(Observable.just(UiModel.loading()))
                 .onErrorReturn { UiModel.error(it.localizedMessage) }
         val onLocationClick = input.clickLocation.rx.flatMap {
-            locationRepo.getCurrentLocation().retry()
+            return@flatMap locationRepo.getLocationPermission()
+                    .toObservable()
+        }
+        val onRequestLocation = input.requestLocation.flatMap {
+            locationRepo.getCurrentLocation()
                     .toObservable()
                     .map {
                         //add decode location
@@ -53,9 +56,11 @@ class ContactDetailsViewModel(
                     }
         }
                 .startWith(Observable.just(UiModel.loading()))
-                .onErrorReturn { UiModel.error(it.localizedMessage) }
+                .onErrorReturn {
+                    UiModel.error(it.localizedMessage)
+                }
 
-        Output(onInfoLoaded, onLocationClick, onSaveInfo)
+        Output(Observable.merge(onInfoLoaded, onRequestLocation), onLocationClick, onSaveInfo)
     }
 
     private fun validateAllFields() : ValidationErrors {
@@ -115,12 +120,13 @@ data class ValidationError(
 data class Input(
     val loadInfo : PublishSubject<Boolean>,
     val saveInfo : RxOnItemClickListener<Boolean>,
-    val clickLocation : RxOnItemClickListener<Boolean>
+    val clickLocation : RxOnItemClickListener<Boolean>,
+    val requestLocation : PublishSubject<Boolean>,
 )
 
 data class Output(
     val onInfoLoaded : Observable<UiModel<UserInfo>>,
-    val onLocationClick : Observable<UiModel<UserInfo>>,
+    val onLocationClick : Observable<MissingPermissionsError>,
     val onSaveInfo : Observable<UiModel<ValidationErrors>>
 )
 

@@ -1,6 +1,5 @@
 package com.example.myalbums.ui.contact_info
 
-import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
@@ -29,8 +28,6 @@ class ContactDetailsActivity : DisposableActivity() {
         setSupportActionBar(binding.toolbarLayout.toolbar)
         setUpBackButton()
 
-
-
         disposeLater(viewModel.output.onInfoLoaded.subscribeOnMainThread { response ->
             when (response.state) {
                 State.SUCCESS -> response.data?.let {
@@ -55,15 +52,13 @@ class ContactDetailsActivity : DisposableActivity() {
                 }
             }
         })
-        disposeLater(viewModel.output.onLocationClick.subscribeOnMainThread { response ->
-            when (response.state) {
-                State.SUCCESS -> response.data?.let {
-                    binding.userInfo = it
-                }
-                State.LOADING -> print("LOADING")
-                State.ERROR -> {
-                    requestLocationPermissions()
-                }
+        disposeLater(viewModel.output.onLocationClick.subscribeOnMainThread { permissionError ->
+            permissionError.missingPermissions?.let {
+                makeText(this, permissionError.message, Toast.LENGTH_SHORT)
+                        .show()
+                ActivityCompat.requestPermissions(this, it, REQUEST_LOCATION)
+            } ?: run {
+                viewModel.input.requestLocation.onNext(true)
             }
         })
 
@@ -96,13 +91,6 @@ class ContactDetailsActivity : DisposableActivity() {
                 Log.e(TAG, getString(R.string.permission_denied))
             }
         }
-    }
-
-    private fun requestLocationPermissions() {
-        ActivityCompat.requestPermissions(this,
-                                          arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,
-                                                  Manifest.permission.ACCESS_COARSE_LOCATION),
-                                          REQUEST_LOCATION)
     }
 
     companion object {
