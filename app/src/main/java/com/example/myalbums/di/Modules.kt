@@ -6,6 +6,7 @@ import com.example.myalbums.repo.*
 import com.example.myalbums.ui.album_details.AlbumDetailsItem
 import com.example.myalbums.ui.album_details.AlbumDetailsViewModel
 import com.example.myalbums.ui.contact_info.ContactDetailsViewModel
+import com.example.myalbums.ui.friends_screen.FriendsViewModel
 import com.example.myalbums.ui.home_screen.HomeViewModel
 import com.example.myalbums.ui.photo_gallery.PhotoGalleryViewModel
 import com.example.myalbums.ui.profile_screen.ProfileViewModel
@@ -30,6 +31,7 @@ val viewModelModule = module {
     viewModel { PhotoGalleryViewModel(get()) }
     viewModel { ProfileViewModel(get()) }
     viewModel { ContactDetailsViewModel(get(), get(), get()) }
+    viewModel { FriendsViewModel(get()) }
 }
 
 // view model input di
