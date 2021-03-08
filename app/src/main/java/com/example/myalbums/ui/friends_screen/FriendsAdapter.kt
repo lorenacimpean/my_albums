@@ -29,5 +29,5 @@ class FriendsAdapter() : RecyclerView.Adapter<FriendsAdapter.ViewHolder?>() {
         viewHolder.friendsBinding.friend = friendsList[position]
     }
 
-    override fun getItemCount() = friendsList.size
+    override fun getItemCount() = friendsList?.size
 }
