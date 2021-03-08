@@ -1,8 +1,7 @@
 package com.example.myalbums.ui.friends_screen
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.*
 import com.example.myalbums.models.Friend
 import com.example.myalbums.repo.FriendsRepo
 
@@ -11,5 +10,11 @@ class FriendsViewModel(private val repo : FriendsRepo,
 
     fun getFriends() : LiveData<List<Friend>?> {
         return repo.getFriends()
+    }
+
+    fun clickItemWithId(id : Int) : LiveData<Boolean> {
+        val result = MutableLiveData<Boolean>()
+        result.value = true
+        return result
     }
 }

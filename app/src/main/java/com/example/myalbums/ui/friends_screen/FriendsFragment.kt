@@ -2,6 +2,7 @@ package com.example.myalbums.ui.friends_screen
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myalbums.R
@@ -21,7 +22,15 @@ class FriendsFragment : BaseFragment() {
     ) : View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_friends, container, false)
         binding.friendsRecyclerView.layoutManager = LinearLayoutManager(context)
-        listAdapter = FriendsAdapter()
+        val clickListener = LiveDataClickListener { id ->
+            viewModel.clickItemWithId(id)
+                    .observe(
+                            viewLifecycleOwner) {
+                        Toast.makeText(this.context, "TAPPED ON CELL WITH $id", Toast.LENGTH_SHORT)
+                                .show()
+                    }
+        }
+        listAdapter = FriendsAdapter(clickListener)
         binding.friendsRecyclerView.adapter = listAdapter
         return binding.root
     }

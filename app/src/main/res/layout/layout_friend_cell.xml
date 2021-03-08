@@ -8,6 +8,10 @@
             name="friend"
             type="com.example.myalbums.models.Friend" />
 
+        <variable
+            name="listener"
+            type="com.example.myalbums.ui.friends_screen.LiveDataClickListener" />
+
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -15,6 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/large_padding"
         android:layout_marginVertical="@dimen/small_padding"
+        android:onClick="@{() -> listener.onClick(friend)}"
         app:cardBackgroundColor="@color/app_white"
         app:strokeColor="@color/extra_light_grey"
         app:strokeWidth="@dimen/border_width">
