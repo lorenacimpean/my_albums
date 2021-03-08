@@ -51,7 +51,6 @@ class ViewHolder(private val friendsBinding : LayoutFriendCellBinding) :
 
 class LiveDataClickListener(
     val clickListener : (friendId : Int) -> Unit) {
-
     fun onClick(friend : Friend) = clickListener(friend.id)
 }
 

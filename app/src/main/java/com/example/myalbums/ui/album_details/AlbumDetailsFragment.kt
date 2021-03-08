@@ -2,9 +2,7 @@ package com.example.myalbums.ui.album_details
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,9 +10,7 @@ import com.example.myalbums.R
 import com.example.myalbums.databinding.FragmentAlbumDetailsBinding
 import com.example.myalbums.di.BaseFragment
 import com.example.myalbums.models.Album
-import com.example.myalbums.ui.photo_gallery.PHOTOS
-import com.example.myalbums.ui.photo_gallery.PHOTO_INDEX
-import com.example.myalbums.ui.photo_gallery.PhotoGalleryActivity
+import com.example.myalbums.ui.photo_gallery.*
 import com.example.myalbums.utils.State
 import com.example.myalbums.utils.subscribeOnMainThread
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -44,7 +40,6 @@ class AlbumDetailsFragment : BaseFragment() {
                 val intent = Intent(it, PhotoGalleryActivity::class.java)
                 intent.putParcelableArrayListExtra(PHOTOS,
                                                    ArrayList(photoInfo.photos))
-
                 intent.putExtra(PHOTO_INDEX, photoInfo.currentPhotoIndex)
                 it.startActivity(intent)
             }

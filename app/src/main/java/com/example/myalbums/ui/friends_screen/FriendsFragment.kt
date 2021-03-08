@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myalbums.R
 import com.example.myalbums.databinding.FragmentFriendsBinding
@@ -28,6 +29,8 @@ class FriendsFragment : BaseFragment() {
                             viewLifecycleOwner) {
                         Toast.makeText(this.context, "TAPPED ON CELL WITH $id", Toast.LENGTH_SHORT)
                                 .show()
+                        val directions = FriendsFragmentDirections.goToComingSoon()
+                        findNavController().navigate(directions)
                     }
         }
         listAdapter = FriendsAdapter(clickListener)

@@ -31,5 +31,6 @@
     <string name="permission_denied">Location Permission is not granted</string>
     <string name="permission_granted">Permission granted</string>
     <string name="no_location">No location found!</string>
+    <string name="coming_soon">Coming soon</string>
 
 </resources>
