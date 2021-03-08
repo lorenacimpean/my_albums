@@ -52,7 +52,7 @@ class ContactDetailsActivity : DisposableActivity() {
                 }
             }
         })
-        disposeLater(viewModel.output.onLocationClick.subscribeOnMainThread { permissionError ->
+        disposeLater(viewModel.output.onMissingPermissions.subscribeOnMainThread { permissionError ->
             permissionError.missingPermissions?.let {
                 makeText(this, permissionError.message, Toast.LENGTH_SHORT)
                         .show()
