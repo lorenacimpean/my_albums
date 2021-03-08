@@ -54,8 +54,7 @@ class ContactDetailsActivity : DisposableActivity() {
         })
         disposeLater(viewModel.output.onMissingPermissions.subscribeOnMainThread { permissionError ->
             permissionError.missingPermissions?.let {
-                makeText(this, permissionError.message, Toast.LENGTH_SHORT)
-                        .show()
+                makeText(this, permissionError.message, Toast.LENGTH_SHORT).show()
                 ActivityCompat.requestPermissions(this, it, REQUEST_LOCATION)
             } ?: run {
                 viewModel.input.requestLocation.onNext(true)
