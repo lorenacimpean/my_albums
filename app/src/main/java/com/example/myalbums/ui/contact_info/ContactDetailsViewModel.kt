@@ -22,12 +22,14 @@ class ContactDetailsViewModel(
         val onInfoLoaded = input.loadInfo.flatMap {
             sharedPreferences.getUserInfoFromSharedPreferences()
                     .map { info ->
-                        userInfo = info
+                        userInfo = info ?: UserInfo()
                         return@map UiModel.success(userInfo)
                     }
+
         }
                 .startWith(Observable.just(UiModel.loading()))
                 .onErrorReturn { UiModel.error(it.localizedMessage) }
+
         val onSaveInfo = input.saveInfo.rx.flatMap {
             val errors = validateAllFields()
             if (errors.areAllFieldsValid()) {

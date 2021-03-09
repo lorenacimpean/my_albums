@@ -5,12 +5,8 @@
     <data>
 
         <variable
-            name="album"
-            type="com.example.myalbums.models.Album" />
-
-        <variable
-            name="listener"
-            type="com.example.myalbums.utils.RxOnItemClickListener" />
+            name="friend"
+            type="com.example.myalbums.models.Friend" />
 
     </data>
 
@@ -19,7 +15,6 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/large_padding"
         android:layout_marginVertical="@dimen/small_padding"
-        android:onClick="@{(view) -> listener.onItemClick(album)}"
         app:cardBackgroundColor="@color/app_white"
         app:strokeColor="@color/extra_light_grey"
         app:strokeWidth="@dimen/border_width">
@@ -37,7 +32,7 @@
                 android:layout_weight="0"
                 android:background="@drawable/circle_drawable"
                 android:padding="@dimen/default_padding"
-                android:src="@drawable/album_icon" />
+                android:src="@drawable/friends_icon" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -52,7 +47,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/default_padding"
-                    android:text="@{album.albumTitle}"
+                    android:text="@{friend.name}"
                     android:textColor="@color/app_primary"
                     android:textSize="@dimen/mid_text_size"
                     android:textStyle="bold" />
@@ -62,7 +57,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="8dp"
-                    android:text="@{@string/albumId(album.albumIdString)}"
+                    android:text="@{friend.email}"
                     android:textColor="@color/app_dark_grey"
                     android:textSize="@dimen/default_text_size" />
 

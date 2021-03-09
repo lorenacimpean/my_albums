@@ -82,4 +82,3 @@ val apiModule = module {
     single { provideLocationRepo(androidApplication()) }
 }
 
-
