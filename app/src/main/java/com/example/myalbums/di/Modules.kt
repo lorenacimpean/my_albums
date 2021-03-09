@@ -41,7 +41,7 @@ val viewModelInputModule = module {
     single { detailsInput(get(), get()) }
     single { photoInput(get()) }
     single { profileInput(get()) }
-    single { contactInput(get(), get(), get()) }
+    single { contactInput(get(), get()) }
 }
 
 // view model subjects di
@@ -66,7 +66,6 @@ val repoModule = module {
     factory { AlbumsRepo(get()) }
     factory { PhotosRepo(get()) }
     factory { SharedPreferencesRepo(get()) }
-    factory { LocationRepo(get(), get()) }
     factory { FriendsRepo(get()) }
 }
 
@@ -85,7 +84,6 @@ val apiModule = module {
     single {
         getSharedPrefs(androidApplication())
     }
-    single { provideLocationRepo(androidApplication()) }
 }
 
 
