@@ -8,6 +8,7 @@ import com.example.myalbums.BR
 import com.example.myalbums.repo.*
 import com.example.myalbums.utils.RxOnItemClickListener
 import com.example.myalbums.utils.UiModel
+import io.reactivex.rxjava3.annotations.NonNull
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.subjects.PublishSubject
 
@@ -25,11 +26,9 @@ class ContactDetailsViewModel(
                         userInfo = info ?: UserInfo()
                         return@map UiModel.success(userInfo)
                     }
-
         }
                 .startWith(Observable.just(UiModel.loading()))
                 .onErrorReturn { UiModel.error(it.localizedMessage) }
-
         val onSaveInfo = input.saveInfo.rx.flatMap {
             val errors = validateAllFields()
             if (errors.areAllFieldsValid()) {
@@ -49,10 +48,14 @@ class ContactDetailsViewModel(
         val onLocationResult = input.clickLocation.rx.flatMap {
             return@flatMap locationRepo.getCurrentLocation()
                     .map {
-                        LocationResult(location = it, error = null)
+                        LocationResult(location = it)
                     }
                     .onErrorReturn {
-                        LocationResult(location = null, error = MissingPermissionsError.fromThrowable(it))
+                        if (it is MissingPermissionsError) {
+                            LocationResult(permissionError = it)
+                        } else {
+                            LocationResult(locationError = it)
+                        }
                     }
                     .toObservable()
                     .share()
@@ -65,19 +68,21 @@ class ContactDetailsViewModel(
                 userInfo.zipCode = "TEST"
                 return@flatMap Observable.just(UiModel.success(userInfo))
             } else {
-                return@flatMap Observable.empty<UiModel<UserInfo>>()
+                return@flatMap Observable.just(UiModel.error(it.locationError?.localizedMessage))
             }
         }
-        val onErrorLocation = onLocationResult.flatMap {
-            if (it.error != null) {
-                return@flatMap Observable.just(it.error)
-            } else {
-                return@flatMap Observable.empty<MissingPermissionsError>()
+                .startWith(Observable.just(UiModel.loading()))
+        val onPermissionError = onLocationResult.flatMap {
+            when {
+                it.permissionError != null -> {
+                    return@flatMap Observable.just(it.permissionError)
+                }
+                else -> {
+                    return@flatMap Observable.empty<MissingPermissionsError>()
+                }
             }
         }
-
-
-        Output(Observable.merge(onInfoLoaded, onRequestLocation), onErrorLocation, onSaveInfo)
+        Output(Observable.merge(onInfoLoaded, onRequestLocation), onPermissionError, onSaveInfo)
     }
 
     private fun validateAllFields() : ValidationErrors {
@@ -95,16 +100,16 @@ class ContactDetailsViewModel(
 
     private fun validateField(input : String?) : ValidationError {
         return if (input?.trim()
-                    ?.isEmpty() == true
-        ) {
+                    ?.isEmpty() == true) {
             ValidationError(ErrorType.FIELD_EMPTY, true)
         } else ValidationError()
     }
 }
 
 data class LocationResult(
-    val location : Location?,
-    val error : MissingPermissionsError?
+    val location : Location? = null,
+    val locationError : Throwable? = null,
+    val permissionError : MissingPermissionsError? = null
 )
 
 data class ValidationErrors(
@@ -148,7 +153,7 @@ data class Input(
 
 data class Output(
     val onInfoLoaded : Observable<UiModel<UserInfo>>,
-    val onMissingPermissions : Observable<MissingPermissionsError>,
+    val onMissingPermissions : @NonNull Observable<MissingPermissionsError>,
     val onSaveInfo : Observable<UiModel<ValidationErrors>>
 )
 

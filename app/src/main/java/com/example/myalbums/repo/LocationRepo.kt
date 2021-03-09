@@ -22,7 +22,7 @@ class LocationRepo(
             ) !=
             PackageManager.PERMISSION_GRANTED
         ) {
-            Single.error(MissingPermissionsError(message = application.getString(R.string.permission_denied)))
+            Single.error(MissingPermissionsError.create(application.getString(R.string.permission_denied)))
         } else {
             fusedLocationClient.flushLocations()
             Single.create { emitter ->
@@ -32,28 +32,28 @@ class LocationRepo(
                         emitter.onSuccess(location)
                     }
                 }
+                //in case of Location error
+                task.addOnFailureListener { error ->
+                    emitter.onError(error)
+                }
             }
+        }
+    }
+}
+
+class MissingPermissionsError(
+    val missingPermissions : Array<String>?,
+    override var message : String? = null,
+) : Throwable(message) {
+
+    companion object {
+
+        fun create(errorMessage : String?) : MissingPermissionsError {
+            return MissingPermissionsError(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), errorMessage)
         }
     }
 }
 
 fun provideLocationRepo(application : Application) : FusedLocationProviderClient {
     return LocationServices.getFusedLocationProviderClient(application.applicationContext)
-}
-
-class MissingPermissionsError(
-    var missingPermissions : Array<String>? = null,
-    override var message : String? = null,
-) : Throwable(message) {
-
-    init {
-        missingPermissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
-    }
-
-    companion object {
-
-        fun fromThrowable(error : Throwable?) : MissingPermissionsError {
-            return MissingPermissionsError(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), error?.localizedMessage)
-        }
-    }
 }
