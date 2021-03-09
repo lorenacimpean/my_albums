@@ -2,13 +2,11 @@ package com.example.myalbums.di
 
 import com.example.myalbums.endpoint.*
 import com.example.myalbums.models.Album
-import com.example.myalbums.repo.AlbumsRepo
-import com.example.myalbums.repo.PhotosRepo
-import com.example.myalbums.repo.SharedPreferencesRepo
-import com.example.myalbums.repo.getSharedPrefs
+import com.example.myalbums.repo.*
 import com.example.myalbums.ui.album_details.AlbumDetailsItem
 import com.example.myalbums.ui.album_details.AlbumDetailsViewModel
 import com.example.myalbums.ui.contact_info.ContactDetailsViewModel
+import com.example.myalbums.ui.friends_screen.FriendsViewModel
 import com.example.myalbums.ui.home_screen.HomeViewModel
 import com.example.myalbums.ui.photo_gallery.PhotoGalleryViewModel
 import com.example.myalbums.ui.profile_screen.ProfileViewModel
@@ -33,6 +31,7 @@ val viewModelModule = module {
     viewModel { PhotoGalleryViewModel(get()) }
     viewModel { ProfileViewModel(get()) }
     viewModel { ContactDetailsViewModel(get(), get()) }
+    viewModel { FriendsViewModel(get(), get()) }
 }
 
 // view model input di
@@ -67,6 +66,7 @@ val repoModule = module {
     factory { AlbumsRepo(get()) }
     factory { PhotosRepo(get()) }
     factory { SharedPreferencesRepo(get()) }
+    factory { FriendsRepo(get()) }
 }
 
 // endpoint di
@@ -78,11 +78,12 @@ val apiModule = module {
     factory {
         providePhotosApi(get())
     }
-}
-
-val appModule = module {
+    factory {
+        provideFriendsApi(get())
+    }
     single {
         getSharedPrefs(androidApplication())
     }
 }
+
 

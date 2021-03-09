@@ -38,14 +38,14 @@ class ContactDetailsActivity : DisposableActivity() {
             when (response.state) {
                 State.SUCCESS -> response.data?.let {
                     Toast.makeText(this, getString(R.string.info_saved), Toast.LENGTH_SHORT)
-                        .show()
+                            .show()
                 }
                 State.LOADING -> print("LOADING")
 
                 State.ERROR   -> {
                     binding.error = response.data
                     Toast.makeText(this, response.error, Toast.LENGTH_SHORT)
-                        .show()
+                            .show()
                 }
             }
         })

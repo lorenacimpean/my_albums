@@ -17,14 +17,14 @@ class ContactDetailsViewModel(val input: Input, private val sharedPreferences: S
     val output: Output by lazy {
         val onInfoLoaded = input.loadInfo.flatMap {
             sharedPreferences.getUserInfoFromSharedPreferences()
-                .map { info ->
-                    userInfo = info ?: UserInfo()
-                    return@map UiModel.success(userInfo)
-                }
+                    .map { info ->
+                        userInfo = info ?: UserInfo()
+                        return@map UiModel.success(userInfo)
+                    }
 
         }
-            .startWith(Observable.just(UiModel.loading()))
-            .onErrorReturn { UiModel.error(it.localizedMessage) }
+                .startWith(Observable.just(UiModel.loading()))
+                .onErrorReturn { UiModel.error(it.localizedMessage) }
 
         val onSaveInfo = input.saveInfo.rx.flatMap {
             val errors = validateAllFields()
@@ -38,7 +38,7 @@ class ContactDetailsViewModel(val input: Input, private val sharedPreferences: S
                                                              data = errors))
             }
         }
-            .startWith(Observable.just(UiModel.loading()))
+                .startWith(Observable.just(UiModel.loading()))
 
         Output(onInfoLoaded, onSaveInfo)
     }
@@ -59,7 +59,7 @@ class ContactDetailsViewModel(val input: Input, private val sharedPreferences: S
 
     private fun validateField(input: String?): ValidationError {
         return if (input?.trim()
-                ?.isEmpty() == true
+                    ?.isEmpty() == true
         ) {
             ValidationError(ErrorType.FIELD_EMPTY, true)
         }
@@ -70,14 +70,14 @@ class ContactDetailsViewModel(val input: Input, private val sharedPreferences: S
 }
 
 data class ValidationErrors(
-        var firstNameError: ValidationError? = null,
-        var lastNameError: ValidationError? = null,
-        var emailError: ValidationError? = null,
-        var phoneError: ValidationError? = null,
-        var addressError: ValidationError? = null,
-        var cityError: ValidationError? = null,
-        var countryError: ValidationError? = null,
-        var zipError: ValidationError? = null,
+    var firstNameError: ValidationError? = null,
+    var lastNameError: ValidationError? = null,
+    var emailError: ValidationError? = null,
+    var phoneError: ValidationError? = null,
+    var addressError: ValidationError? = null,
+    var cityError: ValidationError? = null,
+    var countryError: ValidationError? = null,
+    var zipError: ValidationError? = null,
 ) {
 
     fun areAllFieldsValid(): Boolean {
@@ -94,8 +94,8 @@ data class ValidationErrors(
 
 enum class ErrorType { FIELD_EMPTY, NONE }
 data class ValidationError(
-        var errorType: ErrorType,
-        var hasError: Boolean
+    var errorType: ErrorType,
+    var hasError: Boolean
 ) {
 
     constructor() : this(ErrorType.NONE, false)
@@ -103,24 +103,24 @@ data class ValidationError(
 }
 
 data class Input(
-        val loadInfo: PublishSubject<Boolean>,
-        val saveInfo: RxOnItemClickListener<Boolean>
+    val loadInfo: PublishSubject<Boolean>,
+    val saveInfo: RxOnItemClickListener<Boolean>
 )
 
 data class Output(
-        val onInfoLoaded: Observable<UiModel<UserInfo>>,
-        val onSaveInfo: Observable<UiModel<ValidationErrors>>
+    val onInfoLoaded: Observable<UiModel<UserInfo>>,
+    val onSaveInfo: Observable<UiModel<ValidationErrors>>
 )
 
 data class UserInfo(
-        private var _firstName: String,
-        private var _lastName: String,
-        private var _email: String,
-        private var _phone: String,
-        private var _address: String,
-        private var _city: String,
-        private var _country: String,
-        private var _zipCode: String) : BaseObservable() {
+    private var _firstName: String,
+    private var _lastName: String,
+    private var _email: String,
+    private var _phone: String,
+    private var _address: String,
+    private var _city: String,
+    private var _country: String,
+    private var _zipCode: String) : BaseObservable() {
 
     var firstName: String
         @Bindable get() = _firstName
