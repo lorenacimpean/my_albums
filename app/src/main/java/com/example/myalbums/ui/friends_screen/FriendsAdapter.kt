@@ -25,6 +25,7 @@ class FriendsAdapter() : RecyclerView.Adapter<FriendsAdapter.ViewHolder?>() {
         return ViewHolder(binding)
     }
 
+
     override fun onBindViewHolder(viewHolder : ViewHolder, position : Int) {
         viewHolder.friendsBinding.friend = friendsList[position]
     }

@@ -7,10 +7,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myalbums.R
 import com.example.myalbums.databinding.FragmentFriendsBinding
 import com.example.myalbums.di.BaseFragment
-import com.example.myalbums.models.Friend
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FriendsFragment : BaseFragment() {
 
+    private val viewModel : FriendsViewModel by viewModel<FriendsViewModel>()
     private lateinit var binding : FragmentFriendsBinding
     private lateinit var listAdapter : FriendsAdapter
     override fun onCreateView(
@@ -25,12 +26,15 @@ class FriendsFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
-        listAdapter.friendsList = listOf(
-                Friend(1, "Jane Doe", "jane.doe", "jane.doe@test.com"),
-                Friend(2, "John Doe", "john.doe", "john.doe@test.com"),
-        )
-        listAdapter.notifyDataSetChanged()
+    override fun onViewCreated(view : View, savedInstanceState : Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.getFriends()
+                .observe(viewLifecycleOwner, { friends ->
+                    if (friends != null) {
+                        listAdapter.friendsList = friends
+                        listAdapter.notifyDataSetChanged()
+                    }
+                })
     }
 }
