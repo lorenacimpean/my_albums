@@ -30,7 +30,7 @@ val viewModelModule = module {
     viewModel { AlbumDetailsViewModel(get(), get()) }
     viewModel { PhotoGalleryViewModel(get()) }
     viewModel { ProfileViewModel(get()) }
-    viewModel { ContactDetailsViewModel(get(), get(), get()) }
+    viewModel { ContactDetailsViewModel(get(), get()) }
     viewModel { FriendsViewModel(get(), get()) }
 }
 
@@ -41,7 +41,7 @@ val viewModelInputModule = module {
     single { detailsInput(get(), get()) }
     single { photoInput(get()) }
     single { profileInput(get()) }
-    single { contactInput(get(), get(), get(), get()) }
+    single { contactInput(get(), get(), get()) }
 }
 
 // view model subjects di
