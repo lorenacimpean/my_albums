@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id "com.onesignal.androidsdk.onesignal-gradle-plugin"
 }
 
 android {
@@ -22,10 +23,12 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", "BASE_URL", "\"https://jsonplaceholder.typicode.com\""
+            buildConfigField "String", "ONE_SIGNAL_KEY", '"7334ff1f-0295-4c5a-84c3-cede3f5a7210"'
         }
 
         debug {
             buildConfigField "String", "BASE_URL", "\"https://jsonplaceholder.typicode.com\""
+            buildConfigField "String", "ONE_SIGNAL_KEY", "\"7334ff1f-0295-4c5a-84c3-cede3f5a7210\""
         }
     }
 
@@ -66,7 +69,7 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:adapter-rxjava3:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.4.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
     implementation 'org.conscrypt:conscrypt-android:2.2.1'
 
     //nav bar
@@ -87,8 +90,12 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:18.0.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
 
+    //push notifications
+    apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
+    implementation 'com.onesignal:OneSignal:4.2.0'
+
     //test
-    testImplementation 'junit:junit:4.13.1'
+    testImplementation 'junit:junit:4.13.2'
     testImplementation "org.koin:koin-test:$koin_version"
     testImplementation 'com.nhaarman:mockito-kotlin:1.5.0'
     testImplementation "androidx.arch.core:core-testing:2.1.0"

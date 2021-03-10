@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "40367994932",
+    "project_id": "my-albums-kotlin",
+    "storage_bucket": "my-albums-kotlin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:40367994932:android:a101513f0596bab7bab261",
+        "android_client_info": {
+          "package_name": "com.example.albums"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "40367994932-ggfalgjvfds9c639mrjn5kuorhi8pb6k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.albums",
+            "certificate_hash": "4e1b9f06f2093a483c511c104cfe150893f06a35"
+          }
+        },
+        {
+          "client_id": "40367994932-eiq1218estvfngp3ols6lj61utjmmrnb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAl0wXW9L-aoW9Pw-xf4OSwgPd0J1bBxmY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "40367994932-eiq1218estvfngp3ols6lj61utjmmrnb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
