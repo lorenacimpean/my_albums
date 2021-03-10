@@ -4,7 +4,6 @@ buildscript {
     ext.koin_version = "2.1.5"
     ext.nav_version = "2.3.3"
     ext.retrofit_version = "2.9.0"
-    ext.one_signal_version = "0.11.0"
     repositories {
         google()
         jcenter()
