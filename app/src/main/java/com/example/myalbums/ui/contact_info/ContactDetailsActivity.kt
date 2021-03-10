@@ -1,9 +1,13 @@
 package com.example.myalbums.ui.contact_info
 
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import android.widget.Toast.makeText
+import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import com.example.myalbums.R
 import com.example.myalbums.databinding.ActivityContactDetailsBinding
@@ -14,12 +18,13 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ContactDetailsActivity : DisposableActivity() {
 
-    private lateinit var binding: ActivityContactDetailsBinding
-    private val viewModel: ContactDetailsViewModel by viewModel<ContactDetailsViewModel>()
-    override fun onCreate(savedInstanceState: Bundle?) {
+    private lateinit var binding : ActivityContactDetailsBinding
+    private val viewModel : ContactDetailsViewModel by viewModel<ContactDetailsViewModel>()
+    override fun onCreate(savedInstanceState : Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_contact_details)
         binding.toolbarLayout.toolbar.title = getString(R.string.contact_info)
+        binding.listener = viewModel.input.clickLocation
         setSupportActionBar(binding.toolbarLayout.toolbar)
         setUpBackButton()
 
@@ -29,43 +34,69 @@ class ContactDetailsActivity : DisposableActivity() {
                     binding.userInfo = it
                 }
                 State.LOADING -> print("LOADING")
-                State.ERROR   -> print("ERROR")
+                State.ERROR -> response.error?.let {
+                    makeText(this, it, Toast.LENGTH_SHORT).show()
+                }
             }
-
         })
 
         disposeLater(viewModel.output.onSaveInfo.subscribeOnMainThread { response ->
             when (response.state) {
                 State.SUCCESS -> response.data?.let {
-                    Toast.makeText(this, getString(R.string.info_saved), Toast.LENGTH_SHORT)
+                    makeText(this, getString(R.string.info_saved), Toast.LENGTH_SHORT)
                             .show()
                 }
                 State.LOADING -> print("LOADING")
-
-                State.ERROR   -> {
+                State.ERROR -> {
                     binding.error = response.data
-                    Toast.makeText(this, response.error, Toast.LENGTH_SHORT)
+                    makeText(this, response.error, Toast.LENGTH_SHORT)
                             .show()
                 }
+            }
+        })
+        disposeLater(viewModel.output.onMissingPermissions.subscribeOnMainThread { permissionError ->
+            permissionError.missingPermissions?.let {
+
+                ActivityCompat.requestPermissions(this, it, REQUEST_LOCATION)
+            } ?: run {
+                viewModel.input.requestLocation.onNext(true)
             }
         })
 
         viewModel.input.loadInfo.onNext(true)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+    override fun onCreateOptionsMenu(menu : Menu) : Boolean {
         menu.clear()
         menuInflater.inflate(R.menu.text_button_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item : MenuItem) : Boolean {
         if (item.itemId == R.id.menuButton) {
             viewModel.input.saveInfo.onItemClick(true)
-        }
-        else {
+        } else {
             this.finish()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onRequestPermissionsResult(requestCode : Int, permissions : Array<String>, grantResults : IntArray) {
+        if (requestCode == REQUEST_LOCATION) {
+            if (grantResults.size == 2 && grantResults.all {
+                    it == PackageManager.PERMISSION_GRANTED
+                }) {
+                Log.d(TAG, getString(R.string.permission_granted))
+                viewModel.input.clickLocation.onItemClick(true)
+            } else {
+                Log.e(TAG, getString(R.string.permission_denied))
+            }
+        }
+    }
+
+    companion object {
+
+        private const val TAG = "ContactDetailsActivity"
+        private const val REQUEST_LOCATION = 1
     }
 }

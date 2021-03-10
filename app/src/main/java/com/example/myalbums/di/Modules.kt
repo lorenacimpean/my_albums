@@ -6,7 +6,6 @@ import com.example.myalbums.repo.*
 import com.example.myalbums.ui.album_details.AlbumDetailsItem
 import com.example.myalbums.ui.album_details.AlbumDetailsViewModel
 import com.example.myalbums.ui.contact_info.ContactDetailsViewModel
-import com.example.myalbums.ui.friends_screen.FriendsViewModel
 import com.example.myalbums.ui.home_screen.HomeViewModel
 import com.example.myalbums.ui.photo_gallery.PhotoGalleryViewModel
 import com.example.myalbums.ui.profile_screen.ProfileViewModel
@@ -30,8 +29,7 @@ val viewModelModule = module {
     viewModel { AlbumDetailsViewModel(get(), get()) }
     viewModel { PhotoGalleryViewModel(get()) }
     viewModel { ProfileViewModel(get()) }
-    viewModel { ContactDetailsViewModel(get(), get()) }
-    viewModel { FriendsViewModel(get(), get()) }
+    viewModel { ContactDetailsViewModel(get(), get(), get()) }
 }
 
 // view model input di
@@ -41,7 +39,7 @@ val viewModelInputModule = module {
     single { detailsInput(get(), get()) }
     single { photoInput(get()) }
     single { profileInput(get()) }
-    single { contactInput(get(), get()) }
+    single { contactInput(get(), get(), get(), get()) }
 }
 
 // view model subjects di
@@ -66,7 +64,7 @@ val repoModule = module {
     factory { AlbumsRepo(get()) }
     factory { PhotosRepo(get()) }
     factory { SharedPreferencesRepo(get()) }
-    factory { FriendsRepo(get()) }
+    factory { LocationRepo(get(), get()) }
 }
 
 // endpoint di
@@ -78,12 +76,9 @@ val apiModule = module {
     factory {
         providePhotosApi(get())
     }
-    factory {
-        provideFriendsApi(get())
-    }
     single {
         getSharedPrefs(androidApplication())
     }
+    single { provideLocationRepo(androidApplication()) }
 }
-
 
