@@ -68,7 +68,11 @@ class ContactDetailsViewModel(
                 userInfo.zipCode = "TEST"
                 return@flatMap Observable.just(UiModel.success(userInfo))
             } else {
-                return@flatMap Observable.just(UiModel.error(it.locationError?.localizedMessage))
+                if (it.locationError != null) {
+                    return@flatMap Observable.just(UiModel.error(it.locationError.localizedMessage))
+                } else {
+                    return@flatMap Observable.empty()
+                }
             }
         }
                 .startWith(Observable.just(UiModel.loading()))
